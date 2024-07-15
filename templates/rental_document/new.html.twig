@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New RentalDocument{% endblock %}
+
+{% block body %}
+    <h1>Create new RentalDocument</h1>
+
+    {{ include('rental_document/_form.html.twig') }}
+
+    <a href="{{ path('app_rental_document_index') }}">back to list</a>
+{% endblock %}

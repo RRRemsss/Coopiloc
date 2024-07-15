@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PropertyDocument index{% endblock %}
+
+{% block body %}
+    <h1>PropertyDocument index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>DocumentType</th>
+                <th>UploadPropertyDocumentPath</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for property_document in property_documents %}
+            <tr>
+                <td>{{ property_document.id }}</td>
+                <td>{{ property_document.createdAt ? property_document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ property_document.updatedAt ? property_document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ property_document.documentType }}</td>
+                <td>{{ property_document.uploadPropertyDocumentPath }}</td>
+                <td>
+                    <a href="{{ path('app_property_document_show', {'id': property_document.id}) }}">show</a>
+                    <a href="{{ path('app_property_document_edit', {'id': property_document.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_property_document_new') }}">Create new</a>
+{% endblock %}

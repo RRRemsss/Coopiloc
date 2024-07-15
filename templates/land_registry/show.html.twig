@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LandRegistry{% endblock %}
+
+{% block body %}
+    <h1>LandRegistry</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ land_registry.id }}</td>
+            </tr>
+            <tr>
+                <th>Sheet</th>
+                <td>{{ land_registry.sheet }}</td>
+            </tr>
+            <tr>
+                <th>Parcel</th>
+                <td>{{ land_registry.parcel }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ land_registry.category }}</td>
+            </tr>
+            <tr>
+                <th>RentalValue</th>
+                <td>{{ land_registry.rentalValue }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_land_registry_index') }}">back to list</a>
+
+    <a href="{{ path('app_land_registry_edit', {'id': land_registry.id}) }}">edit</a>
+
+    {{ include('land_registry/_delete_form.html.twig') }}
+{% endblock %}

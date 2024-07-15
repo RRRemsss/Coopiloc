@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Description index{% endblock %}
+
+{% block body %}
+    <h1>Description index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Area</th>
+                <th>NumberOfRooms</th>
+                <th>NumberOfBedrooms</th>
+                <th>ConstructionDate</th>
+                <th>NumberOfBathrooms</th>
+                <th>PropertyType</th>
+                <th>LegalRegime</th>
+                <th>Furnished</th>
+                <th>Parking</th>
+                <th>Dependency</th>
+                <th>CellarType</th>
+                <th>BuildingLot</th>
+                <th>Thousandths</th>
+                <th>Equipment</th>
+                <th>Comment</th>
+                <th>PrivateComment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for description in descriptions %}
+            <tr>
+                <td>{{ description.id }}</td>
+                <td>{{ description.area }}</td>
+                <td>{{ description.numberOfRooms }}</td>
+                <td>{{ description.numberOfBedrooms }}</td>
+                <td>{{ description.constructionDate ? description.constructionDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ description.numberOfBathrooms }}</td>
+                <td>{{ description.propertyType }}</td>
+                <td>{{ description.legalRegime }}</td>
+                <td>{{ description.furnished ? 'Yes' : 'No' }}</td>
+                <td>{{ description.parking }}</td>
+                <td>{{ description.dependency }}</td>
+                <td>{{ description.cellarType }}</td>
+                <td>{{ description.buildingLot }}</td>
+                <td>{{ description.thousandths }}</td>
+                <td>{{ description.equipment ? description.equipment|join(', ') : '' }}</td>
+                <td>{{ description.comment }}</td>
+                <td>{{ description.privateComment }}</td>
+                <td>
+                    <a href="{{ path('app_description_show', {'id': description.id}) }}">show</a>
+                    <a href="{{ path('app_description_edit', {'id': description.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="18">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_description_new') }}">Create new</a>
+{% endblock %}

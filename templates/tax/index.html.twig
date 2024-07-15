@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tax index{% endblock %}
+
+{% block body %}
+    <h1>Tax index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TaxSystem</th>
+                <th>TaxNumber</th>
+                <th>TaxName</th>
+                <th>TaxAmount</th>
+                <th>PropertyTax</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tax in taxes %}
+            <tr>
+                <td>{{ tax.id }}</td>
+                <td>{{ tax.taxSystem }}</td>
+                <td>{{ tax.taxNumber }}</td>
+                <td>{{ tax.taxName }}</td>
+                <td>{{ tax.taxAmount }}</td>
+                <td>{{ tax.propertyTax }}</td>
+                <td>
+                    <a href="{{ path('app_tax_show', {'id': tax.id}) }}">show</a>
+                    <a href="{{ path('app_tax_edit', {'id': tax.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tax_new') }}">Create new</a>
+{% endblock %}

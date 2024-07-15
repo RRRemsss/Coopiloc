@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}IdentityDocument index{% endblock %}
+
+{% block body %}
+    <h1>IdentityDocument index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>IdentityDocumentType</th>
+                <th>IdentityNumber</th>
+                <th>ExpirationDate</th>
+                <th>UploadIdentityPath</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for identity_document in identity_documents %}
+            <tr>
+                <td>{{ identity_document.id }}</td>
+                <td>{{ identity_document.createdAt ? identity_document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ identity_document.updatedAt ? identity_document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ identity_document.identityDocumentType }}</td>
+                <td>{{ identity_document.identityNumber }}</td>
+                <td>{{ identity_document.expirationDate ? identity_document.expirationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ identity_document.uploadIdentityPath }}</td>
+                <td>
+                    <a href="{{ path('app_identity_document_show', {'id': identity_document.id}) }}">show</a>
+                    <a href="{{ path('app_identity_document_edit', {'id': identity_document.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_identity_document_new') }}">Create new</a>
+{% endblock %}

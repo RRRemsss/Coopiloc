@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New LandRegistry{% endblock %}
+
+{% block body %}
+    <h1>Create new LandRegistry</h1>
+
+    {{ include('land_registry/_form.html.twig') }}
+
+    <a href="{{ path('app_land_registry_index') }}">back to list</a>
+{% endblock %}

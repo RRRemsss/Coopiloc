@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}IdentityDocument{% endblock %}
+
+{% block body %}
+    <h1>IdentityDocument</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ identity_document.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ identity_document.createdAt ? identity_document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ identity_document.updatedAt ? identity_document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IdentityDocumentType</th>
+                <td>{{ identity_document.identityDocumentType }}</td>
+            </tr>
+            <tr>
+                <th>IdentityNumber</th>
+                <td>{{ identity_document.identityNumber }}</td>
+            </tr>
+            <tr>
+                <th>ExpirationDate</th>
+                <td>{{ identity_document.expirationDate ? identity_document.expirationDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UploadIdentityPath</th>
+                <td>{{ identity_document.uploadIdentityPath }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_identity_document_index') }}">back to list</a>
+
+    <a href="{{ path('app_identity_document_edit', {'id': identity_document.id}) }}">edit</a>
+
+    {{ include('identity_document/_delete_form.html.twig') }}
+{% endblock %}

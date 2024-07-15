@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Property{% endblock %}
+
+{% block body %}
+    <h1>Property</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ property.id }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ property.type }}</td>
+            </tr>
+            <tr>
+                <th>NamePlace</th>
+                <td>{{ property.namePlace }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ property.color }}</td>
+            </tr>
+            <tr>
+                <th>AcquisitionDate</th>
+                <td>{{ property.acquisitionDate ? property.acquisitionDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>AcquisitionPrice</th>
+                <td>{{ property.acquisitionPrice }}</td>
+            </tr>
+            <tr>
+                <th>AcquisitionFee</th>
+                <td>{{ property.acquisitionFee }}</td>
+            </tr>
+            <tr>
+                <th>AgencyFee</th>
+                <td>{{ property.agencyFee }}</td>
+            </tr>
+            <tr>
+                <th>PropertyValue</th>
+                <td>{{ property.propertyValue }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_property_index') }}">back to list</a>
+
+    <a href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a>
+
+    {{ include('property/_delete_form.html.twig') }}
+{% endblock %}

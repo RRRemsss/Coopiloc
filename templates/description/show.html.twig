@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Description{% endblock %}
+
+{% block body %}
+    <h1>Description</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ description.id }}</td>
+            </tr>
+            <tr>
+                <th>Area</th>
+                <td>{{ description.area }}</td>
+            </tr>
+            <tr>
+                <th>NumberOfRooms</th>
+                <td>{{ description.numberOfRooms }}</td>
+            </tr>
+            <tr>
+                <th>NumberOfBedrooms</th>
+                <td>{{ description.numberOfBedrooms }}</td>
+            </tr>
+            <tr>
+                <th>ConstructionDate</th>
+                <td>{{ description.constructionDate ? description.constructionDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>NumberOfBathrooms</th>
+                <td>{{ description.numberOfBathrooms }}</td>
+            </tr>
+            <tr>
+                <th>PropertyType</th>
+                <td>{{ description.propertyType }}</td>
+            </tr>
+            <tr>
+                <th>LegalRegime</th>
+                <td>{{ description.legalRegime }}</td>
+            </tr>
+            <tr>
+                <th>Furnished</th>
+                <td>{{ description.furnished ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Parking</th>
+                <td>{{ description.parking }}</td>
+            </tr>
+            <tr>
+                <th>Dependency</th>
+                <td>{{ description.dependency }}</td>
+            </tr>
+            <tr>
+                <th>CellarType</th>
+                <td>{{ description.cellarType }}</td>
+            </tr>
+            <tr>
+                <th>BuildingLot</th>
+                <td>{{ description.buildingLot }}</td>
+            </tr>
+            <tr>
+                <th>Thousandths</th>
+                <td>{{ description.thousandths }}</td>
+            </tr>
+            <tr>
+                <th>Equipment</th>
+                <td>{{ description.equipment ? description.equipment|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ description.comment }}</td>
+            </tr>
+            <tr>
+                <th>PrivateComment</th>
+                <td>{{ description.privateComment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_description_index') }}">back to list</a>
+
+    <a href="{{ path('app_description_edit', {'id': description.id}) }}">edit</a>
+
+    {{ include('description/_delete_form.html.twig') }}
+{% endblock %}

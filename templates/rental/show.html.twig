@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rental{% endblock %}
+
+{% block body %}
+    <h1>Rental</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rental.id }}</td>
+            </tr>
+            <tr>
+                <th>StartDate</th>
+                <td>{{ rental.startDate ? rental.startDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndDate</th>
+                <td>{{ rental.endDate ? rental.endDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>RentalType</th>
+                <td>{{ rental.rentalType }}</td>
+            </tr>
+            <tr>
+                <th>GrossRent</th>
+                <td>{{ rental.grossRent }}</td>
+            </tr>
+            <tr>
+                <th>Charge</th>
+                <td>{{ rental.charge }}</td>
+            </tr>
+            <tr>
+                <th>Deposit</th>
+                <td>{{ rental.deposit }}</td>
+            </tr>
+            <tr>
+                <th>Lease</th>
+                <td>{{ rental.lease }}</td>
+            </tr>
+            <tr>
+                <th>NetRent</th>
+                <td>{{ rental.netRent }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ rental.reference }}</td>
+            </tr>
+            <tr>
+                <th>PurposeUse</th>
+                <td>{{ rental.purposeUse }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ rental.duration }}</td>
+            </tr>
+            <tr>
+                <th>PaymentPeriod</th>
+                <td>{{ rental.paymentPeriod }}</td>
+            </tr>
+            <tr>
+                <th>PaymentMethod</th>
+                <td>{{ rental.paymentMethod }}</td>
+            </tr>
+            <tr>
+                <th>PaymentDate</th>
+                <td>{{ rental.paymentDate }}</td>
+            </tr>
+            <tr>
+                <th>PrivateComment</th>
+                <td>{{ rental.privateComment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rental_index') }}">back to list</a>
+
+    <a href="{{ path('app_rental_edit', {'id': rental.id}) }}">edit</a>
+
+    {{ include('rental/_delete_form.html.twig') }}
+{% endblock %}

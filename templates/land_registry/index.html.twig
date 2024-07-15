@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LandRegistry index{% endblock %}
+
+{% block body %}
+    <h1>LandRegistry index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sheet</th>
+                <th>Parcel</th>
+                <th>Category</th>
+                <th>RentalValue</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for land_registry in land_registries %}
+            <tr>
+                <td>{{ land_registry.id }}</td>
+                <td>{{ land_registry.sheet }}</td>
+                <td>{{ land_registry.parcel }}</td>
+                <td>{{ land_registry.category }}</td>
+                <td>{{ land_registry.rentalValue }}</td>
+                <td>
+                    <a href="{{ path('app_land_registry_show', {'id': land_registry.id}) }}">show</a>
+                    <a href="{{ path('app_land_registry_edit', {'id': land_registry.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_land_registry_new') }}">Create new</a>
+{% endblock %}

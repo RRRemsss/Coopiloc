@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New IdentityDocument{% endblock %}
+
+{% block body %}
+    <h1>Create new IdentityDocument</h1>
+
+    {{ include('identity_document/_form.html.twig') }}
+
+    <a href="{{ path('app_identity_document_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LeaseParty index{% endblock %}
+
+{% block body %}
+    <h1>LeaseParty index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Color</th>
+                <th>LeasePartyType</th>
+                <th>Civility</th>
+                <th>DateOfBirth</th>
+                <th>PlaceOfBirth</th>
+                <th>Profession</th>
+                <th>MonthlyIncome</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lease_party in lease_parties %}
+            <tr>
+                <td>{{ lease_party.id }}</td>
+                <td>{{ lease_party.color }}</td>
+                <td>{{ lease_party.leasePartyType }}</td>
+                <td>{{ lease_party.civility }}</td>
+                <td>{{ lease_party.dateOfBirth ? lease_party.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lease_party.placeOfBirth }}</td>
+                <td>{{ lease_party.profession }}</td>
+                <td>{{ lease_party.monthlyIncome }}</td>
+                <td>
+                    <a href="{{ path('app_lease_party_show', {'id': lease_party.id}) }}">show</a>
+                    <a href="{{ path('app_lease_party_edit', {'id': lease_party.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_lease_party_new') }}">Create new</a>
+{% endblock %}

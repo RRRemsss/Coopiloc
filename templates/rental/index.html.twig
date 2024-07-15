@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rental index{% endblock %}
+
+{% block body %}
+    <h1>Rental index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>RentalType</th>
+                <th>GrossRent</th>
+                <th>Charge</th>
+                <th>Deposit</th>
+                <th>Lease</th>
+                <th>NetRent</th>
+                <th>Reference</th>
+                <th>PurposeUse</th>
+                <th>Duration</th>
+                <th>PaymentPeriod</th>
+                <th>PaymentMethod</th>
+                <th>PaymentDate</th>
+                <th>PrivateComment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rental in rentals %}
+            <tr>
+                <td>{{ rental.id }}</td>
+                <td>{{ rental.startDate ? rental.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ rental.endDate ? rental.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ rental.rentalType }}</td>
+                <td>{{ rental.grossRent }}</td>
+                <td>{{ rental.charge }}</td>
+                <td>{{ rental.deposit }}</td>
+                <td>{{ rental.lease }}</td>
+                <td>{{ rental.netRent }}</td>
+                <td>{{ rental.reference }}</td>
+                <td>{{ rental.purposeUse }}</td>
+                <td>{{ rental.duration }}</td>
+                <td>{{ rental.paymentPeriod }}</td>
+                <td>{{ rental.paymentMethod }}</td>
+                <td>{{ rental.paymentDate }}</td>
+                <td>{{ rental.privateComment }}</td>
+                <td>
+                    <a href="{{ path('app_rental_show', {'id': rental.id}) }}">show</a>
+                    <a href="{{ path('app_rental_edit', {'id': rental.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rental_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Property index{% endblock %}
+
+{% block body %}
+    <h1>Property index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>NamePlace</th>
+                <th>Color</th>
+                <th>AcquisitionDate</th>
+                <th>AcquisitionPrice</th>
+                <th>AcquisitionFee</th>
+                <th>AgencyFee</th>
+                <th>PropertyValue</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for property in properties %}
+            <tr>
+                <td>{{ property.id }}</td>
+                <td>{{ property.type }}</td>
+                <td>{{ property.namePlace }}</td>
+                <td>{{ property.color }}</td>
+                <td>{{ property.acquisitionDate ? property.acquisitionDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ property.acquisitionPrice }}</td>
+                <td>{{ property.acquisitionFee }}</td>
+                <td>{{ property.agencyFee }}</td>
+                <td>{{ property.propertyValue }}</td>
+                <td>
+                    <a href="{{ path('app_property_show', {'id': property.id}) }}">show</a>
+                    <a href="{{ path('app_property_edit', {'id': property.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_property_new') }}">Create new</a>
+{% endblock %}

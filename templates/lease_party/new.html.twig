@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New LeaseParty{% endblock %}
+
+{% block body %}
+    <h1>Create new LeaseParty</h1>
+
+    {{ include('lease_party/_form.html.twig') }}
+
+    <a href="{{ path('app_lease_party_index') }}">back to list</a>
+{% endblock %}

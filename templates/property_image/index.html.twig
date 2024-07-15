@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PropertyImage index{% endblock %}
+
+{% block body %}
+    <h1>PropertyImage index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Image</th>
+                <th>IsMain</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for property_image in property_images %}
+            <tr>
+                <td>{{ property_image.id }}</td>
+                <td>{{ property_image.createdAt ? property_image.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ property_image.updatedAt ? property_image.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ property_image.image }}</td>
+                <td>{{ property_image.isMain ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_property_image_show', {'id': property_image.id}) }}">show</a>
+                    <a href="{{ path('app_property_image_edit', {'id': property_image.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_property_image_new') }}">Create new</a>
+{% endblock %}

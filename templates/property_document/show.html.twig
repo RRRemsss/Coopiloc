@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PropertyDocument{% endblock %}
+
+{% block body %}
+    <h1>PropertyDocument</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ property_document.id }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ property_document.createdAt ? property_document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ property_document.updatedAt ? property_document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DocumentType</th>
+                <td>{{ property_document.documentType }}</td>
+            </tr>
+            <tr>
+                <th>UploadPropertyDocumentPath</th>
+                <td>{{ property_document.uploadPropertyDocumentPath }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_property_document_index') }}">back to list</a>
+
+    <a href="{{ path('app_property_document_edit', {'id': property_document.id}) }}">edit</a>
+
+    {{ include('property_document/_delete_form.html.twig') }}
+{% endblock %}

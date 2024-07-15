@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RentalDocument{% endblock %}
+
+{% block body %}
+    <h1>RentalDocument</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rental_document.id }}</td>
+            </tr>
+            <tr>
+                <th>ReceiptDate</th>
+                <td>{{ rental_document.receiptDate }}</td>
+            </tr>
+            <tr>
+                <th>NoticeRentDueDate</th>
+                <td>{{ rental_document.noticeRentDueDate }}</td>
+            </tr>
+            <tr>
+                <th>UploadRentalDocumentPath</th>
+                <td>{{ rental_document.uploadRentalDocumentPath }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rental_document_index') }}">back to list</a>
+
+    <a href="{{ path('app_rental_document_edit', {'id': rental_document.id}) }}">edit</a>
+
+    {{ include('rental_document/_delete_form.html.twig') }}
+{% endblock %}
