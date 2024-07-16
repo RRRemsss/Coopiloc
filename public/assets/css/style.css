@@ -23,6 +23,11 @@ h3 {
     color: none;
 }
 
+p {
+    color: none;
+}
+
+
 /* =========================================================LOGIN=====================================================*/
 .brandName {
     color: #E9C46A;
@@ -38,15 +43,31 @@ h3 {
 }
 
 .btn-login:hover {
-    background-color: #E76F51; /* Couleur de survol */
-    border-color: #E76F51; /* Couleur de la bordure au survol */
+    background-color: #E76F51;
+    border-color: #E76F51;
     color: #ffffff;
 }
 
 .btn-login {
-    background-color: #2A9D8F; /* Couleur personnalisée */
-    border-color: #2A9D8F; /* Couleur de la bordure */
-    color: #fff; /* Couleur du texte */
+    background-color: #2A9D8F;
+    border-color: #2A9D8F;
+    color: #ffffff; 
+}
+
+.registerLink {
+    color: #ffffff;
+}
+
+.signup {
+    text-decoration: underline;
+    color: #E9C46A;
+    font-weight: bold;
+}
+
+.signup:hover {
+    text-decoration: none;
+    color: #E76F51;
+    font-weight: bold;
 }
 
 /* =========================================================REGISTER=====================================================*/
