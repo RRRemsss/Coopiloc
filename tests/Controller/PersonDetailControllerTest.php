@@ -50,7 +50,7 @@ class PersonDetailControllerTest extends WebTestCase
             'person_detail[lastname]' => 'Testing',
             'person_detail[firstname]' => 'Testing',
             'person_detail[phoneNumber]' => 'Testing',
-            'person_detail[mail]' => 'Testing',
+            'person_detail[email]' => 'Testing',
             'person_detail[leaseParty]' => 'Testing',
             'person_detail[user]' => 'Testing',
         ]);
@@ -67,7 +67,7 @@ class PersonDetailControllerTest extends WebTestCase
         $fixture->setLastname('My Title');
         $fixture->setFirstname('My Title');
         $fixture->setPhoneNumber('My Title');
-        $fixture->setMail('My Title');
+        $fixture->setEmail('My Title');
         $fixture->setLeaseParty('My Title');
         $fixture->setUser('My Title');
 
@@ -89,7 +89,7 @@ class PersonDetailControllerTest extends WebTestCase
         $fixture->setLastname('Value');
         $fixture->setFirstname('Value');
         $fixture->setPhoneNumber('Value');
-        $fixture->setMail('Value');
+        $fixture->setEmail('Value');
         $fixture->setLeaseParty('Value');
         $fixture->setUser('Value');
 
@@ -102,7 +102,7 @@ class PersonDetailControllerTest extends WebTestCase
             'person_detail[lastname]' => 'Something New',
             'person_detail[firstname]' => 'Something New',
             'person_detail[phoneNumber]' => 'Something New',
-            'person_detail[mail]' => 'Something New',
+            'person_detail[email]' => 'Something New',
             'person_detail[leaseParty]' => 'Something New',
             'person_detail[user]' => 'Something New',
         ]);
@@ -114,7 +114,7 @@ class PersonDetailControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getLastname());
         self::assertSame('Something New', $fixture[0]->getFirstname());
         self::assertSame('Something New', $fixture[0]->getPhoneNumber());
-        self::assertSame('Something New', $fixture[0]->getMail());
+        self::assertSame('Something New', $fixture[0]->getEmail());
         self::assertSame('Something New', $fixture[0]->getLeaseParty());
         self::assertSame('Something New', $fixture[0]->getUser());
     }
@@ -126,7 +126,7 @@ class PersonDetailControllerTest extends WebTestCase
         $fixture->setLastname('Value');
         $fixture->setFirstname('Value');
         $fixture->setPhoneNumber('Value');
-        $fixture->setMail('Value');
+        $fixture->setEmail('Value');
         $fixture->setLeaseParty('Value');
         $fixture->setUser('Value');
 

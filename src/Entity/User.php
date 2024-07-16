@@ -41,9 +41,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Property::class, mappedBy: 'user')]
     private Collection $properties;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?personDetail $personDetail = null;
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?PersonDetail $personDetail = null;
 
     public function __construct()
     {
@@ -155,13 +154,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPersonDetail(): ?personDetail
+    public function getPersonDetail(): ?PersonDetail
     {
         return $this->personDetail;
     }
 
-    public function setPersonDetail(personDetail $personDetail): static
+    public function setPersonDetail(?PersonDetail $personDetail): static
     {
+        // unset the owning side of the relation if necessary
+        if ($personDetail === null && $this->personDetail !== null) {
+            $this->personDetail->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($personDetail !== null && $personDetail->getUser() !== $this) {
+            $personDetail->setUser($this);
+        }
+
         $this->personDetail = $personDetail;
 
         return $this;

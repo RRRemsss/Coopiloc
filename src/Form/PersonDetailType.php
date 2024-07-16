@@ -2,9 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\LeaseParty;
+use App\Entity\leaseParty;
 use App\Entity\PersonDetail;
-use App\Entity\User;
+use App\Entity\user;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,13 +18,13 @@ class PersonDetailType extends AbstractType
             ->add('lastname')
             ->add('firstname')
             ->add('phoneNumber')
-            ->add('mail')
+            ->add('email')
             ->add('leaseParty', EntityType::class, [
-                'class' => LeaseParty::class,
+                'class' => leaseParty::class,
                 'choice_label' => 'id',
             ])
             ->add('user', EntityType::class, [
-                'class' => User::class,
+                'class' => user::class,
                 'choice_label' => 'id',
             ])
         ;

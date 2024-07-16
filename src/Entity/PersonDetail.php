@@ -22,14 +22,14 @@ class PersonDetail
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $phoneNumber = null;
 
-    #[ORM\Column(length: 150)]
-    private ?string $mail = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
 
-    #[ORM\OneToOne(mappedBy: 'personDetail', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'personDetail', cascade: ['persist', 'remove'])]
     private ?LeaseParty $leaseParty = null;
 
-    #[ORM\OneToOne(mappedBy: 'personDetail', cascade: ['persist', 'remove'])]
-    private ?User $user = null;
+    #[ORM\OneToOne(inversedBy: 'personDetail', cascade: ['persist', 'remove'])]
+    private ?user $user = null;
 
     public function getId(): ?int
     {
@@ -72,52 +72,37 @@ class PersonDetail
         return $this;
     }
 
-    public function getMail(): ?string
+    public function getEmail(): ?string
     {
-        return $this->mail;
+        return $this->email;
     }
 
-    public function setMail(string $mail): static
+    public function setEmail(?string $email): static
     {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getLeaseParty(): ?LeaseParty
+    public function getLeaseParty(): ?leaseParty
     {
         return $this->leaseParty;
     }
 
-    public function setLeaseParty(?LeaseParty $leaseParty): static
+    public function setLeaseParty(?leaseParty $leaseParty): static
     {
-        // unset the owning side of the relation if necessary
-        if ($leaseParty === null && $this->leaseParty !== null) {
-            $this->leaseParty->setPersonDetail(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($leaseParty !== null && $leaseParty->getPersonDetail() !== $this) {
-            $leaseParty->setPersonDetail($this);
-        }
-
         $this->leaseParty = $leaseParty;
 
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?user
     {
         return $this->user;
     }
 
-    public function setUser(User $user): static
+    public function setUser(?user $user): static
     {
-        // set the owning side of the relation if necessary
-        if ($user->getPersonDetail() !== $this) {
-            $user->setPersonDetail($this);
-        }
-
         $this->user = $user;
 
         return $this;

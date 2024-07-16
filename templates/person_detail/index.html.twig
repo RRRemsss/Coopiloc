@@ -12,7 +12,7 @@
                 <th>Lastname</th>
                 <th>Firstname</th>
                 <th>PhoneNumber</th>
-                <th>Mail</th>
+                <th>Email</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,7 +23,7 @@
                 <td>{{ person_detail.lastname }}</td>
                 <td>{{ person_detail.firstname }}</td>
                 <td>{{ person_detail.phoneNumber }}</td>
-                <td>{{ person_detail.mail }}</td>
+                <td>{{ person_detail.email }}</td>
                 <td>
                     <a href="{{ path('app_person_detail_show', {'id': person_detail.id}) }}">show</a>
                     <a href="{{ path('app_person_detail_edit', {'id': person_detail.id}) }}">edit</a>

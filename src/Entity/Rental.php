@@ -67,13 +67,13 @@ class Rental
     /**
      * @var Collection<int, rentalDocument>
      */
-    #[ORM\OneToMany(targetEntity: rentalDocument::class, mappedBy: 'rental')]
+    #[ORM\OneToMany(targetEntity: RentalDocument::class, mappedBy: 'rental')]
     private Collection $rentalDocuments;
 
     /**
      * @var Collection<int, leaseParty>
      */
-    #[ORM\ManyToMany(targetEntity: leaseParty::class, inversedBy: 'rentals')]
+    #[ORM\ManyToMany(targetEntity: LeaseParty::class, inversedBy: 'rentals')]
     private Collection $leaseParties;
 
     public function __construct()

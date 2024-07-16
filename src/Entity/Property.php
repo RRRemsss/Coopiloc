@@ -46,7 +46,7 @@ class Property
     /**
      * @var Collection<int, propertyImage>
      */
-    #[ORM\OneToMany(targetEntity: propertyImage::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: PropertyImage::class, mappedBy: 'property')]
     private Collection $propertyImages;
 
     /**
@@ -58,19 +58,19 @@ class Property
     /**
      * @var Collection<int, tax>
      */
-    #[ORM\OneToMany(targetEntity: tax::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: Tax::class, mappedBy: 'property')]
     private Collection $taxes;
 
     /**
      * @var Collection<int, landRegistry>
      */
-    #[ORM\OneToMany(targetEntity: landRegistry::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: LandRegistry::class, mappedBy: 'property')]
     private Collection $landRegistries;
 
     /**
      * @var Collection<int, propertyDocument>
      */
-    #[ORM\OneToMany(targetEntity: propertyDocument::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: PropertyDocument::class, mappedBy: 'property')]
     private Collection $propertyDocuments;
 
     /**

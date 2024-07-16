@@ -44,13 +44,13 @@ class LeaseParty
     private Collection $rentals;
 
     #[ORM\OneToOne(inversedBy: 'leaseParty', cascade: ['persist', 'remove'])]
-    private ?identityDocument $identityDocuments = null;
+    private ?IdentityDocument $identityDocuments = null;
 
     #[ORM\ManyToOne(inversedBy: 'leaseParties')]
     private ?Address $address = null;
 
-    #[ORM\OneToOne(inversedBy: 'leaseParty', cascade: ['persist', 'remove'])]
-    private ?personDetail $personDetail = null;
+    #[ORM\OneToOne(mappedBy: 'leaseParty', cascade: ['persist', 'remove'])]
+    private ?PersonDetail $personDetail = null;
 
     public function __construct()
     {
@@ -197,13 +197,23 @@ class LeaseParty
         return $this;
     }
 
-    public function getPersonDetail(): ?personDetail
+    public function getPersonDetail(): ?PersonDetail
     {
         return $this->personDetail;
     }
 
-    public function setPersonDetail(?personDetail $personDetail): static
+    public function setPersonDetail(?PersonDetail $personDetail): static
     {
+        // unset the owning side of the relation if necessary
+        if ($personDetail === null && $this->personDetail !== null) {
+            $this->personDetail->setLeaseParty(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($personDetail !== null && $personDetail->getLeaseParty() !== $this) {
+            $personDetail->setLeaseParty($this);
+        }
+
         $this->personDetail = $personDetail;
 
         return $this;

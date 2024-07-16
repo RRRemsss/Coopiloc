@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PersonDetail;
-use App\Form\PersonDetailType;
+use App\Form\PersonDetail1Type;
 use App\Repository\PersonDetailRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ class PersonDetailController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $personDetail = new PersonDetail();
-        $form = $this->createForm(PersonDetailType::class, $personDetail);
+        $form = $this->createForm(PersonDetail1Type::class, $personDetail);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ class PersonDetailController extends AbstractController
     #[Route('/{id}/edit', name: 'app_person_detail_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, PersonDetail $personDetail, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(PersonDetailType::class, $personDetail);
+        $form = $this->createForm(PersonDetail1Type::class, $personDetail);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
