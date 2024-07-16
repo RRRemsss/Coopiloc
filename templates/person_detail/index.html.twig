@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PersonDetail index{% endblock %}
+
+{% block body %}
+    <h1>PersonDetail index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>PhoneNumber</th>
+                <th>Mail</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for person_detail in person_details %}
+            <tr>
+                <td>{{ person_detail.id }}</td>
+                <td>{{ person_detail.lastname }}</td>
+                <td>{{ person_detail.firstname }}</td>
+                <td>{{ person_detail.phoneNumber }}</td>
+                <td>{{ person_detail.mail }}</td>
+                <td>
+                    <a href="{{ path('app_person_detail_show', {'id': person_detail.id}) }}">show</a>
+                    <a href="{{ path('app_person_detail_edit', {'id': person_detail.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_person_detail_new') }}">Create new</a>
+{% endblock %}
