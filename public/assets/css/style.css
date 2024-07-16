@@ -1,0 +1,52 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #264653;
+    color: black;
+}
+
+footer {
+    margin-top: auto;
+    color: #2A9D8F;
+}
+
+h1 {
+    color: none;
+}
+
+h2 {
+    color: none;
+}
+
+h3 {
+    color: none;
+}
+
+/* =========================================================LOGIN=====================================================*/
+.brandName {
+    color: #E9C46A;
+    font-weight: bold;
+}
+
+.remember-me-label {
+    color: #ffffff;
+}
+
+.forgotPassword{
+    color: #ffffff;
+}
+
+.btn-login:hover {
+    background-color: #E76F51; /* Couleur de survol */
+    border-color: #E76F51; /* Couleur de la bordure au survol */
+    color: #ffffff;
+}
+
+.btn-login {
+    background-color: #2A9D8F; /* Couleur personnalisée */
+    border-color: #2A9D8F; /* Couleur de la bordure */
+    color: #fff; /* Couleur du texte */
+}
+
+/* =========================================================REGISTER=====================================================*/
