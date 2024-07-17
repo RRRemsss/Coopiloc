@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -44,25 +45,34 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'label'=> 'Vous êtes '
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'label' => false,
-                'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password',
-                            'placeholder' => 'Mot de passe'
-            ],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez écrire votre mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 8,
-                        'minMessage' => 'Votre mot de passe doit être d\'au moins {{ limit }} caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
+            ->add('plainPassword', RepeatedType::class, [
+              'type' => PasswordType::class,
+                'first_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Mot de passe',
+                        'autocomplete' => 'new-password',
+                    ],
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Veuillez écrire votre mot de passe',
+                        ]),
+                        new Length([
+                            'min' => 8,
+                            'minMessage' => 'Votre mot de passe doit être d\'au moins {{ limit }} caractères',
+                            'max' => 4096,
+                        ]),
+                    ],
                 ],
+                'second_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => 'Confirmer le mot de passe',
+                        'autocomplete' => 'new-password',
+                    ],
+                ],
+                'invalid_message' => 'Les champs de mot de passe doivent correspondre.',
+                'mapped' => false,
             ])
             ->add('personDetail', PersonDetailType::class, [
                 'include_phone' => false, // disable phone field
