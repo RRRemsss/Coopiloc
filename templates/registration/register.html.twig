@@ -3,17 +3,51 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="container">
+        <div class="row justify-content-center position-absolute top-50 start-50 translate-middle col-md-10">
+            <div class="col-md-6 col-lg-4">
+                <div class="text-center">
+                    <img src="{{ asset('img/logo/logonoir.png') }}" class="sign-in-logo d-inline-block align-top logo rounded-circle" width="120" height="120" alt="CooPiloc logo">
+                </div> 
+                <h1 class="register text-center mt-6">Inscription</h1>
 
-    {{ form_errors(registrationForm) }}
+                {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                {{ form_start(registrationForm) }}
+                <div class="form-group mb-3">
+                    {{ form_label(registrationForm.type, null, {'label_attr': {'class': 'form-label'}}) }}
+                    <div class="d-flex">
+                        <div class="form-check me-2">
+                            {{ form_widget(registrationForm.type.children[0], {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(registrationForm.type.children[0], null, {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+                        <div class="form-check">
+                            {{ form_widget(registrationForm.type.children[1], {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(registrationForm.type.children[1], null, {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    {{ form_row(registrationForm.personDetail.firstname, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group mb-3">
+                    {{ form_row(registrationForm.personDetail.lastname, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group mb-3">
+                    {{ form_row(registrationForm.personDetail.email, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group mb-3">
+                    {{ form_row(registrationForm.username, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group mb-3">
+                    {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group form-check mb-3">
+                    {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                </div>
+                <button type="submit" class="btn btn-register btn-primary mb-3">S'inscrire</button>
+            {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

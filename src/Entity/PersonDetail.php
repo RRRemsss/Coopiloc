@@ -29,7 +29,7 @@ class PersonDetail
     private ?LeaseParty $leaseParty = null;
 
     #[ORM\OneToOne(inversedBy: 'personDetail', cascade: ['persist', 'remove'])]
-    private ?user $user = null;
+    private ?User $user = null;
 
     public function getId(): ?int
     {

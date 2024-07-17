@@ -39,7 +39,7 @@ class RentalType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('leaseParties', EntityType::class, [
-                'class' => leaseParty::class,
+                'class' => LeaseParty::class,
                 'choice_label' => 'id',
                 'multiple' => true,
             ])

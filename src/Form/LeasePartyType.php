@@ -32,7 +32,7 @@ class LeasePartyType extends AbstractType
                 'multiple' => true,
             ])
             ->add('identityDocuments', EntityType::class, [
-                'class' => identityDocument::class,
+                'class' => IdentityDocument::class,
                 'choice_label' => 'id',
             ])
             ->add('address', EntityType::class, [
@@ -40,7 +40,7 @@ class LeasePartyType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('personDetail', EntityType::class, [
-                'class' => personDetail::class,
+                'class' => PersonDetail::class,
                 'choice_label' => 'id',
             ])
         ;

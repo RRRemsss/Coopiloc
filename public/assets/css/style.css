@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #264653;
-    color: black;
+    color: #ffffff;
 }
 
 footer {
@@ -34,28 +34,12 @@ p {
     font-weight: bold;
 }
 
-.remember-me-label {
-    color: #ffffff;
-}
-
 .forgotPassword{
     color: #ffffff;
 }
 
-.btn-login:hover {
-    background-color: #E76F51;
-    border-color: #E76F51;
-    color: #ffffff;
-}
-
-.btn-login {
-    background-color: #2A9D8F;
-    border-color: #2A9D8F;
-    color: #ffffff; 
-}
-
-.registerLink {
-    color: #ffffff;
+.forgotPassword:hover{
+    color: #E76F51;
 }
 
 .signup {
@@ -70,4 +54,21 @@ p {
     font-weight: bold;
 }
 
+.btn-login:hover, .btn-register:hover {
+    background-color: #E76F51;
+    border-color: #E76F51;
+    color: #ffffff;
+}
+
+.btn-login, .btn-register {
+    background-color: #E9C46A;
+    border-color: #E9C46A;
+    color: #264653; 
+}
+
 /* =========================================================REGISTER=====================================================*/
+
+.register{
+    color: #E9C46A;
+    font-weight: bold;
+}

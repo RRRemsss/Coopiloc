@@ -13,6 +13,7 @@ propertyValue: Float
 addressId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>126</y><w>126</w><h>66</h></coordinates><panel_attributes>User
 --
 id : Integer
+username : String
 password : String
 color : String
 --
@@ -128,7 +129,7 @@ name : String
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>54</y><w>54</w><h>84</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>54</y><w>60</w><h>84</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
 Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>336</y><w>408</w><h>66</h></coordinates><panel_attributes>lt=-

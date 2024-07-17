@@ -44,7 +44,7 @@ class Property
     private ?User $user = null;
 
     /**
-     * @var Collection<int, propertyImage>
+     * @var Collection<int, PropertyImage>
      */
     #[ORM\OneToMany(targetEntity: PropertyImage::class, mappedBy: 'property')]
     private Collection $propertyImages;
@@ -56,19 +56,19 @@ class Property
     private Collection $descriptions;
 
     /**
-     * @var Collection<int, tax>
+     * @var Collection<int, Tax>
      */
     #[ORM\OneToMany(targetEntity: Tax::class, mappedBy: 'property')]
     private Collection $taxes;
 
     /**
-     * @var Collection<int, landRegistry>
+     * @var Collection<int, LandRegistry>
      */
     #[ORM\OneToMany(targetEntity: LandRegistry::class, mappedBy: 'property')]
     private Collection $landRegistries;
 
     /**
-     * @var Collection<int, propertyDocument>
+     * @var Collection<int, PropertyDocument>
      */
     #[ORM\OneToMany(targetEntity: PropertyDocument::class, mappedBy: 'property')]
     private Collection $propertyDocuments;

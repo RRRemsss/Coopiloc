@@ -65,13 +65,13 @@ class Rental
     private ?Property $property = null;
 
     /**
-     * @var Collection<int, rentalDocument>
+     * @var Collection<int, RentalDocument>
      */
     #[ORM\OneToMany(targetEntity: RentalDocument::class, mappedBy: 'rental')]
     private Collection $rentalDocuments;
 
     /**
-     * @var Collection<int, leaseParty>
+     * @var Collection<int, LeaseParty>
      */
     #[ORM\ManyToMany(targetEntity: LeaseParty::class, inversedBy: 'rentals')]
     private Collection $leaseParties;
