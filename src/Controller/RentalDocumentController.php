@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/rental/document')]
+#[Route('/rental/document', name: 'rentalDocument_')]
 class RentalDocumentController extends AbstractController
 {
-    #[Route('/', name: 'app_rental_document_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(RentalDocumentRepository $rentalDocumentRepository): Response
     {
         return $this->render('rental_document/index.html.twig', [
@@ -22,7 +22,7 @@ class RentalDocumentController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_rental_document_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rentalDocument = new RentalDocument();
@@ -33,7 +33,7 @@ class RentalDocumentController extends AbstractController
             $entityManager->persist($rentalDocument);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_rental_document_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('rentalDocument_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('rental_document/new.html.twig', [
@@ -42,7 +42,7 @@ class RentalDocumentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_rental_document_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(RentalDocument $rentalDocument): Response
     {
         return $this->render('rental_document/show.html.twig', [
@@ -50,7 +50,7 @@ class RentalDocumentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_rental_document_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, RentalDocument $rentalDocument, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RentalDocumentType::class, $rentalDocument);
@@ -59,7 +59,7 @@ class RentalDocumentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_rental_document_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('rentalDocument_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('rental_document/edit.html.twig', [
@@ -68,7 +68,7 @@ class RentalDocumentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_rental_document_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, RentalDocument $rentalDocument, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$rentalDocument->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,6 +76,6 @@ class RentalDocumentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_rental_document_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('rentalDocument_index', [], Response::HTTP_SEE_OTHER);
     }
 }

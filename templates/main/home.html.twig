@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-5">Bienvenue
+            <span style="color: #E76F51;">{{ app.user.personDetail.firstname }}
+                <span style="color: #ffffff;"> !</h1>
+        <div class="row justify-content-center mt-5">
+            <!-- First row with 3 cards -->
+            <div class="text-center col-lg-2 mb-4">
+                <div class="card">
+                    <a href="{{ path('property_new') }}" class="card-hover text-center picto" title="Biens">
+                        <i class="fa-solid fa-city fa-2x mt-3"></i>
+                    </a>
+                    <div class="card-body">
+                        <a href="{{ path('property_new') }}" class="btn btn-home mt-3">Nouveau bien</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center col-lg-2 mb-4">
+                <div class="card">
+                    <a href="{{ path('leaseParty_new') }}" class="card-hover text-center picto" title="Locataires">
+                        <i class="fa-solid fa-users fa-2x mt-3"></i>
+                    </a>
+                    <div class="card-body">
+                        <a href="{{ path('leaseParty_new') }}" class="btn btn-home mt-3">Nouveau locataire</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center col-lg-2 mb-4">
+                <div class="card">
+                    <a href="{{ path('rental_new') }}" class="card-hover text-center picto" title="Locations">
+                        <i class="fa-solid fa-building-user fa-2x mt-3"></i>
+                    </a>
+                    <div class="card-body">
+                        <a href="{{ path('rental_new') }}" class="btn btn-home mt-3">Nouvelle location</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Second row with 2 cards -->
+        <div class="row justify-content-center mt-4">
+            <div class="text-center col-lg-2 mb-4">
+                <div class="card">
+                    <a href="{{ path('main_home') }}" class="card-hover text-center picto" title="Quittances">
+                        <i class="fa-solid fa-file-lines fa-2x mt-3"></i>
+                    </a>
+                    <div class="card-body">
+                        <a href="{{ path('main_home') }}" class="btn btn-home mt-3">Mes quittances</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center col-lg-2 mb-4">
+                <div class="card">
+                    <a href="{{ path('main_home') }}" class="card-hover text-center picto" title="Comptabilité">
+                        <i class="fa-solid fa-chart-line fa-2x mt-3"></i>
+                    </a>
+                    <div class="card-body">
+                        <a href="{{ path('main_home') }}" class="btn btn-home mt-3">Comptabilité</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

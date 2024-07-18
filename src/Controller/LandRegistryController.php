@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/land/registry')]
+#[Route('/land/registry', name: 'landRegistry_')]
 class LandRegistryController extends AbstractController
 {
-    #[Route('/', name: 'app_land_registry_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(LandRegistryRepository $landRegistryRepository): Response
     {
         return $this->render('land_registry/index.html.twig', [
@@ -22,7 +22,7 @@ class LandRegistryController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_land_registry_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $landRegistry = new LandRegistry();
@@ -33,7 +33,7 @@ class LandRegistryController extends AbstractController
             $entityManager->persist($landRegistry);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_land_registry_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('landRegistry_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('land_registry/new.html.twig', [
@@ -42,7 +42,7 @@ class LandRegistryController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_land_registry_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(LandRegistry $landRegistry): Response
     {
         return $this->render('land_registry/show.html.twig', [
@@ -50,7 +50,7 @@ class LandRegistryController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_land_registry_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, LandRegistry $landRegistry, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(LandRegistryType::class, $landRegistry);
@@ -59,7 +59,7 @@ class LandRegistryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_land_registry_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('landRegistry_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('land_registry/edit.html.twig', [
@@ -68,7 +68,7 @@ class LandRegistryController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_land_registry_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, LandRegistry $landRegistry, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$landRegistry->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,6 +76,6 @@ class LandRegistryController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_land_registry_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('landRegistry_index', [], Response::HTTP_SEE_OTHER);
     }
 }

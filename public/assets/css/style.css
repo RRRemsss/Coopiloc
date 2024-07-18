@@ -37,21 +37,25 @@ footer {
     font-weight: bold;
 }
 
-.btn-login:hover, .btn-register:hover {
+.btn-login:hover, .btn-register:hover, .btn-home:hover{
     background-color: #E76F51;
     border-color: #E76F51;
     color: #ffffff;
 }
 
-.btn-login, .btn-register {
+.btn-login, .btn-register, .btn-home {
     background-color: #E9C46A;
     border-color: #E9C46A;
     color: #264653; 
 }
 
-/* =========================================================REGISTER=====================================================*/
+/* ========================================================REGISTER===================================================*/
 
 .register{
     color: #E9C46A;
     font-weight: bold;
+}
+/* ==========================================================HOME=====================================================*/
+.fa-solid {
+    color: #264653;
 }

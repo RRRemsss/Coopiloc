@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/property/document')]
+#[Route('/property/document', name: 'propertyDocument_')]
 class PropertyDocumentController extends AbstractController
 {
-    #[Route('/', name: 'app_property_document_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(PropertyDocumentRepository $propertyDocumentRepository): Response
     {
         return $this->render('property_document/index.html.twig', [
@@ -22,7 +22,7 @@ class PropertyDocumentController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_property_document_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $propertyDocument = new PropertyDocument();
@@ -33,7 +33,7 @@ class PropertyDocumentController extends AbstractController
             $entityManager->persist($propertyDocument);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_property_document_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('propertyDocument_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('property_document/new.html.twig', [
@@ -42,7 +42,7 @@ class PropertyDocumentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_property_document_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(PropertyDocument $propertyDocument): Response
     {
         return $this->render('property_document/show.html.twig', [
@@ -50,7 +50,7 @@ class PropertyDocumentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_property_document_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, PropertyDocument $propertyDocument, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PropertyDocumentType::class, $propertyDocument);
@@ -59,7 +59,7 @@ class PropertyDocumentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_property_document_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('propertyDocument_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('property_document/edit.html.twig', [
@@ -68,7 +68,7 @@ class PropertyDocumentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_property_document_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, PropertyDocument $propertyDocument, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$propertyDocument->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,6 +76,6 @@ class PropertyDocumentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_property_document_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('propertyDocument_index', [], Response::HTTP_SEE_OTHER);
     }
 }

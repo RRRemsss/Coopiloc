@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/lease/party')]
+#[Route('/lease/party', name: 'leaseParty_')]
 class LeasePartyController extends AbstractController
 {
-    #[Route('/', name: 'app_lease_party_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(LeasePartyRepository $leasePartyRepository): Response
     {
         return $this->render('lease_party/index.html.twig', [
@@ -22,7 +22,7 @@ class LeasePartyController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_lease_party_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $leaseParty = new LeaseParty();
@@ -33,7 +33,7 @@ class LeasePartyController extends AbstractController
             $entityManager->persist($leaseParty);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_lease_party_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('leaseParty_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('lease_party/new.html.twig', [
@@ -42,7 +42,7 @@ class LeasePartyController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_lease_party_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(LeaseParty $leaseParty): Response
     {
         return $this->render('lease_party/show.html.twig', [
@@ -50,7 +50,7 @@ class LeasePartyController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_lease_party_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, LeaseParty $leaseParty, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(LeasePartyType::class, $leaseParty);
@@ -59,7 +59,7 @@ class LeasePartyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_lease_party_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('leaseParty_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('lease_party/edit.html.twig', [
@@ -68,7 +68,7 @@ class LeasePartyController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_lease_party_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, LeaseParty $leaseParty, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$leaseParty->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,6 +76,6 @@ class LeasePartyController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_lease_party_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('leaseParty_index', [], Response::HTTP_SEE_OTHER);
     }
 }
