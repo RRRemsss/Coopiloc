@@ -1,0 +1,62 @@
+<aside id="sidebar">
+    <div class="d-flex">
+        <button class="toggle-btn" type="button">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="sidebar-logo">
+            {# <a href="#" class="d-flex justify-content-center align-items-center mb-3 m-3">
+                <img src="{{ asset('img/logo/logonoir.png') }}" class="sign-in-logo d-inline-block align-top logo rounded-circle" alt="CooPiloc logo">
+            </a> #}
+        </div>
+    </div>
+    <ul class="sidebar-nav">
+       <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-house"></i>
+                <span>Accueil</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-city"></i>
+                <span>Biens</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-users"></i>
+                <span>Locataires</span>
+            </a>
+        </li>
+        <li class="sidebar-item" >
+            <a href="#" class="sidebar-link">
+                <i class="fa-regular fa-folder-open"></i>
+                <span>Documents</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Quittances</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Comptabilité</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>Paramètres</span>
+            </a>
+        </li>
+        <li class="sidebar-footer">
+            <a href="{{ path('app_logout') }}" class="sidebar-link">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Déconnexion</span>
+            </a>
+        </li>
+    </ul>
+</aside>
