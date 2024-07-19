@@ -22,25 +22,26 @@
             <script src="{{ asset('assets/js/sidebar.js') }}"></script>
         {% endblock %}
     </head>
-    <body>
-        <div class="container-fluid">
-            <div class="row">
-                {% if app.user %}
-                    <nav id="sidebarNav" class="sidebar col-md-1 sticky-top d-none d-md-block p-0">
-                        {% include('inc/sidebar.html.twig') %}
-                    </nav>
-                {% endif %}
-                {% if app.user %}
-                <main class="col-md-10">
-                    {% else %}
-                    <main class="col-md-12">
-                        {% endif %}
-                        {% block body %}{% endblock %}
-                </main>
-            </div>
-        </div>
-        <footer class="footer mt-auto">
-            {% include('inc/footer.html.twig') %}
-        </footer>
-    </body>
+  <body>
+    <div class="wrapper">
+        {% if app.user %}
+             <nav id="sidebar" class="sidebar col-md-1 sticky-top d-none d-md-block p-0">
+                {% include('inc/sidebar.html.twig') %}
+            </nav>
+        {% endif %}
+        {% if app.user %}
+            <main>
+        {% else %}
+            <main class="full-width">
+        {% endif %}
+                {% block body %}{% endblock %}
+            </main>
+    </div>
+    <footer class="footer mt-auto">
+        {% include('inc/footer.html.twig') %}
+    </footer>
+</body>
+
+</body>
+
 </html>

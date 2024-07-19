@@ -2,11 +2,13 @@
 
 function initBurgerMenuToggle() {
     const burgerMenu = document.querySelector(".toggle-btn");
+    const sidebar = document.querySelector("#sidebar");
+    const mainContent = document.querySelector("main");
+
     if (burgerMenu) {
         burgerMenu.addEventListener("click", () => {
-            document.querySelector("#sidebar").classList.toggle("expand");
-            // document.querySelector("#sidebar").classList.toggle("col-md-1");
-            // document.querySelector("#sidebar").classList.toggle("col-md-2");
+            sidebar.classList.toggle("expand");
+            mainContent.classList.toggle("expand");
         });
     }
 }
