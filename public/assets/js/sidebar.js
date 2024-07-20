@@ -1,5 +1,3 @@
-/************************************SIDEBAR DYNAMIC********************************************/
-
 function initBurgerMenuToggle() {
     const burgerMenu = document.querySelector(".toggle-btn");
     const sidebar = document.querySelector("#sidebar");
