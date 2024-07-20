@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DescriptionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: DescriptionRepository::class)]
 class Description
@@ -15,19 +16,28 @@ class Description
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
     private ?float $area = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
     private ?int $numberOfRooms = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
     private ?int $numberOfBedrooms = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
     private ?\DateTimeInterface $constructionDate = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
     private ?int $numberOfBathrooms = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
+    private ?int $numberOfShower = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $propertyType = null;
@@ -126,6 +136,18 @@ class Description
     public function setNumberOfBathrooms(?int $numberOfBathrooms): static
     {
         $this->numberOfBathrooms = $numberOfBathrooms;
+
+        return $this;
+    }
+
+    public function getNumberOfShower(): ?int
+    {
+        return $this->numberOfShower;
+    }
+
+    public function setNumberOfShower(?int $numberOfShower): static
+    {
+        $this->numberOfShower = $numberOfShower;
 
         return $this;
     }

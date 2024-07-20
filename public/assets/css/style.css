@@ -2,14 +2,38 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: #264653;
+    background-color: #2A9D8F;
     color: #ffffff;
 }
 
 footer {
-    color: #2A9D8F;
+    color: #264653;
     padding:1rem;
     text-align: center;
+}
+
+.btn-success {
+    background-color: #264653;
+    border-color: #264653;
+    color: #ffffff; 
+}
+
+.btn-success:hover {
+    background-color: #E9C46A;
+    border-color: #E9C46A;
+    color: #264653; 
+}
+
+.btn-cancel {
+    background-color: #E76F51;
+    border-color: #E76F51;
+    color: #ffffff;
+}
+
+.btn-cancel:hover {
+    background-color: #E9C46A;
+    border-color: #E9C46A;
+    color: #264653; 
 }
 
 /* =========================================================LOGIN=====================================================*/
@@ -62,7 +86,6 @@ footer {
 }
 
 /* ========================================================SIDEBAR====================================================*/
-/* CSS Reset */
 ::after,
 ::before {
     box-sizing: border-box;
@@ -79,14 +102,12 @@ li {
     list-style: none;
 }
 
-/* Container Wrapper */
 .wrapper {
     display: flex;
     flex-direction: row;
     min-height: 100vh;
 }
 
-/* Sidebar */
 #sidebar {
     position: fixed;
     top: 0;
@@ -97,8 +118,8 @@ li {
     z-index: 1000;
     transition: all 0.25s ease-in-out;
     color: #E4E5F1;
-    background-color: #2A9D8F;
-    border-right: #2A9D8F solid 1px;
+    background-color: #264653;
+    border-right: #264653 solid 1px;
     display: flex;
     flex-direction: column;
 }
@@ -218,7 +239,6 @@ a.sidebar-link:hover {
     transition: all 0.2s ease-out;
 }
 
-/* Main Content */
 main {
     margin-left: 70px; /* Match the default sidebar width */
     transition: margin-left 0.25s ease-in-out;
@@ -227,4 +247,10 @@ main {
 
 #sidebar.expand ~ main {
     margin-left: 200px; /* Match the expanded sidebar width */
+}
+
+/* =========================================================TABS=====================================================*/
+.nav-link{
+    text-decoration: none;
+    color: #2A9D8F;
 }

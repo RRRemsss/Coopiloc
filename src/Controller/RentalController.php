@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Property;
 use App\Entity\Rental;
 use App\Form\RentalType;
 use App\Repository\RentalRepository;
@@ -26,10 +27,12 @@ class RentalController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rental = new Rental();
-        $form = $this->createForm(RentalType::class, $rental);
-        $form->handleRequest($request);
+        $userProperties=$entityManager->getRepository(Property::class)->findBy(['user' => $this->getUser()]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $rentalForm = $this->createForm(RentalType::class, $rental);
+        $rentalForm->handleRequest($request);
+
+        if ($rentalForm->isSubmitted() && $rentalForm->isValid()) {
             $entityManager->persist($rental);
             $entityManager->flush();
 
@@ -38,7 +41,8 @@ class RentalController extends AbstractController
 
         return $this->render('rental/new.html.twig', [
             'rental' => $rental,
-            'form' => $form,
+            'userProperties' => $userProperties,
+            'rentalForm' => $rentalForm->createView()
         ]);
     }
 
@@ -62,6 +66,8 @@ class RentalController extends AbstractController
             return $this->redirectToRoute('rental_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        $this->addFlash('success', 'Le loyer a été supprimé avec succès.');
+
         return $this->render('rental/edit.html.twig', [
             'rental' => $rental,
             'form' => $form,
@@ -75,6 +81,7 @@ class RentalController extends AbstractController
             $entityManager->remove($rental);
             $entityManager->flush();
         }
+        $this->addFlash('success', 'Le loyer a été supprimé avec succès.');
 
         return $this->redirectToRoute('rental_index', [], Response::HTTP_SEE_OTHER);
     }

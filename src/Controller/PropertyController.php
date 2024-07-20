@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Description;
+use App\Entity\LeaseParty;
 use App\Entity\Property;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
@@ -26,45 +28,66 @@ class PropertyController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $property = new Property();
-        $form = $this->createForm(PropertyType::class, $property);
-        $form->handleRequest($request);
+        $description = new Description();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($property);
-            $entityManager->flush();
+        $property->addDescription($description);
 
-            return $this->redirectToRoute('property_index', [], Response::HTTP_SEE_OTHER);
+        $propertyForm = $this->createForm(PropertyType::class, $property);
+        $propertyForm->handleRequest($request);
+
+        if ($propertyForm->isSubmitted() && $propertyForm->isValid()) {
+            $tenant = $propertyForm->get('leaseParty')->getData();
+
+            if ($entityManager->getRepository(LeaseParty::class)->isTenantOccupied($tenant)) {
+                // The tenant beongs to a place, show error message
+                $this->addFlash('error', 'Le locataire sélectionné est déjà occupé dans un autre bien.');
+            } else {
+                // The tenant doesn't belong to a place, submit form
+                $entityManager->persist($property);
+                $entityManager->flush();
+                $this->addFlash('success', 'Votre bien immobilier vient d\'être ajouté');
+                return $this->redirectToRoute('property_show');
+            }
         }
 
         return $this->render('property/new.html.twig', [
             'property' => $property,
-            'form' => $form,
+            'propertyForm' => $propertyForm->createView()
         ]);
     }
 
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function show(Property $property): Response
+    public function show(PropertyRepository $propertyRepository): Response
     {
+        // Récupération des propriétés par ordre croissant d'ID, et passage à la vue
+        $properties = $propertyRepository->findBy([], ['id' => 'ASC']);
         return $this->render('property/show.html.twig', [
-            'property' => $property,
+            'properties' => $properties,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, Property $property, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(PropertyType::class, $property);
-        $form->handleRequest($request);
+         // Vérification que l'utilisateur connecté est le propriétaire du bien
+         if ($property->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $propertyForm = $this->createForm(PropertyType::class, $property);
+        $propertyForm->handleRequest($request);
+
+        if ($propertyForm->isSubmitted() && $propertyForm->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('property_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Le bien immobilier a été modifié avec succès.');
+
+            return $this->redirectToRoute('property_index');
         }
 
         return $this->render('property/edit.html.twig', [
             'property' => $property,
-            'form' => $form,
+            'propertyForm' => $propertyForm->createView(),
         ]);
     }
 
@@ -75,6 +98,8 @@ class PropertyController extends AbstractController
             $entityManager->remove($property);
             $entityManager->flush();
         }
+
+        $this->addFlash('success', 'Le bien a été supprimé avec succès.');
 
         return $this->redirectToRoute('property_index', [], Response::HTTP_SEE_OTHER);
     }

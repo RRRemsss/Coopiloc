@@ -23,7 +23,7 @@ class Rental
     private ?\DateTimeInterface $endDate = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $rentalType = null;
+    private ?string $leaseType = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $grossRent = null;
@@ -33,9 +33,6 @@ class Rental
 
     #[ORM\Column(nullable: true)]
     private ?float $deposit = null;
-
-    #[ORM\Column(length: 50)]
-    private ?string $lease = null;
 
     #[ORM\Column]
     private ?float $netRent = null;
@@ -113,12 +110,12 @@ class Rental
 
     public function getRentalType(): ?string
     {
-        return $this->rentalType;
+        return $this->leaseType;
     }
 
-    public function setRentalType(string $rentalType): static
+    public function setRentalType(string $leaseType): static
     {
-        $this->rentalType = $rentalType;
+        $this->leaseType = $leaseType;
 
         return $this;
     }
@@ -155,18 +152,6 @@ class Rental
     public function setDeposit(?float $deposit): static
     {
         $this->deposit = $deposit;
-
-        return $this;
-    }
-
-    public function getLease(): ?string
-    {
-        return $this->lease;
-    }
-
-    public function setLease(string $lease): static
-    {
-        $this->lease = $lease;
 
         return $this;
     }

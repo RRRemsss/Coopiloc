@@ -1,11 +1,104 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Property{% endblock %}
+{% block title %}{{ parent() }} |Nouveau bien{% endblock %}
 
 {% block body %}
-    <h1>Create new Property</h1>
+    <div class="container">
+        <div class="row">
+            <div class="text-start mt-5">
+                <h2 class="text-center mb-5 fw-bold">Nouveau lot</h2>
+            </div>
+        </div>
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+                <a class="nav-link active text-muted" aria-current="page" href="#general-information">Informations générales</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted" href="#additional-information">Informations complémentaires</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted"href="#financial-information">Informations financères</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted" href="#contracts-diagnostics">Contrats et diagnostics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted" href="#photos">Photos</a>
+            </li>
+        </ul>
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="row col-5">
+                <div id="form-general-information">
+                    {{ form_start(propertyForm) }}
+                    <div class="form-general-information-section1">
+                        {{ form_row (propertyForm.type) }}
+                        {{ form_row (propertyForm.namePlace) }}
+                        {{ form_row (propertyForm.color) }}
+                    </div>
+                    <div class="form-general-information-section2">
+                        {{ form_row (propertyForm.address.street) }}
+                        {{ form_row (propertyForm.address.building) }}
+                        {{ form_row (propertyForm.address.floor) }}
+                        {{ form_row (propertyForm.address.postCode) }}
+                        {{ form_row (propertyForm.address.city) }}
+                        {{ form_row (propertyForm.address.region) }}
+                        {{ form_row (propertyForm.address.country) }}
+                    </div>
+                    <div class="form-general-information-section3">
+                    {% for description in propertyForm.descriptions %}
+                        {{ form_row (description.area) }}
+                        {{ form_row (description.numberOfRooms) }}
+                        {{ form_row (description.numberOfBedrooms) }}
+                        {{ form_row (description.numberOfBathrooms) }}
+                        {{ form_row (description.numberOfShower) }}
+                        {{ form_row (description.constructionDate) }}
+                    </div>
+                    <div class="form-general-information-section4">
+                        {{ form_row (description.comment) }}
+                    </div>
+                    <div class="form-general-information-section5">
+                        {{ form_row (description.privateComment) }}
+                    </div>
+                </div>
+                <div id="form-additional-information">
+                    <div id="form-additional-information-section1">
+                        {{ form_row (description.propertyType) }}
+                        {{ form_row (description.legalRegime) }}
+                    </div>
+                    <div class="form-additional-information-section2">
+                        <p>Désignation des parties et équipements</p>
+                        {{ form_row (description.equipment) }}
+                        {{ form_row (description.parking) }}
+                        {{ form_row (description.dependency) }}
+                        {{ form_row (description.cellarType) }}
+                        {{ form_row (description.buildingLot) }}
+                        {{ form_row (description.thousandths) }}
+                    {% endfor %}
+                        </div>
+                    <div id="financial-information">
+                        <div class="form-financial-information-section1">
+                            {{ form_row (propertyForm.acquisitionDate) }}
+                            {{ form_row (propertyForm.acquisitionPrice) }}
+                            {{ form_row (propertyForm.acquisitionFee) }}
+                            {{ form_row (propertyForm.agencyFee) }}
+                            {{ form_row (propertyForm.propertyValue) }}
+                        </div>
+                        <div class="form-financial-information-section2">
 
-    {{ include('property/_form.html.twig') }}
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 text-center">
+                            <div class="text-center d-inline-block">
+                                <button type="submit" class="btn btn-success">Enregistrer</button>
+                            </div>
+                            <div class="d-inline-block">
+                                <a href="{{ path('main_home') }}" class="btn btn-cancel mt-0">Annuler</a>
+                            </div>
+                        </div>
+                    </div>
 
-    <a href="{{ path('app_property_index') }}">back to list</a>
+                {{ form_end(propertyForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
