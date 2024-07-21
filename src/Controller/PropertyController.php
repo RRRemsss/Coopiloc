@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Description;
 use App\Entity\LeaseParty;
 use App\Entity\Property;
+use App\Entity\Tax;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,8 +30,10 @@ class PropertyController extends AbstractController
     {
         $property = new Property();
         $description = new Description();
+        $tax = new Tax();
 
         $property->addDescription($description);
+        $property->addTax($tax);
 
         $propertyForm = $this->createForm(PropertyType::class, $property);
         $propertyForm->handleRequest($request);

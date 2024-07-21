@@ -3,11 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Description;
-use App\Entity\Property;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType as TypeIntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,48 +16,86 @@ class DescriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        //ConstructionDate setting
+        $currentYear = date('Y');
+        $years = range($currentYear - 125, $currentYear);
         
         $builder
             ->add('area', NumberType::class, [
                 'label' => false,
                 'required' => true,
-                'attr' => ['placeholder' => 'Surface'],
+                'attr' => ['placeholder' => 'Surface',
+                            'class' => 'form-control'],
             ])
-            ->add('numberOfRooms', TypeIntegerType::class, [
+            ->add('numberOfRooms', ChoiceType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Nombre de pièces'],
+                'choices' => range(1, 20),
+                'choice_label' => function($choice, $key, $value) {
+                    return $value;
+                },
+                'placeholder' => 'Nombre de pièces',
+                'attr' => ['class' => 'form-select form-select-ms mb-3'],
             ])
-            ->add('numberOfBedrooms', TypeIntegerType::class, [
+            ->add('numberOfBedrooms', ChoiceType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Nombre de chambres'],
+                'choices' => range(1, 20),
+                'choice_label' => function($choice, $key, $value) {
+                    return $value;
+                },
+                'placeholder' => 'Nombre de chambres',
+                'attr' => ['class' => 'form-select form-select-ms mb-3'],
             ])
-            ->add('numberOfBathrooms', TypeIntegerType::class, [
+            ->add('numberOfBathrooms', ChoiceType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Nombre de salle de bain'],
+                'choices' => range(1, 10),
+                'choice_label' => function($choice, $key, $value) {
+                    return $value;
+                },
+                'placeholder' => 'Nombre de salles de bain',
+                'attr' => ['class' => 'form-select form-select-ms mb-3'],
             ])
-            ->add('numberOfShower', TypeIntegerType::class, [
+            ->add('numberOfShower', ChoiceType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Nombre de salle d\'eau'],
+                'choices' => range(1, 10),
+                'choice_label' => function($choice, $key, $value) {
+                    return $value;
+                },
+                'placeholder' => 'Nombre de salle d\'eau',
+                'attr' => ['class' => 'form-select form-select-ms mb-'],
             ])
-            ->add('constructionDate', DateType::class, [
-                'label' => 'Année de construction',
-                'html5' => true,
-                'widget' => 'single_text',
+            ->add('constructionDate', ChoiceType::class, [
+                'label' => false,
+                'choices' => array_combine($years, $years),
+                'placeholder' => 'Année de construction',
                 'required' => false,
+                'attr' => ['class' => 'year-picker',
+                            'class' => 'form-select form-select-ms mb-'],
             ])
             ->add('comment', TextareaType::class, [
                 'label' => 'Description',
                 'required' => false,
-                'attr' => ['placeholder' => 'Ex: Studio meublé tout confort au 3ème étage sur cour d\'un immeuble charmant'],
+                'attr' => [
+                    'placeholder' => 'Ex: Studio meublé tout confort au 3ème étage sur cour d\'un immeuble charmant',
+                    'class' => 'form-control', 
+                ],
+                'label_attr' => [
+                    'class' => 'form-label', 
+                ],
             ])
             ->add('privateComment', TextareaType::class, [
                 'label' => 'Note privée',
                 'required' => false,
-                'attr' => ['placeholder' => 'Autres informations privées'],
+                'attr' => [
+                    'placeholder' => 'Autres informations privées',
+                    'class' => 'form-control',
+                ],
+                'label_attr' => [
+                    'class' => 'form-label', 
+                ],
             ])
             ->add('propertyType', ChoiceType::class, [
                 'choices' => [
@@ -71,6 +106,7 @@ class DescriptionType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'placeholder' => 'Type d\'habitat',
+                'attr' => ['class' => 'form-select form-select-ms mb-3'],
 
             ])
             ->add('legalRegime', ChoiceType::class, [
@@ -82,31 +118,37 @@ class DescriptionType extends AbstractType
                 'multiple' => false,
                 'required' => false,
                 'placeholder' => 'Régime juridique',
+                'attr' => ['class' => 'form-select form-select-ms mb-3'],
             ])
             ->add('parking', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Parking'],
+                'attr' => ['placeholder' => 'N° de parking',
+                            'class' => 'form-control'],
             ])
             ->add('dependency', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Autres dépendances'],
+                'attr' => ['placeholder' => 'Autres dépendances',
+                            'class' => 'form-control'],
             ])
             ->add('cellarType', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Cave'],
+                'attr' => ['placeholder' => 'N° de cave',
+                            'class' => 'form-control'],
             ])
             ->add('buildingLot', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Lot'],
+                'attr' => ['placeholder' => 'N° lot',
+                            'class' => 'form-control'],
             ])
             ->add('thousandths', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Millièmes'],
+                'attr' => ['placeholder' => 'Millièmes',
+                            'class' => 'form-control'],
             ])
             ->add('equipment', ChoiceType::class, [
                 'label' => false,
@@ -133,6 +175,9 @@ class DescriptionType extends AbstractType
                     'Jardin' => 'Jardin',
                     'Parking' => 'Parking',
                     'Terrasse' => 'Terrasse',
+                ],
+                'attr' => [
+                    'class' => 'form-check-input custom-checkbox-grid'
                 ],
             ]);
 

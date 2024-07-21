@@ -39,20 +39,33 @@ class PropertyType extends AbstractType
                 'multiple' => false,
                 'required' => true,
                 'label' => false,
+                'placeholder' => 'Type de bien',
+                'attr' => ['class' => 'form-select form-select-ms mb-3'],
             ])
             ->add('namePlace', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Identifiant du bien'],
+                'attr' => ['placeholder' => 'Nom du bien',
+                            'class' => 'form-control'],
             ])
             ->add('color', ChoiceType::class, [
-                'label' => 'Couleur',
-                'choice_label' => false,
+                'label' => false,
+                'choices' => array_merge(['' => ''], $colors),
+                'choice_label' => function ($choice, $key, $value) use ($colors) {
+                    if ($choice === '') {
+                        return 'Choix couleur';  // Placeholder text
+                    }
+                    return $key;
+                },
                 'required' => false,
-                'choices' => $colors,
                 'choice_attr' => function ($choice, $key, $value) {
+                    if ($choice === '') {
+                        return [];
+                    }
                     return ['style' => sprintf('background-color: %s;', $value)];
                 },
+                'placeholder' => 'Couleur',
+                'attr' => ['class' => 'form-select form-select-ms mb-3'],
             ])
             ->add('acquisitionDate', DateType::class, [
                 'label' => 'Date d\'acquisition',

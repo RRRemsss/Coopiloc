@@ -16,37 +16,44 @@ class AddressType extends AbstractType
         ->add('street', TextType::class, [
             'label' => false,
             'required' => true,
-            'attr' => ['placeholder' => 'Numéro et nom de la rue'],
+            'attr' => ['placeholder' => 'Numéro et nom de la rue',
+                        'class' => 'form-control'],
         ])
         ->add('building', TextType::class, [
             'label' => false,
             'required' => false,
-            'attr' => ['placeholder' => 'Bâtiment'],
+            'attr' => ['placeholder' => 'Bâtiment',
+                        'class' => 'form-control'],
         ])
         ->add('floor', TextType::class, [
             'label' => false,
             'required' => false,
-            'attr' => ['placeholder' => 'Etage'],
+            'attr' => ['placeholder' => 'Etage',
+                        'class' => 'form-control'],
         ])
         ->add('city', TextType::class, [
             'label' => false,
             'required' => true,
-            'attr' => ['placeholder' => 'Ville*'],
+            'attr' => ['placeholder' => 'Ville*',
+                        'class' => 'form-control'],
         ])
         ->add('postCode', TextType::class, [
             'label' => false,
             'required' => true,
-            'attr' => ['placeholder' => 'Code postal*'],
+            'attr' => ['placeholder' => 'Code postal*',
+                        'class' => 'form-control'],
         ])
         ->add('region', TextType::class, [
             'label' => false,
             'required' => false,
-            'attr' => ['placeholder' => 'Région'],
+            'attr' => ['placeholder' => 'Région',
+                        'class' => 'form-control'],
         ])
         ->add('country', TextType::class, [
             'label' => false,
             'required' => true,
-            'attr' => ['placeholder' => 'Pays*'],
+            'attr' => ['placeholder' => 'Pays*',
+                        'class' => 'form-control'],
         ]);
         ;
     }

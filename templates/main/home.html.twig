@@ -3,9 +3,7 @@
 {% block body %}
     <div class="container">
         {% if app.user %}
-        <h1 class="text-center mt-5">Bienvenue
-            <span style="color: #E76F51;">{{ app.user.personDetail.firstname }}
-                <span style="color: #ffffff;"> ! </h1>
+        <h1 class="text-center mt-5">Bienvenue {{ app.user.personDetail.firstname }} ! </h1>
         {% else %}
         <h1 class="text-center">CooPiloc </h1>
         {% endif %}

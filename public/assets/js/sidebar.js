@@ -16,3 +16,4 @@ document.addEventListener("DOMContentLoaded", initBurgerMenuToggle);
 
 // Function calls when reload page with turbo Function
 document.addEventListener('turbo:load', initBurgerMenuToggle);
+

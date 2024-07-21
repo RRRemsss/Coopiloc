@@ -1,4 +1,4 @@
-<diagram program="umletino" version="15.1"><zoom_level>6</zoom_level><help_text>Space for diagram note</help_text><element><id>UMLClass</id><coordinates><x>840</x><y>414</y><w>126</w><h>144</h></coordinates><panel_attributes>Property
+<diagram program="umletino" version="15.1"><zoom_level>6</zoom_level><help_text>Space for diagram note</help_text><element><id>UMLClass</id><coordinates><x>840</x><y>390</y><w>126</w><h>144</h></coordinates><panel_attributes>Property
 --
 id : Integer
 type : String
@@ -10,7 +10,7 @@ acquisitionFee: Float
 agencyFee: Float
 propertyValue: Float
 --
-addressId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>150</y><w>126</w><h>66</h></coordinates><panel_attributes>User
+addressId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>126</y><w>126</w><h>66</h></coordinates><panel_attributes>User
 --
 id : Integer
 username : String
@@ -20,7 +20,7 @@ color : String
 personDetailId : Integer
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>906</x><y>624</y><w>126</w><h>84</h></coordinates><panel_attributes>Tax
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>906</x><y>600</y><w>126</w><h>84</h></coordinates><panel_attributes>Tax
 --
 id : Integer
 taxSystem : String
@@ -29,7 +29,7 @@ taxName : String
 taxAmount : Float
 propertyTax : Float
 --
-propertyId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>756</x><y>624</y><w>126</w><h>84</h></coordinates><panel_attributes>landRegistry
+propertyId</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>756</x><y>600</y><w>126</w><h>84</h></coordinates><panel_attributes>landRegistry
 --
 id : Integer
 sheet : String
@@ -37,7 +37,7 @@ parcel : String
 category : String
 rentalValue : Float
 --
-propertyId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>282</y><w>144</w><h>126</h></coordinates><panel_attributes>Address
+propertyId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>258</y><w>144</w><h>126</h></coordinates><panel_attributes>Address
 --
 id : Integer
 name : String
@@ -53,7 +53,7 @@ countryId : Integer
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1074</x><y>510</y><w>126</w><h>198</h></coordinates><panel_attributes>Description
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1074</x><y>486</y><w>126</w><h>198</h></coordinates><panel_attributes>Description
 --
 id : Integer
 area : Integer
@@ -74,7 +74,7 @@ equipment: Array
 comment : String
 privateComment : String
 --
-propertyId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1074</x><y>414</y><w>126</w><h>78</h></coordinates><panel_attributes>propertyImage
+propertyId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1074</x><y>390</y><w>126</w><h>78</h></coordinates><panel_attributes>propertyImage
 --
 id : Integer
 created_at : DateTime
@@ -82,7 +82,7 @@ updated_at : DateTime
 image: string
 isMain : boolean
 --
-propertyId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>546</y><w>144</w><h>120</h></coordinates><panel_attributes>leaseParty
+propertyId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>522</y><w>144</w><h>120</h></coordinates><panel_attributes>leaseParty
 --
 id : Integer
 color : String
@@ -95,7 +95,7 @@ monthlyIncome : Float
 --
 addressId : Integer
 personDetailId : Integer
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>588</x><y>546</y><w>126</w><h>174</h></coordinates><panel_attributes>Rental
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>588</x><y>522</y><w>126</w><h>174</h></coordinates><panel_attributes>Rental
 --
 id : Integer
 startDate: Date
@@ -121,10 +121,10 @@ propertyId : Integer
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>210</y><w>42</w><h>216</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>186</y><w>42</w><h>216</h></coordinates><panel_attributes>lt=-
 m1=1..n
 m2=0..1
-Own &gt;</panel_attributes><additional_attributes>10;340;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>24</y><w>126</w><h>60</h></coordinates><panel_attributes>Role
+Own &gt;</panel_attributes><additional_attributes>10;340;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>840</x><y>0</y><w>126</w><h>60</h></coordinates><panel_attributes>Role
 --
 id : Integer
 isActive : Boolean
@@ -133,31 +133,31 @@ name : String
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>78</y><w>60</w><h>84</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>894</x><y>54</y><w>60</w><h>84</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
-Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>360</y><w>408</w><h>66</h></coordinates><panel_attributes>lt=-
+Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>336</y><w>408</w><h>66</h></coordinates><panel_attributes>lt=-
 m1= 1
 m2= 1..n
-has &gt;</panel_attributes><additional_attributes>10;20;640;20;640;90</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>528</y><w>126</w><h>30</h></coordinates><panel_attributes>lt=-
+has &gt;</panel_attributes><additional_attributes>10;20;640;20;640;90</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>504</y><w>126</w><h>30</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1
-has &gt;</panel_attributes><additional_attributes>190;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>444</y><w>126</w><h>30</h></coordinates><panel_attributes>lt=-
+has &gt;</panel_attributes><additional_attributes>190;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>960</x><y>420</y><w>126</w><h>30</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1
-has &gt;</panel_attributes><additional_attributes>190;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>942</x><y>552</y><w>36</w><h>84</h></coordinates><panel_attributes>lt=-
+has &gt;</panel_attributes><additional_attributes>190;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>942</x><y>528</y><w>36</w><h>84</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1
-has &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>852</x><y>552</y><w>36</w><h>84</h></coordinates><panel_attributes>lt=-
+has &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>852</x><y>528</y><w>36</w><h>84</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1
-has &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>708</x><y>540</y><w>144</w><h>30</h></coordinates><panel_attributes>lt=-
+has &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>708</x><y>516</y><w>144</w><h>30</h></coordinates><panel_attributes>lt=-
 m1= 1
 m2= 1..n
-&lt; has</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>564</y><w>120</w><h>30</h></coordinates><panel_attributes>lt=-
+&lt; has</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>540</y><w>120</w><h>30</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
-&lt; has</panel_attributes><additional_attributes>180;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>588</x><y>432</y><w>126</w><h>78</h></coordinates><panel_attributes>propertyDocument
+&lt; has</panel_attributes><additional_attributes>180;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>588</x><y>408</y><w>126</w><h>78</h></coordinates><panel_attributes>propertyDocument
 --
 id : Integer
 created_at : DateTime
@@ -167,13 +167,13 @@ uploadPropertyDocumentPath: String
 --
 propertyId : Integer
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>708</x><y>462</y><w>144</w><h>30</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>708</x><y>438</y><w>144</w><h>30</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1
-has &gt;</panel_attributes><additional_attributes>10;20;220;20</additional_attributes></element><element><id>Relation</id><coordinates><x>264</x><y>612</y><w>90</w><h>30</h></coordinates><panel_attributes>lt=-
+has &gt;</panel_attributes><additional_attributes>10;20;220;20</additional_attributes></element><element><id>Relation</id><coordinates><x>264</x><y>588</y><w>90</w><h>30</h></coordinates><panel_attributes>lt=-
 m1= 1
 m2= 1
-&lt; has</panel_attributes><additional_attributes>10;20;130;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>126</x><y>594</y><w>144</w><h>84</h></coordinates><panel_attributes>identityDocument
+&lt; has</panel_attributes><additional_attributes>10;20;130;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>126</x><y>570</y><w>144</w><h>84</h></coordinates><panel_attributes>identityDocument
 --
 id : Integer
 created_at : DateTime
@@ -184,20 +184,20 @@ expirationDate : DateTime
 uploadDocumentIdentity: String
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>552</x><y>786</y><w>192</w><h>66</h></coordinates><panel_attributes>rentalDocument
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>552</x><y>762</y><w>192</w><h>66</h></coordinates><panel_attributes>rentalDocument
 --
 id : Integer
 receiptDate : Integer (date de quittancement)
 noticeRentDueDate: Integer (date avis échéance)
 uploadRentalDocumentPath: string
 --
-rentalId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>642</x><y>714</y><w>54</w><h>84</h></coordinates><panel_attributes>lt=-
+rentalId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>642</x><y>690</y><w>54</w><h>84</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1
-generate &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>408</x><y>402</y><w>36</w><h>156</h></coordinates><panel_attributes>lt=-
+generate &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>408</x><y>378</y><w>36</w><h>156</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1
-has &gt;</panel_attributes><additional_attributes>10;240;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>156</y><w>144</w><h>96</h></coordinates><panel_attributes>personDetail
+has &gt;</panel_attributes><additional_attributes>10;240;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>132</y><w>144</w><h>96</h></coordinates><panel_attributes>personDetail
 --
 id : Integer
 lastname : String
@@ -206,4 +206,4 @@ phoneNumber : String
 email : String
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>198</y><w>372</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;600;10</additional_attributes></element><element><id>Relation</id><coordinates><x>0</x><y>198</y><w>354</w><h>390</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>570;10;10;10;10;630;570;630</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>174</y><w>372</w><h>18</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;10;600;10</additional_attributes></element><element><id>Relation</id><coordinates><x>0</x><y>174</y><w>354</w><h>390</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>570;10;10;10;10;630;570;630</additional_attributes></element></diagram>
