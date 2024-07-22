@@ -54,36 +54,25 @@ h1 {
     font-weight: bold;
 }
 
-.forgotPassword{
-    color: #ffffff;
+.forgotPassword, .rememberMe, .registerLink{
+    color: #264653;
+
 }
 
 .forgotPassword:hover{
-    color: #E76F51;
+    color: #E9C46A;
 }
 
 .signup {
     text-decoration: underline;
-    color: #E9C46A;
+    color: #264653;
     font-weight: bold;
 }
 
 .signup:hover {
     text-decoration: none;
-    color: #E76F51;
+    color: #E9C46A;;
     font-weight: bold;
-}
-
-.btn-login:hover, .btn-register:hover, .btn-home:hover{
-    background-color: #E76F51;
-    border-color: #E76F51;
-    color: #ffffff;
-}
-
-.btn-login, .btn-register, .btn-home {
-    background-color: #E9C46A;
-    border-color: #E9C46A;
-    color: #264653; 
 }
 
 /*=========================================================REGISTER===================================================*/
@@ -97,6 +86,17 @@ h1 {
     color: #264653;
 }
 
+.btn-home:hover{
+    background-color: #E76F51;
+    border-color: #E76F51;
+    color: #ffffff;
+}
+
+.btn-home {
+    background-color: #E9C46A;
+    border-color: #E9C46A;
+    color: #264653; 
+}
 /*=========================================================SIDEBAR====================================================*/
 ::after,
 ::before {

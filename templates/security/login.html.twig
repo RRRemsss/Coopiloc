@@ -27,7 +27,7 @@
 
                     {# Checkbox "se souvenir de moi" #}
                     <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
-                        <div class="checkbox">
+                        <div class="checkbox rememberMe">
                             <label class="remember-me-label">
                                 <input type="checkbox" name="_remember_me"> Se souvenir de moi
                             </label>
@@ -37,12 +37,12 @@
                             <a href="#" title="Reset password" class="forgotPassword">Mot de passe oublié</a>
                         </div>
                     </div>
-                    <button class="btn btn-login mb-3" type="submit">
+                    <button class="btn btn-success mb-3" type="submit">
                         Se connecter
                     </button>
                     <div class="d-flex justify-content-around align-items-center mt-3 mb-3">
                         <p class="registerLink mb-0"> Première connexion ? </p>
-                        <a class="nav-link signup" href="{{ path('app_register') }}">S'inscrire</a>
+                        <a class="signup" href="{{ path('app_register') }}">S'inscrire</a>
                     </div>
                 </form>
             </div>
