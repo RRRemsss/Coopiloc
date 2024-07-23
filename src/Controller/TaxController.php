@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Property;
 use App\Entity\Tax;
 use App\Form\TaxType;
 use App\Repository\TaxRepository;
@@ -23,13 +24,17 @@ class TaxController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Property $property): Response
     {
         $tax = new Tax();
-        $form = $this->createForm(TaxType::class, $tax);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        // Use property passed in setting
+        $tax->setProperty($property);
+
+        $taxForm = $this->createForm(TaxType::class, $tax);
+        $taxForm->handleRequest($request);
+
+        if ($taxForm->isSubmitted() && $taxForm->isValid()) {
             $entityManager->persist($tax);
             $entityManager->flush();
 
@@ -38,7 +43,7 @@ class TaxController extends AbstractController
 
         return $this->render('tax/new.html.twig', [
             'tax' => $tax,
-            'form' => $form,
+            'taxForm' => $taxForm->createView(),
         ]);
     }
 
@@ -53,10 +58,10 @@ class TaxController extends AbstractController
     #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, Tax $tax, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(TaxType::class, $tax);
-        $form->handleRequest($request);
+        $taxForm = $this->createForm(TaxType::class, $tax);
+        $taxForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($taxForm->isSubmitted() && $taxForm->isValid()) {
             $entityManager->flush();
 
             return $this->redirectToRoute('tax_index', [], Response::HTTP_SEE_OTHER);
@@ -64,7 +69,7 @@ class TaxController extends AbstractController
 
         return $this->render('tax/edit.html.twig', [
             'tax' => $tax,
-            'form' => $form,
+            'form' => $taxForm->createView(),
         ]);
     }
 

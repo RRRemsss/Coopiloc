@@ -26,38 +26,43 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $property = new Property();
-        $description = new Description();
-        $tax = new Tax();
+public function new(Request $request, EntityManagerInterface $entityManager): Response
+{
+    $property = new Property();
+    // Creating new Description and Tax objects
+    $description = new Description();
+    $tax = new Tax();
 
-        $property->addDescription($description);
-        $property->addTax($tax);
+    // Adding the Description and Tax to the Property
+    $property->addDescription($description);
+    $property->addTax($tax);
 
-        $propertyForm = $this->createForm(PropertyType::class, $property);
-        $propertyForm->handleRequest($request);
+    // Persist the Property entity before creating the form
+    $entityManager->persist($property);
 
-        if ($propertyForm->isSubmitted() && $propertyForm->isValid()) {
-            $tenant = $propertyForm->get('leaseParty')->getData();
+    $propertyForm = $this->createForm(PropertyType::class, $property);
+    $propertyForm->handleRequest($request);
 
-            if ($entityManager->getRepository(LeaseParty::class)->isTenantOccupied($tenant)) {
-                // The tenant beongs to a place, show error message
-                $this->addFlash('error', 'Le locataire sélectionné est déjà occupé dans un autre bien.');
-            } else {
-                // The tenant doesn't belong to a place, submit form
-                $entityManager->persist($property);
-                $entityManager->flush();
-                $this->addFlash('success', 'Votre bien immobilier vient d\'être ajouté');
-                return $this->redirectToRoute('property_show');
-            }
+    if ($propertyForm->isSubmitted() && $propertyForm->isValid()) {
+        $tenant = $propertyForm->get('leaseParty')->getData();
+
+        if ($entityManager->getRepository(LeaseParty::class)->isTenantOccupied($tenant)) {
+            // The tenant belongs to a place, show error message
+            $this->addFlash('error', 'Le locataire sélectionné est déjà occupé dans un autre bien.');
+        } else {
+            // The tenant doesn't belong to a place, submit form
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre bien immobilier vient d\'être ajouté');
+            return $this->redirectToRoute('property_show');
         }
-
-        return $this->render('property/new.html.twig', [
-            'property' => $property,
-            'propertyForm' => $propertyForm->createView()
-        ]);
     }
+
+    return $this->render('property/new.html.twig', [
+        'property' => $property,
+        'propertyForm' => $propertyForm->createView()
+    ]);
+}
+
 
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(PropertyRepository $propertyRepository): Response

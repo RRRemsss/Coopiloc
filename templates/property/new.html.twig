@@ -33,7 +33,7 @@
                     <div class="row">
                         <!-- First column -->
                         <div class="col-md-6">
-                            <div class="section-form form-general-information-section1 mb-3 pb-1 pt-3 px-3">
+                            <div class="section-form form-general-information-section1 mb-3 pb-0 pt-3 px-3">
                                 <div class="row">
                                     <div class="col-md-4">
                                         {{ form_row(propertyForm.type) }}
@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="section-form form-general-information-section3 mb-5 p-3">
+                            <div class="section-form form-general-information-section3 mb-3 p-3">
                             {% for description in propertyForm.descriptions %}
                                 <div class="row">
                                     <div class="col-md-6">
@@ -87,7 +87,7 @@
                                         {{ form_row(description.numberOfBedrooms) }}
                                     </div>
                                 </div>
-                                <div class="row mt-3">
+                                <div class="row mt-0">
                                     <div class="col-md-6">
                                         {{ form_row(description.numberOfRooms) }}
                                     </div>
@@ -95,7 +95,7 @@
                                         {{ form_row(description.numberOfBathrooms) }}
                                     </div>
                                 </div>
-                                <div class="row mt-3">
+                                <div class="row mt-0">
                                     <div class="col-md-6">
                                         {{ form_row(description.constructionDate) }}
                                     </div>
@@ -162,24 +162,75 @@
                     {% endfor %}
                 </div>
                 <div id="form-financial-information" class="form-section d-none">
-                    <div class="section-form form-financial-information-section1 mb-3 p-3">
-                        {{ form_row(propertyForm.acquisitionDate) }}
-                        {{ form_row(propertyForm.acquisitionPrice) }}
-                        {{ form_row(propertyForm.acquisitionFee) }}
-                        {{ form_row(propertyForm.agencyFee) }}
-                        {{ form_row(propertyForm.propertyValue) }}
+                    <div class="row">
+                        <!-- First column -->
+                        <div class="col-md-6">
+                            <div class="section-form form-financial-information-section1 mb-3 p-3">
+                                <div class="row">
+                                     <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                        <label for="{{ propertyForm.acquisitionDate.vars.id }}" class="me-6">{{ propertyForm.acquisitionDate.vars.label }}</label>
+                                        {{ form_widget(propertyForm.acquisitionDate) }}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        {{ form_row(propertyForm.acquisitionPrice) }}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        {{ form_row(propertyForm.acquisitionFee) }}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        {{ form_row(propertyForm.agencyFee) }}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        {{ form_row(propertyForm.propertyValue) }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% for tax in propertyForm.taxes %}
+                            <div class="section-form form-financial-information-section2 mb-3 p-3">
+                                <div class="row">
+                                    <div class="col-md-12 mt-0">
+                                        {{ form_row(tax.taxSystem) }}
+                                    </div>
+                                    <div class="col-md-12 mt-0">
+                                        {{ form_row(tax.housingTax) }}
+                                     </div>
+                                    <div class="col-md-12 mt-3">
+                                        {{ form_row(tax.propertyTax) }}
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                        <!-- Second column -->
+                        <div class="col-md-6">
+                                <div class="section-form form-financial-information-section3 mb-3 p-3">
+                                    <div class="col-md-12 mt-3">
+                                        {{ form_row(tax.taxNumber) }}
+                                    </div>
+                                    <div class="col-md-12 mt-3">
+                                        {{ form_row(tax.siret) }}
+                                    </div>
+                                     <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
+                                        <label for="{{ tax.dateActivityStart.vars.id }}" class="me-6">{{ tax.dateActivityStart.vars.label }}</label>
+                                        {{ form_widget(tax.dateActivityStart) }}
+                                    </div>
+                                </div>
+                                <div class="section-form form-financial-information-section4 mb-3 p-3">
+                                    {{ form_row(tax.comment) }}
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
+                    {{ form_end(propertyForm) }}
                 </div>
-                {{ form_end(propertyForm) }}
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-6 text-center">
-                <div class="d-inline-block">
-                    <button type="submit" class="btn btn-success">Enregistrer</button>
-                </div>
-                <div class="d-inline-block">
-                    <a href="{{ path('main_home') }}" class="btn btn-cancel mt-0">Annuler</a>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <div class="d-inline-block">
+                            <button type="submit" class="btn btn-success">Enregistrer</button>
+                        </div>
+                        <div class="d-inline-block">
+                            <a href="{{ path('main_home') }}" class="btn btn-cancel mt-0">Annuler</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

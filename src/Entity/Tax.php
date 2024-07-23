@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TaxRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TaxRepository::class)]
@@ -19,14 +20,20 @@ class Tax
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $taxNumber = null;
 
-    #[ORM\Column(length: 25, nullable: true)]
-    private ?string $taxName = null;
+    #[ORM\Column(length: 15, nullable: true)]
+    private ?string $siret = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateActivityStart = null;
 
     #[ORM\Column(nullable: true)]
-    private ?float $taxAmount = null;
+    private ?float $housingTax = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $propertyTax = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $comment = null;
 
     #[ORM\ManyToOne(inversedBy: 'taxes')]
     private ?Property $property = null;
@@ -60,26 +67,38 @@ class Tax
         return $this;
     }
 
-    public function getTaxName(): ?string
+    public function getSiret(): ?string
     {
-        return $this->taxName;
+        return $this->siret;
     }
 
-    public function setTaxName(?string $taxName): static
+    public function setSiret(?string $siret): static
     {
-        $this->taxName = $taxName;
+        $this->siret = $siret;
 
         return $this;
     }
 
-    public function getTaxAmount(): ?float
+    public function getdateActivityStart(): ?\DateTimeInterface
     {
-        return $this->taxAmount;
+        return $this->dateActivityStart;
     }
 
-    public function setTaxAmount(?float $taxAmount): static
+    public function setdateActivityStart(?\DateTimeInterface $dateActivityStart): static
     {
-        $this->taxAmount = $taxAmount;
+        $this->dateActivityStart = $dateActivityStart;
+
+        return $this;
+    }
+
+    public function getHousingTax(): ?float
+    {
+        return $this->housingTax;
+    }
+
+    public function setHousingTax(?float $housingTax): static
+    {
+        $this->housingTax = $housingTax;
 
         return $this;
     }
@@ -104,6 +123,18 @@ class Tax
     public function setProperty(?Property $property): static
     {
         $this->property = $property;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): static
+    {
+        $this->comment = $comment;
 
         return $this;
     }

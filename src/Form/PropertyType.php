@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Property;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -65,35 +64,39 @@ class PropertyType extends AbstractType
                     return ['style' => sprintf('background-color: %s;', $value)];
                 },
                 'placeholder' => 'Couleur',
-                'attr' => ['class' => 'form-select form-select-ms mb-3'],
+                'attr' => ['class' => 'form-select form-control-color mb-3'],
             ])
             ->add('acquisitionDate', DateType::class, [
-                'label' => 'Date d\'acquisition',
+                'label' => 'Date d\'acquisition du bien :',
                 'html5' => true,
                 'widget' => 'single_text',
                 'required' => false,
+                'attr' => ['class' => 'form-control w-50'],
             ])
             ->add('acquisitionPrice', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Prix d\'acquisition'],
+                'attr' => ['placeholder' => 'Prix d\'acquisition',
+                            'class' => 'form-control'],
             ])
             ->add('acquisitionFee', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Frais d\'acquisition'],
+                'attr' => ['placeholder' => 'Frais d\'acquisition',
+                            'class' => 'form-control'],
             ])
             ->add('agencyFee', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Frais d\'agence'],
+                'attr' => ['placeholder' => 'Frais d\'agence',
+                            'class' => 'form-control'],
             ])
             ->add('propertyValue', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Valeur actuelle'],
+                'attr' => ['placeholder' => 'Valeur actuelle',
+                            'class' => 'form-control'],
             ])
-
             ->add('address', AddressType::class, [
                 'label' => false,
             ])
@@ -103,6 +106,10 @@ class PropertyType extends AbstractType
             ])
             ->add('rentals', CollectionType::class, [
                 'entry_type' => RentalType::class,
+                'label' => false,
+            ])
+            ->add('taxes', CollectionType::class, [
+                'entry_type' => TaxType::class,
                 'label' => false,
             ]);
     }

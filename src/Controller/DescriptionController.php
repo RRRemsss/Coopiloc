@@ -28,7 +28,7 @@ class DescriptionController extends AbstractController
     {
         $description = new Description();
 
-        // Utiliser la propriété passée en paramètre
+        // Use property passed in setting
         $description->setProperty($property);
 
         $descriptionForm = $this->createForm(DescriptionType::class, $description);
