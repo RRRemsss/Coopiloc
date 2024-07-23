@@ -32,10 +32,16 @@ class LeaseParty
     private ?string $placeOfBirth = null;
 
     #[ORM\Column(length: 100, nullable: true)]
+    private ?string $nationality = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $profession = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $monthlyIncome = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $privateComment = null;
 
     /**
      * @var Collection<int, Rental>
@@ -121,6 +127,18 @@ class LeaseParty
 
         return $this;
     }
+    
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?string $nationality): static
+    {
+        $this->nationality = $nationality;
+
+        return $this;
+    }
 
     public function getProfession(): ?string
     {
@@ -142,6 +160,18 @@ class LeaseParty
     public function setMonthlyIncome(float $monthlyIncome): static
     {
         $this->monthlyIncome = $monthlyIncome;
+
+        return $this;
+    }
+
+    public function getPrivateComment(): ?string
+    {
+        return $this->privateComment;
+    }
+
+    public function setPrivateComment(?string $privateComment): static
+    {
+        $this->privateComment = $privateComment;
 
         return $this;
     }

@@ -26,10 +26,11 @@ class LeasePartyController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $leaseParty = new LeaseParty();
-        $form = $this->createForm(LeasePartyType::class, $leaseParty);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $leasePartyForm = $this->createForm(LeasePartyType::class, $leaseParty);
+        $leasePartyForm->handleRequest($request);
+
+        if ($leasePartyForm->isSubmitted() && $leasePartyForm->isValid()) {
             $entityManager->persist($leaseParty);
             $entityManager->flush();
 
@@ -38,7 +39,7 @@ class LeasePartyController extends AbstractController
 
         return $this->render('lease_party/new.html.twig', [
             'lease_party' => $leaseParty,
-            'form' => $form,
+            'leasePartyForm' => $leasePartyForm->createView()
         ]);
     }
 
@@ -53,18 +54,20 @@ class LeasePartyController extends AbstractController
     #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, LeaseParty $leaseParty, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(LeasePartyType::class, $leaseParty);
-        $form->handleRequest($request);
+        $leasePartyForm = $this->createForm(LeasePartyType::class, $leaseParty);
+        $leasePartyForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($leasePartyForm->isSubmitted() && $leasePartyForm->isValid()) {
             $entityManager->flush();
+
+            $this->addFlash('success', 'Le/la partie a été modifié avec succès.');
 
             return $this->redirectToRoute('leaseParty_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('lease_party/edit.html.twig', [
             'lease_party' => $leaseParty,
-            'form' => $form,
+            'leasePartyForm' => $leasePartyForm->createView()
         ]);
     }
 
@@ -75,6 +78,8 @@ class LeasePartyController extends AbstractController
             $entityManager->remove($leaseParty);
             $entityManager->flush();
         }
+
+        $this->addFlash('success', 'Le/la partie du contrat a été supprimé avec succès.');
 
         return $this->redirectToRoute('leaseParty_index', [], Response::HTTP_SEE_OTHER);
     }

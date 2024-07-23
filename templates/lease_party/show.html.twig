@@ -42,9 +42,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_lease_party_index') }}">back to list</a>
+    <a href="{{ path('leaseParty_index') }}">back to list</a>
 
-    <a href="{{ path('app_lease_party_edit', {'id': lease_party.id}) }}">edit</a>
+    <a href="{{ path('leaseParty_edit', {'id': lease_party.id}) }}">edit</a>
 
     {{ include('lease_party/_delete_form.html.twig') }}
 {% endblock %}

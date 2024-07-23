@@ -18,29 +18,29 @@ class PersonDetailType extends AbstractType
         $builder
             ->add('firstname', TextType::class, [
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Prénom'
-                ],
+                'required' => true,
+                'attr' => ['placeholder' => 'Prénom',
+                            'class' => 'form-control'],
             ])
             ->add('lastname', TextType::class, [
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Nom'
-                ],
+                'required' => true,
+                'attr' => ['placeholder' => 'Nom',
+                            'class' => 'form-control'],
             ])
             ->add('email', TextType::class, [
                 'label' => false,
-                'attr' => [
-                    'placeholder' => 'Email'
-                ],
+                'required' => false,
+                'attr' => ['placeholder' => 'Email',
+                            'class' => 'form-control'],
             ]);
 
             if ($options['include_phone']) {
                 $builder->add('phoneNumber', TextType::class, [
                     'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Numéro de téléphone'
-                    ],
+                    'required' => false,
+                    'attr' => ['placeholder' => 'Numéro de téléphone',
+                                'class' => 'form-control'],
                 ]);
             }
         ;

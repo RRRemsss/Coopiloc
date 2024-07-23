@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} |Nouveau bien{% endblock %}
+{% block title %}{{ parent() }} | Nouveau bien{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -209,7 +209,7 @@
                                     <div class="col-md-12 mt-3">
                                         {{ form_row(tax.siret) }}
                                     </div>
-                                     <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
+                                    <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
                                         <label for="{{ tax.dateActivityStart.vars.id }}" class="me-6">{{ tax.dateActivityStart.vars.label }}</label>
                                         {{ form_widget(tax.dateActivityStart) }}
                                     </div>

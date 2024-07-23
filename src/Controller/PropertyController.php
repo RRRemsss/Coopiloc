@@ -48,7 +48,7 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
 
         if ($entityManager->getRepository(LeaseParty::class)->isTenantOccupied($tenant)) {
             // The tenant belongs to a place, show error message
-            $this->addFlash('error', 'Le locataire sélectionné est déjà occupé dans un autre bien.');
+            $this->addFlash('error', 'Le/la partie sélectionné est déjà occupé dans un autre bien.');
         } else {
             // The tenant doesn't belong to a place, submit form
             $entityManager->flush();

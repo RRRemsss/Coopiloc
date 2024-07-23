@@ -26,10 +26,10 @@ class PersonDetailController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $personDetail = new PersonDetail();
-        $form = $this->createForm(PersonDetailType::class, $personDetail);
-        $form->handleRequest($request);
+        $personDetailForm = $this->createForm(PersonDetailType::class, $personDetail);
+        $personDetailForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($personDetailForm->isSubmitted() && $personDetailForm->isValid()) {
             $entityManager->persist($personDetail);
             $entityManager->flush();
 
@@ -38,7 +38,7 @@ class PersonDetailController extends AbstractController
 
         return $this->render('person_detail/new.html.twig', [
             'person_detail' => $personDetail,
-            'form' => $form,
+            'personDetailForm' => $personDetailForm->createView()
         ]);
     }
 
@@ -53,10 +53,10 @@ class PersonDetailController extends AbstractController
     #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, PersonDetail $personDetail, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(PersonDetailType::class, $personDetail);
-        $form->handleRequest($request);
+        $personDetailForm = $this->createForm(PersonDetailType::class, $personDetail);
+        $personDetailForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($personDetailForm->isSubmitted() && $personDetailForm->isValid()) {
             $entityManager->flush();
 
             return $this->redirectToRoute('detail_index', [], Response::HTTP_SEE_OTHER);
@@ -64,7 +64,7 @@ class PersonDetailController extends AbstractController
 
         return $this->render('person_detail/edit.html.twig', [
             'person_detail' => $personDetail,
-            'form' => $form,
+            'personDetailForm' => $personDetailForm->createView()
         ]);
     }
 
