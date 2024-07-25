@@ -25,8 +25,11 @@ class PersonDetail
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
-    #[ORM\OneToOne(inversedBy: 'personDetail', cascade: ['persist', 'remove'])]
-    private ?LeaseParty $leaseParty = null;
+    #[ORM\OneToOne(inversedBy: 'tenantPersonDetail', cascade: ['persist', 'remove'])]
+    private ?LeaseParty $leasePartyTenant = null;
+
+    #[ORM\OneToOne(inversedBy: 'guarantorPersonDetail', cascade: ['persist', 'remove'])]
+    private ?LeaseParty $leasePartyGuarantor = null;
 
     #[ORM\OneToOne(inversedBy: 'personDetail', cascade: ['persist', 'remove'])]
     private ?User $user = null;
@@ -84,14 +87,14 @@ class PersonDetail
         return $this;
     }
 
-    public function getLeaseParty(): ?leaseParty
+    public function getLeasePartyTenant(): ?leaseParty
     {
-        return $this->leaseParty;
+        return $this->leasePartyTenant;
     }
 
-    public function setLeaseParty(?leaseParty $leaseParty): static
+    public function setLeasePartyTenant(?leaseParty $leasePartyTenant): static
     {
-        $this->leaseParty = $leaseParty;
+        $this->leasePartyTenant = $leasePartyTenant;
 
         return $this;
     }
@@ -107,4 +110,18 @@ class PersonDetail
 
         return $this;
     }
+
+    public function getLeasePartyGuarantor(): ?LeaseParty
+    {
+        return $this->leasePartyGuarantor;
+    }
+
+    public function setLeasePartyGuarantor(?LeaseParty $leasePartyGuarantor): static
+    {
+        $this->leasePartyGuarantor = $leasePartyGuarantor;
+
+        return $this;
+    }
+
+
 }

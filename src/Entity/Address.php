@@ -48,13 +48,17 @@ class Address
     /**
      * @var Collection<int, LeaseParty>
      */
-    #[ORM\OneToMany(targetEntity: LeaseParty::class, mappedBy: 'address')]
+    #[ORM\OneToMany(targetEntity: LeaseParty::class, mappedBy: 'guarantorAddress')]
     private Collection $leaseParties;
 
+    /**
+     * @var Collection<int, LeaseParty>
+     */
     public function __construct()
     {
         $this->properties = new ArrayCollection();
         $this->leaseParties = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -200,7 +204,7 @@ class Address
     {
         if (!$this->leaseParties->contains($leaseParty)) {
             $this->leaseParties->add($leaseParty);
-            $leaseParty->setAddress($this);
+            $leaseParty->setGuarantorAddress($this);
         }
 
         return $this;
@@ -210,11 +214,12 @@ class Address
     {
         if ($this->leaseParties->removeElement($leaseParty)) {
             // set the owning side to null (unless already changed)
-            if ($leaseParty->getAddress() === $this) {
-                $leaseParty->setAddress(null);
+            if ($leaseParty->getGuarantorAddress() === $this) {
+                $leaseParty->setGuarantorAddress(null);
             }
         }
 
         return $this;
     }
+
 }

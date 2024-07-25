@@ -67,7 +67,7 @@ class DescriptionType extends AbstractType
                 'placeholder' => 'Nombre de salle d\'eau',
                 'attr' => ['class' => 'form-select form-select-ms mb-'],
             ])
-            ->add('constructionDate', ChoiceType::class, [
+            ->add('constructionYear', ChoiceType::class, [
                 'label' => false,
                 'choices' => array_combine($years, $years),
                 'placeholder' => 'Année de construction',

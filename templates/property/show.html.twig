@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Property{% endblock %}
+{% block title %}{{ parent() }} | {{ property.namePlace }}{% endblock %}
 
 {% block body %}
     <h1>Property</h1>

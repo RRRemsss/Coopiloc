@@ -43,6 +43,9 @@ class LeaseParty
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $privateComment = null;
 
+    #[ORM\Column]
+    private ?bool $hasGuarantor = null;
+
     /**
      * @var Collection<int, Rental>
      */
@@ -52,11 +55,19 @@ class LeaseParty
     #[ORM\OneToOne(inversedBy: 'leaseParty', cascade: ['persist', 'remove'])]
     private ?IdentityDocument $identityDocuments = null;
 
-    #[ORM\ManyToOne(inversedBy: 'leaseParties')]
-    private ?Address $address = null;
+    /**Informations of Tenant**/
+    #[ORM\OneToOne(mappedBy: 'leasePartyTenant', cascade: ['persist', 'remove'])]
+    private ?PersonDetail $tenantPersonDetail = null;
 
-    #[ORM\OneToOne(mappedBy: 'leaseParty', cascade: ['persist', 'remove'])]
-    private ?PersonDetail $personDetail = null;
+    /**Informations of Guarantor**/
+    #[ORM\OneToOne(mappedBy: 'leasePartyGuarantor', cascade: ['persist', 'remove'])]
+    private ?PersonDetail $guarantorPersonDetail = null;
+
+    #[ORM\ManyToOne(inversedBy: 'leaseParties')]
+    private ?Address $guarantorAddress = null;
+
+    #[ORM\OneToOne(targetEntity: LeaseParty::class, cascade: ['persist', 'remove'])]
+    private ?LeaseParty $guarantor = null;
 
     public function __construct()
     {
@@ -215,36 +226,80 @@ class LeaseParty
         return $this;
     }
 
-    public function getAddress(): ?Address
+    public function getTenantPersonDetail(): ?PersonDetail
     {
-        return $this->address;
+        return $this->tenantPersonDetail;
     }
 
-    public function setAddress(?Address $address): static
+    public function setTenantPersonDetail(?PersonDetail $tenantPersonDetail): static
     {
-        $this->address = $address;
+        // unset the owning side of the relation if necessary
+        if ($tenantPersonDetail === null && $this->tenantPersonDetail !== null) {
+            $this->tenantPersonDetail->setLeasePartyTenant(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($tenantPersonDetail !== null && $tenantPersonDetail->getLeasePartyTenant() !== $this) {
+            $tenantPersonDetail->setLeasePartyTenant($this);
+        }
+
+        $this->tenantPersonDetail = $tenantPersonDetail;
 
         return $this;
     }
 
-    public function getPersonDetail(): ?PersonDetail
+    public function getGuarantorPersonDetail(): ?PersonDetail
     {
-        return $this->personDetail;
+        return $this->guarantorPersonDetail;
     }
 
-    public function setPersonDetail(?PersonDetail $personDetail): static
+    public function setGuarantorPersonDetail(?PersonDetail $guarantorPersonDetail): static
     {
-        // unset the owning side of the relation if necessary
-        if ($personDetail === null && $this->personDetail !== null) {
-            $this->personDetail->setLeaseParty(null);
+        if ($guarantorPersonDetail === null && $this->guarantorPersonDetail !== null) {
+            $this->guarantorPersonDetail->setLeasePartyGuarantor(null);
         }
 
-        // set the owning side of the relation if necessary
-        if ($personDetail !== null && $personDetail->getLeaseParty() !== $this) {
-            $personDetail->setLeaseParty($this);
+        if ($guarantorPersonDetail !== null && $guarantorPersonDetail->getLeasePartyGuarantor() !== $this) {
+            $guarantorPersonDetail->setLeasePartyGuarantor($this);
         }
 
-        $this->personDetail = $personDetail;
+        $this->guarantorPersonDetail = $guarantorPersonDetail;
+
+        return $this;
+    }
+
+    public function hasGuarantor(): ?bool
+    {
+        return $this->hasGuarantor;
+    }
+
+    public function setHasGuarantor(bool $hasGuarantor): static
+    {
+        $this->hasGuarantor = $hasGuarantor;
+
+        return $this;
+    }
+
+    public function getGuarantorAddress(): ?Address
+    {
+        return $this->guarantorAddress;
+    }
+
+    public function setGuarantorAddress(?Address $guarantorAddress): static
+    {
+        $this->guarantorAddress = $guarantorAddress;
+
+        return $this;
+    }
+
+    public function getGuarantor(): ?LeaseParty
+    {
+        return $this->guarantor;
+    }
+
+    public function setGuarantor(?LeaseParty $guarantor): static
+    {
+        $this->guarantor = $guarantor;
 
         return $this;
     }

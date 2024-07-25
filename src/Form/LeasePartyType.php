@@ -2,58 +2,45 @@
 
 namespace App\Form;
 
-use App\Entity\Address;
-use App\Entity\IdentityDocument;
+
 use App\Entity\LeaseParty;
-use App\Entity\PersonDetail;
-use App\Entity\Rental;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LeasePartyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $colors = [
-            'Rouge' => '#FF0000',
-            'Vert foncé' => '#226D68',
-            'Vert clair' => '#2CCED2',
-            'Bleu' => '#5784BA',
-            'Orange' => '#F27438',
-            'Violet' => '#C49FFF',
-            'Rose' => '#DB6A8F',
-            'Jaune' => '#FFEB69'
-        ];
-
+  
         $builder
-            ->add('color', ChoiceType::class, [
-                'label' => false,
-                'choices' => array_merge(['' => ''], $colors),
-                'choice_label' => function ($choice, $key, $value) use ($colors) {
-                    if ($choice === '') {
-                        return 'Choix couleur';  // Placeholder text
-                    }
-                    return $key;
-                },
-                'required' => false,
-                'choice_attr' => function ($choice, $key, $value) {
-                    if ($choice === '') {
-                        return [];
-                    }
-                    return ['style' => sprintf('background-color: %s;', $value)];
-                },
-                'placeholder' => 'Couleur',
-                'attr' => ['class' => 'form-select form-control-color mb-3'],
-            ])
+        ->add('color', ChoiceType::class, [
+            'label' => false,
+            'choices' => [
+                '' => '',
+                'Rouge' => '#FF0000',
+                'Vert foncé' => '#226D68',
+                'Vert clair' => '#2CCED2',
+                'Bleu' => '#5784BA',
+                'Orange' => '#F27438',
+                'Violet' => '#C49FFF',
+                'Rose' => '#DB6A8F',
+                'Jaune' => '#FFEB69',
+            ],
+            'choice_label' => function ($choice, $key, $value) {
+                return $choice === '' ? 'Choix couleur' : $key;
+            },
+            'choice_attr' => function ($choice, $key, $value) {
+                return $choice === '' ? [] : ['style' => sprintf('background-color: %s;', $value)];
+            },
+            'placeholder' => 'Couleur',
+            'attr' => ['class' => 'form-select form-control-color mb-3'],
+            'required' => false,
+        ])
             ->add('leasePartyType', ChoiceType::class, [
                 'choices' => [
                     'Locataire' => 'tenant',
@@ -126,6 +113,23 @@ class LeasePartyType extends AbstractType
                     'class' => 'form-label', 
                 ],
             ])
+            ->add('hasGuarantor', ChoiceType::class, [
+                'label' => 'Il y a-t-il un garant ?',
+                'choices' => [
+                    'Oui' => true,
+                    'Non' => false,
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'required' => true,
+                'attr' => ['class' => 'form-check-input'],
+                'label_attr'=> ['class'=> 'form-label me-3'],
+            ])
+            ->add('guarantor', GuarantorType::class, [
+                'label' => false,
+                'required' => false,
+            ])
+            
             // Supposons que vous avez commenté ces champs, décommentez-les si vous les utilisez
             // ->add('rentals', EntityType::class, [
             //     'class' => Rental::class,
@@ -136,13 +140,21 @@ class LeasePartyType extends AbstractType
                 'label' => false,
                 'required' => false,
             ])
-            // ->add('address', AddressType::class, [
-            //     'label' => false,
-            // ])
-            ->add('personDetail', PersonDetailType::class, [
+            ->add('guarantorAddress', AddressType::class, [
                 'label' => false,
                 'required' => false,
-            ]);
+                'by_reference' => false,
+            ])
+            ->add('guarantorPersonDetail', PersonDetailType::class, [
+                'label' => false,
+                'required' => false,
+            ])
+            ->add('tenantPersonDetail', PersonDetailType::class, [
+                'label' => false,
+                'required' => false,
+            ])
+
+           ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

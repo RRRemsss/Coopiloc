@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\LeaseParty;
+use App\Entity\PersonDetail;
+use App\Form\GuarantorType;
+use App\Form\LeaseFormType;
 use App\Form\LeasePartyType;
+use App\Form\TenantType;
 use App\Repository\LeasePartyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +31,25 @@ class LeasePartyController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $leaseParty = new LeaseParty();
-
         $leasePartyForm = $this->createForm(LeasePartyType::class, $leaseParty);
         $leasePartyForm->handleRequest($request);
 
         if ($leasePartyForm->isSubmitted() && $leasePartyForm->isValid()) {
+            $personDetailData = $leasePartyForm->get('personDetail')->getData();
+
+            $personDetail = new PersonDetail();
+            $personDetail->setFirstName($personDetailData->getFirstName());
+            $personDetail->setLastName($personDetailData->getLastName());
+            $personDetail->setEmail($personDetailData->getEmail());
+            $personDetail->setPhoneNumber($personDetailData->getPhoneNumber());
+
+            $leaseParty->setTenantPersonDetail($personDetail);
+
+            if ($leaseParty->getLeasePartyType() === 'guarantor') {
+                $guarantorAddress = $leasePartyForm->get('guarantorAddress')->getData();
+                $leaseParty->setGuarantorAddress($guarantorAddress);
+            }
+
             $entityManager->persist($leaseParty);
             $entityManager->flush();
 
@@ -39,7 +58,7 @@ class LeasePartyController extends AbstractController
 
         return $this->render('lease_party/new.html.twig', [
             'lease_party' => $leaseParty,
-            'leasePartyForm' => $leasePartyForm->createView()
+            'leasePartyForm' => $leasePartyForm->createView(),
         ]);
     }
 

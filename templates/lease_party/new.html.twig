@@ -31,7 +31,6 @@
                                 <!-- first line -->
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <!-- Civilité avec cases à cocher -->
                                         <div class="form-check custom-checkbox-grid">
                                             {% for choice in leasePartyForm.civility %}
                                                 <div class="form-check form-check-inline">
@@ -45,16 +44,16 @@
                                 <!-- second line -->
                                 <div class="row mt-2">
                                     <div class="col-md-4">
-                                        {{ form_row(leasePartyForm.personDetail.lastname) }}
+                                        {{ form_row(leasePartyForm.tenantPersonDetail.lastname) }}
                                     </div>
                                     <div class="col-md-4">
-                                        {{ form_row(leasePartyForm.personDetail.firstname) }}
+                                        {{ form_row(leasePartyForm.tenantPersonDetail.firstname) }}
                                     </div>
                                     <div class="col-md-4">
                                         {{ form_row(leasePartyForm.color) }}
                                     </div>
                                 </div>
-                                <!-- third linee -->
+                                <!-- third line -->
                                 <div class="row mt-0">
                                     <div class="col-md-12 mt-0 d-flex justify-content-between align-items-center">
                                         <label for="{{ leasePartyForm.dateOfBirth.vars.id }}" class="me-6">{{ leasePartyForm.dateOfBirth.vars.label }}</label>
@@ -97,10 +96,10 @@
                             <div class="section-form form-general-information-section3 mb-3 p-3">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        {{ form_row(leasePartyForm.personDetail.email) }}
+                                        {{ form_row(leasePartyForm.tenantPersonDetail.email) }}
                                     </div>
                                     <div class="col-md-6">
-                                        {{ form_row(leasePartyForm.personDetail.phoneNumber) }}
+                                        {{ form_row(leasePartyForm.tenantPersonDetail.phoneNumber) }}
                                     </div>
                                 </div>
                             </div>
@@ -113,112 +112,108 @@
                         </div>
                     </div>
                 </div>
-                {# <div id="form-additional-information" class="form-section d-none">
-                    <div class="section-form form-additional-information-section1 mb-3 pb-1 pt-3 px-3">
-                        <div class="row">
-                            <div class="col-md-6">
-                                {{ form_row(description.propertyType) }}
-                            </div>
-                            <div class="col-md-6">
-                                {{ form_row(description.legalRegime) }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="section-form form-additional-information-section2 mb-3 p-3">
-                        <p>Désignation des parties et équipements</p>
-                        <div class="row custom-checkbox-grid">
-                        {% for child in description.equipment %}
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    {{ form_widget(child) }}
-                                    {{ form_label(child) }}
-                                </div>
-                            </div>
-                        {% endfor %}
-                        </div>
-                    </div>
-                    <div class="section-form form-additional-information-section3 mb-3 p-3">
-                        <div class="row">
-                            <div class="col-md-2">
-                                {{ form_row(description.buildingLot) }}
-                            </div>
-                            <div class="col-md-2">
-                                {{ form_row(description.thousandths) }}
-                            </div>
-                            <div class="col-md-2">
-                                {{ form_row(description.parking) }}
-                            </div>
-                            <div class="col-md-2">
-                                {{ form_row(description.cellarType) }}
-                            </div>
-                            <div class="col-md-4">
-                                {{ form_row(description.dependency) }}
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div id="form-financial-information" class="form-section d-none">
+                <!-- Tab Guarantor -->
+                <div id="form-guarantor-information" class="form-section">
                     <div class="row">
-                        <!-- First column -->
                         <div class="col-md-6">
-                            <div class="section-form form-financial-information-section1 mb-3 p-3">
+                            <div class="section-form form-guarantor-information-section1 mb-3 p-3">
                                 <div class="row">
-                                     <div class="col-md-12 d-flex justify-content-between align-items-center">
-                                        <label for="{{ propertyForm.acquisitionDate.vars.id }}" class="me-6">{{ propertyForm.acquisitionDate.vars.label }}</label>
-                                        {{ form_widget(propertyForm.acquisitionDate) }}
-                                    </div>
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(propertyForm.acquisitionPrice) }}
-                                    </div>
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(propertyForm.acquisitionFee) }}
-                                    </div>
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(propertyForm.agencyFee) }}
-                                    </div>
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(propertyForm.propertyValue) }}
+                                    <div class="col-md-12">
+                                        <div class="form-check custom-checkbox-grid d-flex align-items-center">
+                                            {{ form_label(leasePartyForm.hasGuarantor) }}
+                                            {% for choice in leasePartyForm.hasGuarantor %}
+                                                <div class="form-check form-check-inline me-2">
+                                                    {{ form_widget(choice) }}
+                                                    {{ form_label(choice) }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            {% for tax in propertyForm.taxes %}
-                            <div class="section-form form-financial-information-section2 mb-3 p-3">
+                            <div class="section-form form-guarantor-information-section2 mb-3 p-3">
                                 <div class="row">
-                                    <div class="col-md-12 mt-0">
-                                        {{ form_row(tax.taxSystem) }}
-                                    </div>
-                                    <div class="col-md-12 mt-0">
-                                        {{ form_row(tax.housingTax) }}
-                                     </div>
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(tax.propertyTax) }}
+                                    <div class="col-md-12">
+                                        <div class="row mt-3 px-0">
+                                            <div class="col-md-4">
+                                                     {{ form_row(leasePartyForm.guarantor.civility) }}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{ form_row(leasePartyForm.guarantorPersonDetail.firstname) }}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    {{ form_row(leasePartyForm.guarantorPersonDetail.lastname) }}
+                                                </div>
+                                            </div>
+                                            <div class="row mt-0">
+                                            <div class="col-md-12 mt-0 d-flex justify-content-between align-items-center">
+                                                <label for="{{ leasePartyForm.guarantor.dateOfBirth.vars.id }}" class="me-6">{{ leasePartyForm.guarantor.dateOfBirth.vars.label }}</label>
+                                                {{ form_widget(leasePartyForm.guarantor.dateOfBirth) }}
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                {{ form_row(leasePartyForm.guarantor.placeOfBirth) }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ form_row(leasePartyForm.guarantor.nationality) }}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> 
-                        </div>
-                        <!-- Second column -->
-                        <div class="col-md-6">
-                                <div class="section-form form-financial-information-section3 mb-3 p-3">
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(tax.taxNumber) }}
+                            </div>
+                            <div class="section-form form-guarantor-information-section3 mb-3 p-3">
+                                <div class="row">
+                                     <div class="col-md-6">
+                                        {{ form_row(leasePartyForm.guarantor.identityDocuments.identityDocumentType) }}
                                     </div>
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(tax.siret) }}
+                                    <div class="col-md-6">
+                                        {{ form_row(leasePartyForm.guarantor.identityDocuments.identityNumber) }}
                                     </div>
-                                     <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
-                                        <label for="{{ tax.dateActivityStart.vars.id }}" class="me-6">{{ tax.dateActivityStart.vars.label }}</label>
-                                        {{ form_widget(tax.dateActivityStart) }}
+                                    <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
+                                        <label for="{{ leasePartyForm.guarantor.identityDocuments.expirationDate.vars.id }}" class="me-6">{{ leasePartyForm.guarantor.identityDocuments.expirationDate.vars.label }}</label>
+                                        {{ form_widget(leasePartyForm.guarantor.identityDocuments.expirationDate) }}
                                     </div>
                                 </div>
-                                <div class="section-form form-financial-information-section4 mb-3 p-3">
-                                    {{ form_row(tax.comment) }}
+                            </div>
+                            <div class="section-form form-guarantor-information-section4 mb-3 p-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                         {{ form_row(leasePartyForm.guarantorPersonDetail.email) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(leasePartyForm.guarantorPersonDetail.phoneNumber) }}
+                                    </div>
                                 </div>
-                            {% endfor %}
-                        </div>
+                            </div>
+                            <div class="section-form form-guarantor-information-section5 mb-3 p-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form_row(leasePartyForm.guarantorAddress.streetName) }}
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-md-4">
+                                                {{ form_row(leasePartyForm.guarantorAddress.postCode) }}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{ form_row(leasePartyForm.guarantorAddress.city) }}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{ form_row(leasePartyForm.guarantorAddress.country) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Second column -->
+                            <div class="col-md-6">
+                                <div class="section-form form-general-information-section5 mb-3 p-3">
+                                    {{ form_row(leasePartyForm.guarantor.privateComment) }}
+                                </div>
+                            </div>  
+                        </div>    
                     </div>
-                    {{ form_end(leasePartyForm) }}
-                </div> #}
+                </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
                         <div class="d-inline-block">

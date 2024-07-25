@@ -46,31 +46,31 @@ class Property
     /**
      * @var Collection<int, PropertyImage>
      */
-    #[ORM\OneToMany(targetEntity: PropertyImage::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: PropertyImage::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
     private Collection $propertyImages;
 
     /**
      * @var Collection<int, Description>
      */
-    #[ORM\OneToMany(targetEntity: Description::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: Description::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
     private Collection $descriptions;
 
     /**
      * @var Collection<int, Tax>
      */
-    #[ORM\OneToMany(targetEntity: Tax::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: Tax::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
     private Collection $taxes;
 
     /**
      * @var Collection<int, LandRegistry>
      */
-    #[ORM\OneToMany(targetEntity: LandRegistry::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: LandRegistry::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
     private Collection $landRegistries;
 
     /**
      * @var Collection<int, PropertyDocument>
      */
-    #[ORM\OneToMany(targetEntity: PropertyDocument::class, mappedBy: 'property')]
+    #[ORM\OneToMany(targetEntity: PropertyDocument::class, mappedBy: 'property', cascade: ['persist', 'remove'])]
     private Collection $propertyDocuments;
 
     /**
@@ -79,7 +79,7 @@ class Property
     #[ORM\OneToMany(targetEntity: Rental::class, mappedBy: 'property')]
     private Collection $Rentals;
 
-    #[ORM\ManyToOne(inversedBy: 'properties')]
+    #[ORM\ManyToOne(inversedBy: 'properties', cascade: ['persist'])]
     private ?Address $address = null;
 
     public function __construct()

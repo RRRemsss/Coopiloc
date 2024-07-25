@@ -27,9 +27,8 @@ class Description
     #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
     private ?int $numberOfBedrooms = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
-    private ?\DateTimeInterface $constructionDate = null;
+    #[ORM\Column(length: 4, nullable: true)]
+    private ?string $constructionYear = null;
 
     #[ORM\Column(nullable: true)]
     #[Assert\GreaterThanOrEqual(value: 0, message: 'Le nombre ne peut pas être inférieur à {{ limit }}')]
@@ -116,14 +115,14 @@ class Description
         return $this;
     }
 
-    public function getConstructionDate(): ?\DateTimeInterface
+    public function getConstructionYear(): ?string
     {
-        return $this->constructionDate;
+        return $this->constructionYear;
     }
 
-    public function setConstructionDate(?\DateTimeInterface $constructionDate): static
+    public function setConstructionYear(?string $constructionYear): static
     {
-        $this->constructionDate = $constructionDate;
+        $this->constructionYear = $constructionYear;
 
         return $this;
     }
