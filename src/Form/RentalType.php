@@ -2,10 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\leaseParty;
 use App\Entity\Property;
 use App\Entity\Rental;
-use App\Repository\LeasePartyRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -137,17 +135,7 @@ class RentalType extends AbstractType
                 'class' => Property::class,
                 'choice_label' => 'id',
             ])
-            // ->add('leaseParties', EntityType::class, [
-            //     'class' => leaseParty::class,
-            //     'query_builder' => function (LeasePartyRepository $repository) {
-            //         return $repository->findAvailableTenants();
-            //     },
-            //     'choice_label' => function (leaseParty $tenant) {
-            //         return sprintf('%s %s', $tenant->getLastname(), $tenant->getFirstname());
-            //     },
-            //     'label' => 'Mes biens enregistrés',
-            //     'required' => true,
-            // ]);
+            
         ;
     }
 

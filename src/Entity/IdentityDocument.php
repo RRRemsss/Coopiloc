@@ -26,6 +26,12 @@ class IdentityDocument
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $uploadIdentityPath = null;
 
+    #[ORM\OneToOne(mappedBy: 'identityDocument', cascade: ['persist', 'remove'])]
+    private ?Tenant $tenant = null;
+
+    #[ORM\OneToOne(mappedBy: 'identityDocument', cascade: ['persist', 'remove'])]
+    private ?Guarantor $guarantor = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +81,50 @@ class IdentityDocument
     public function setuploadIdentityPath(?string $uploadIdentityPath): static
     {
         $this->uploadIdentityPath = $uploadIdentityPath;
+
+        return $this;
+    }
+
+    public function getTenant(): ?Tenant
+    {
+        return $this->tenant;
+    }
+
+    public function setTenant(?Tenant $tenant): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($tenant === null && $this->tenant !== null) {
+            $this->tenant->setIdentityDocument(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($tenant !== null && $tenant->getIdentityDocument() !== $this) {
+            $tenant->setIdentityDocument($this);
+        }
+
+        $this->tenant = $tenant;
+
+        return $this;
+    }
+
+    public function getGuarantor(): ?Guarantor
+    {
+        return $this->guarantor;
+    }
+
+    public function setGuarantor(?Guarantor $guarantor): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($guarantor === null && $this->guarantor !== null) {
+            $this->guarantor->setIdentityDocument(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($guarantor !== null && $guarantor->getIdentityDocument() !== $this) {
+            $guarantor->setIdentityDocument($this);
+        }
+
+        $this->guarantor = $guarantor;
 
         return $this;
     }

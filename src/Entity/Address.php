@@ -45,6 +45,9 @@ class Address
     #[ORM\OneToMany(targetEntity: Property::class, mappedBy: 'address')]
     private Collection $properties;
 
+    #[ORM\OneToOne(mappedBy: 'address', cascade: ['persist', 'remove'])]
+    private ?Guarantor $guarantor = null;
+
     /**
      * @var Collection<int, LeaseParty>
      */
@@ -181,6 +184,28 @@ class Address
                 $property->setAddress(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGuarantor(): ?Guarantor
+    {
+        return $this->guarantor;
+    }
+
+    public function setGuarantor(?Guarantor $guarantor): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($guarantor === null && $this->guarantor !== null) {
+            $this->guarantor->setAddress(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($guarantor !== null && $guarantor->getAddress() !== $this) {
+            $guarantor->setAddress($this);
+        }
+
+        $this->guarantor = $guarantor;
 
         return $this;
     }

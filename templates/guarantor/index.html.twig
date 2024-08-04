@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Guarantor index{% endblock %}
+
+{% block body %}
+    <h1>Guarantor index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Color</th>
+                <th>GuarantorType</th>
+                <th>Civility</th>
+                <th>DateOfBirth</th>
+                <th>PlaceOfBirth</th>
+                <th>Nationality</th>
+                <th>Profession</th>
+                <th>MonthlyIncome</th>
+                <th>PrivateComment</th>
+                <th>GuarantorCompanyName</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for guarantor in guarantors %}
+            <tr>
+                <td>{{ guarantor.id }}</td>
+                <td>{{ guarantor.color }}</td>
+                <td>{{ guarantor.guarantorType }}</td>
+                <td>{{ guarantor.civility }}</td>
+                <td>{{ guarantor.dateOfBirth ? guarantor.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ guarantor.placeOfBirth }}</td>
+                <td>{{ guarantor.nationality }}</td>
+                <td>{{ guarantor.profession }}</td>
+                <td>{{ guarantor.monthlyIncome }}</td>
+                <td>{{ guarantor.privateComment }}</td>
+                <td>{{ guarantor.guarantorCompanyName }}</td>
+                <td>
+                    <a href="{{ path('app_guarantor_show', {'id': guarantor.id}) }}">show</a>
+                    <a href="{{ path('app_guarantor_edit', {'id': guarantor.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_guarantor_new') }}">Create new</a>
+{% endblock %}

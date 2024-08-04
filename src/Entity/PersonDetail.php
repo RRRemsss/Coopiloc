@@ -28,6 +28,12 @@ class PersonDetail
     #[ORM\OneToOne(inversedBy: 'personDetail', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
+    #[ORM\OneToOne(mappedBy: 'personDetail', cascade: ['persist', 'remove'])]
+    private ?Tenant $tenant = null;
+
+    #[ORM\OneToOne(mappedBy: 'personDetail', cascade: ['persist', 'remove'])]
+    private ?Guarantor $guarantor = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,14 +87,58 @@ class PersonDetail
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTenant(): ?Tenant
+    {
+        return $this->tenant;
+    }
+
+    public function setTenant(?Tenant $tenant): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($tenant === null && $this->tenant !== null) {
+            $this->tenant->setPersonDetail(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($tenant !== null && $tenant->getPersonDetail() !== $this) {
+            $tenant->setPersonDetail($this);
+        }
+
+        $this->tenant = $tenant;
+
+        return $this;
+    }
+
+    public function getGuarantor(): ?Guarantor
+    {
+        return $this->guarantor;
+    }
+
+    public function setGuarantor(?Guarantor $guarantor): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($guarantor === null && $this->guarantor !== null) {
+            $this->guarantor->setPersonDetail(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($guarantor !== null && $guarantor->getPersonDetail() !== $this) {
+            $guarantor->setPersonDetail($this);
+        }
+
+        $this->guarantor = $guarantor;
 
         return $this;
     }

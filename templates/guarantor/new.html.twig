@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Guarantor{% endblock %}
+
+{% block body %}
+    <h1>Create new Guarantor</h1>
+
+    {{ include('guarantor/_form.html.twig') }}
+
+    <a href="{{ path('app_guarantor_index') }}">back to list</a>
+{% endblock %}

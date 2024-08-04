@@ -67,9 +67,16 @@ class Rental
     #[ORM\OneToMany(targetEntity: RentalDocument::class, mappedBy: 'rental')]
     private Collection $rentalDocuments;
 
+    /**
+     * @var Collection<int, Tenant>
+     */
+    #[ORM\ManyToMany(targetEntity: Tenant::class, mappedBy: 'tenants')]
+    private Collection $tenants;
+
     public function __construct()
     {
         $this->rentalDocuments = new ArrayCollection();
+        $this->tenants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -265,7 +272,7 @@ class Rental
         return $this->rentalDocuments;
     }
 
-    public function addRentalDocument(rentalDocument $rentalDocument): static
+    public function addRentalDocument(RentalDocument $rentalDocument): static
     {
         if (!$this->rentalDocuments->contains($rentalDocument)) {
             $this->rentalDocuments->add($rentalDocument);
@@ -282,6 +289,33 @@ class Rental
             if ($rentalDocument->getRental() === $this) {
                 $rentalDocument->setRental(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tenant>
+     */
+    public function getTenants(): Collection
+    {
+        return $this->tenants;
+    }
+
+    public function addTenant(Tenant $tenant): static
+    {
+        if (!$this->tenants->contains($tenant)) {
+            $this->tenants->add($tenant);
+            $tenant->addTenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTenant(Tenant $tenant): static
+    {
+        if ($this->tenants->removeElement($tenant)) {
+            $tenant->removeTenant($this);
         }
 
         return $this;
