@@ -17,12 +17,7 @@ class IdentityDocumentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
+           
             ->add('identityDocumentType', ChoiceType::class, [
                 'choices' => [
                     'Carte d\'identité' => 'Carte d\'identité',
@@ -48,11 +43,6 @@ class IdentityDocumentType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
                 'attr' => ['class' => 'form-control w-50'],
-            ])
-            ->add('uploadIdentityPath')
-            ->add('leaseParty', EntityType::class, [
-                'class' => LeaseParty::class,
-                'choice_label' => 'id',
             ])
         ;
     }

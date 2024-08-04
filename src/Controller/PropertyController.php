@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Description;
-use App\Entity\LeaseParty;
 use App\Entity\Property;
 use App\Entity\Tax;
 use App\Form\PropertyType;
@@ -51,7 +50,7 @@ class PropertyController extends AbstractController
 
             // Obtenez l'ID de la propriété nouvellement créée
             $propertyId = $property->getId();
-            return $this->redirectToRoute('property_show', ['id' => $propertyId]);
+            return $this->redirectToRoute('property_index', ['id' => $propertyId]);
 
             // if ($entityManager->getRepository(LeaseParty::class)->isTenantOccupied($tenant)) {
             //     // The tenant belongs to a place, show error message
@@ -69,14 +68,14 @@ class PropertyController extends AbstractController
     }
 
 
-        #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
-        public function show(Property $property): Response
-        {
+    // #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
+    // public function show(Property $property): Response
+    // {
             
-            return $this->render('property/show.html.twig', [
-                'property' => $property,
-            ]);
-        }
+    //     return $this->render('property/show.html.twig', [
+    //         'property' => $property,
+    //     ]);
+    // }
 
     #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, Property $property, EntityManagerInterface $entityManager): Response

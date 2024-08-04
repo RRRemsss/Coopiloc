@@ -1,49 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Property index{% endblock %}
+{% block title %}{{ parent() }} | Mes biens{% endblock %}
 
 {% block body %}
-    <h1>Property index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Type</th>
-                <th>NamePlace</th>
-                <th>Color</th>
-                <th>AcquisitionDate</th>
-                <th>AcquisitionPrice</th>
-                <th>AcquisitionFee</th>
-                <th>AgencyFee</th>
-                <th>PropertyValue</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for property in properties %}
-            <tr>
-                <td>{{ property.id }}</td>
-                <td>{{ property.type }}</td>
-                <td>{{ property.namePlace }}</td>
-                <td>{{ property.color }}</td>
-                <td>{{ property.acquisitionDate ? property.acquisitionDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ property.acquisitionPrice }}</td>
-                <td>{{ property.acquisitionFee }}</td>
-                <td>{{ property.agencyFee }}</td>
-                <td>{{ property.propertyValue }}</td>
-                <td>
-                    <a href="{{ path('property_show', {'id': property.id}) }}">show</a>
-                    <a href="{{ path('property_edit', {'id': property.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('property_new') }}">Create new</a>
+    <div class="container">
+        <div class="row">
+            <div class="text-start mt-5">
+                <h1 class="text-center mb-5 fw-bold">Mes biens</h1>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Lot</th>
+                    <th>Type</th>
+                    <th>Superficie</th>
+                    <th>Pièces</th>
+                    <th>Locataire</th>
+                    <th>Loyer</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for property in properties %}
+                    <tr>
+                        <th scope="row">{{ property.namePlace }}</th>
+                        <td> {{ property.type }} </td>
+                        {% for description in property.descriptions %}
+                            <td> {{ description.area }} </td>
+                            <td> {{ description.numberOfRooms }} </td>
+                        {% else %}
+                            <td></td>
+                            <td></td>
+                        {% endfor %}
+                        {# {% for rental in property.rentals %}
+                            {% if rental.tenant %}
+                                <td> {{ rental.tenant.firstname }} {{ rental.tenant.lastname }}</td>
+                            {% else %}
+                                <td></td>
+                            {% endif %}
+                            {% if rental.rentNoCharge is not null and rental.charge is not null %}
+                                <td> {{ rental.rentNoCharge + rental.charge }} €</td>
+                            {% else %}
+                                <td>  </td>
+                            {% endif %}
+                        {% else %} #}
+                            <td></td>
+                            <td></td> 
+                        {# {% endfor %} #}
+                        <td>
+                            <a href="{{ path('property_edit', {'id': property.id}) }}"title="Modifier">
+                                <i class="fa-solid fa-pen" style="color: black"></i></a>
+                            <form method="POST" action="{{ path('property_delete', {'id': property.id}) }}" title="Supprimer">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ property.id) }}">
+                                <button type="submit" class="btn btn-link text-danger">
+                                    <i class="fa-solid fa-trash" style="color: black"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">Aucun bien trouvé.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

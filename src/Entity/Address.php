@@ -48,16 +48,9 @@ class Address
     /**
      * @var Collection<int, LeaseParty>
      */
-    #[ORM\OneToMany(targetEntity: LeaseParty::class, mappedBy: 'guarantorAddress')]
-    private Collection $leaseParties;
-
-    /**
-     * @var Collection<int, LeaseParty>
-     */
     public function __construct()
     {
         $this->properties = new ArrayCollection();
-        $this->leaseParties = new ArrayCollection();
         
     }
 
@@ -186,36 +179,6 @@ class Address
             // set the owning side to null (unless already changed)
             if ($property->getAddress() === $this) {
                 $property->setAddress(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, LeaseParty>
-     */
-    public function getLeaseParties(): Collection
-    {
-        return $this->leaseParties;
-    }
-
-    public function addLeaseParty(LeaseParty $leaseParty): static
-    {
-        if (!$this->leaseParties->contains($leaseParty)) {
-            $this->leaseParties->add($leaseParty);
-            $leaseParty->setGuarantorAddress($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLeaseParty(LeaseParty $leaseParty): static
-    {
-        if ($this->leaseParties->removeElement($leaseParty)) {
-            // set the owning side to null (unless already changed)
-            if ($leaseParty->getGuarantorAddress() === $this) {
-                $leaseParty->setGuarantorAddress(null);
             }
         }
 

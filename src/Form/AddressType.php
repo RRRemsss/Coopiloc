@@ -51,8 +51,8 @@ class AddressType extends AbstractType
         ])
         ->add('country', TextType::class, [
             'label' => false,
-            'required' => true,
-            'attr' => ['placeholder' => 'Pays*',
+            'required' => false,
+            'attr' => ['placeholder' => 'Pays',
                         'class' => 'form-control'],
         ]);
         ;

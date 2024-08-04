@@ -152,6 +152,7 @@ class DescriptionType extends AbstractType
             ])
             ->add('equipment', ChoiceType::class, [
                 'label' => false,
+                'required' => false,
                 'expanded' => true,
                 'multiple' => true,
                 'placeholder' => false,

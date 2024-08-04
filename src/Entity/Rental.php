@@ -67,16 +67,9 @@ class Rental
     #[ORM\OneToMany(targetEntity: RentalDocument::class, mappedBy: 'rental')]
     private Collection $rentalDocuments;
 
-    /**
-     * @var Collection<int, LeaseParty>
-     */
-    #[ORM\ManyToMany(targetEntity: LeaseParty::class, inversedBy: 'rentals')]
-    private Collection $leaseParties;
-
     public function __construct()
     {
         $this->rentalDocuments = new ArrayCollection();
-        $this->leaseParties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,30 +283,6 @@ class Rental
                 $rentalDocument->setRental(null);
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, leaseParty>
-     */
-    public function getLeaseParties(): Collection
-    {
-        return $this->leaseParties;
-    }
-
-    public function addLeaseParty(leaseParty $leaseParty): static
-    {
-        if (!$this->leaseParties->contains($leaseParty)) {
-            $this->leaseParties->add($leaseParty);
-        }
-
-        return $this;
-    }
-
-    public function removeLeaseParty(leaseParty $leaseParty): static
-    {
-        $this->leaseParties->removeElement($leaseParty);
 
         return $this;
     }

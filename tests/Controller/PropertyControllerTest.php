@@ -47,16 +47,16 @@ class PropertyControllerTest extends WebTestCase
         self::assertResponseStatusCodeSame(200);
 
         $this->client->submitForm('Save', [
-            'property[type]' => 'Testing',
-            'property[namePlace]' => 'Testing',
-            'property[color]' => 'Testing',
-            'property[acquisitionDate]' => 'Testing',
-            'property[acquisitionPrice]' => 'Testing',
-            'property[acquisitionFee]' => 'Testing',
-            'property[agencyFee]' => 'Testing',
-            'property[propertyValue]' => 'Testing',
-            'property[user]' => 'Testing',
-            'property[address]' => 'Testing',
+            'property[type]' => 'Testingtype',
+            'property[namePlace]' => 'TestingNamePlace',
+            'property[color]' => 'TestingColor',
+            'property[acquisitionDate]' => 'TestingAcquisitionDate',
+            'property[acquisitionPrice]' => 'TestingAcquisitionPrice',
+            'property[acquisitionFee]' => 'TestingAcquisitionFee',
+            'property[agencyFee]' => 'TestingAgencyFee',
+            'property[propertyValue]' => 'TestingPropertyValue',
+            'property[user]' => 'TestingUser',
+            'property[address]' => 'TestingAddress',
         ]);
 
         self::assertResponseRedirects($this->path);
@@ -64,45 +64,45 @@ class PropertyControllerTest extends WebTestCase
         self::assertSame(1, $this->repository->count([]));
     }
 
-    public function testShow(): void
-    {
-        $this->markTestIncomplete();
-        $fixture = new Property();
-        $fixture->setType('My Title');
-        $fixture->setNamePlace('My Title');
-        $fixture->setColor('My Title');
-        $fixture->setAcquisitionDate('My Title');
-        $fixture->setAcquisitionPrice('My Title');
-        $fixture->setAcquisitionFee('My Title');
-        $fixture->setAgencyFee('My Title');
-        $fixture->setPropertyValue('My Title');
-        $fixture->setUser('My Title');
-        $fixture->setAddress('My Title');
+    // public function testShow(): void
+    // {
+    //     $this->markTestIncomplete();
+    //     $fixture = new Property();
+    //     $fixture->setType('My Title');
+    //     $fixture->setNamePlace('My Title');
+    //     $fixture->setColor('My Title');
+    //     $fixture->setAcquisitionDate('My Title');
+    //     $fixture->setAcquisitionPrice('My Title');
+    //     $fixture->setAcquisitionFee('My Title');
+    //     $fixture->setAgencyFee('My Title');
+    //     $fixture->setPropertyValue('My Title');
+    //     $fixture->setUser('My Title');
+    //     $fixture->setAddress('My Title');
 
-        $this->manager->persist($fixture);
-        $this->manager->flush();
+    //     $this->manager->persist($fixture);
+    //     $this->manager->flush();
 
-        $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
+    //     $this->client->request('GET', sprintf('%s%s', $this->path, $fixture->getId()));
 
-        self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Property');
+    //     self::assertResponseStatusCodeSame(200);
+    //     self::assertPageTitleContains('Property');
 
-        // Use assertions to check that the properties are properly displayed.
-    }
+    //     // Use assertions to check that the properties are properly displayed.
+    // }
 
     public function testEdit(): void
     {
         $this->markTestIncomplete();
         $fixture = new Property();
-        $fixture->setType('Value');
-        $fixture->setNamePlace('Value');
+        $fixture->setType('TestAppt');
+        $fixture->setNamePlace('ApptTest');
         $fixture->setColor('Value');
-        $fixture->setAcquisitionDate('Value');
-        $fixture->setAcquisitionPrice('Value');
-        $fixture->setAcquisitionFee('Value');
-        $fixture->setAgencyFee('Value');
-        $fixture->setPropertyValue('Value');
-        $fixture->setUser('Value');
+        $fixture->setAcquisitionDate('31/05/1990');
+        $fixture->setAcquisitionPrice('100000');
+        $fixture->setAcquisitionFee('10000');
+        $fixture->setAgencyFee('0');
+        $fixture->setPropertyValue('120000');
+        $fixture->setUser('Remy');
         $fixture->setAddress('Value');
 
         $this->manager->persist($fixture);
