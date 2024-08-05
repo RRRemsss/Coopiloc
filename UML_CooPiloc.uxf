@@ -139,7 +139,7 @@ name : String
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>850</x><y>240</y><w>50</w><h>70</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>850</x><y>240</y><w>45</w><h>70</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
 Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>505</x><y>475</y><w>340</w><h>55</h></coordinates><panel_attributes>lt=-
@@ -349,7 +349,7 @@ name : String
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2250</x><y>225</y><w>50</w><h>70</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2250</x><y>225</y><w>45</w><h>70</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
 Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1905</x><y>460</y><w>340</w><h>55</h></coordinates><panel_attributes>lt=-
@@ -439,7 +439,7 @@ tenantId : Integer
 m1= 1
 m2= 1
 has &gt;</panel_attributes><additional_attributes>10;20;190;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1630</x><y>570</y><w>170</w><h>120</h></coordinates><panel_attributes>lt=-
-m1= *
+m1= 1..n
 m2= 1
 has &gt;</panel_attributes><additional_attributes>10;10;10;210;320;210</additional_attributes></element><element><id>Relation</id><coordinates><x>1630</x><y>345</y><w>170</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>320;10;10;10;10;200</additional_attributes></element><element><id>Relation</id><coordinates><x>1695</x><y>540</y><w>105</w><h>25</h></coordinates><panel_attributes>lt=-
 m1= 1

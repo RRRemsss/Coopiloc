@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Guarantor;
 use App\Entity\Tenant;
 use App\Form\TenantType;
 use App\Repository\TenantRepository;
@@ -26,12 +27,23 @@ class TenantController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $tenant = new Tenant();
-                
-        $form = $this->createForm(TenantType::class, $tenant);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($tenant);
+        // Creating new Guarantor
+        $guarantor = new Guarantor ();
+        $tenant -> addGuarantor($guarantor);
+
+        $entityManager->persist($tenant);
+
+                
+        $tenantForm = $this->createForm(TenantType::class, $tenant);
+        $tenantForm->handleRequest($request);
+
+        if ($tenantForm->isSubmitted() && $tenantForm->isValid()) {
+
+            foreach ($tenant->getGuarantors() as $guarantor) {
+                $guarantor->setTenant($tenant); // Associer chaque garant au locataire
+                $entityManager->persist($guarantor); // Persister chaque garant
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('tenant_index', [], Response::HTTP_SEE_OTHER);
@@ -39,7 +51,7 @@ class TenantController extends AbstractController
 
         return $this->render('tenant/new.html.twig', [
             'tenant' => $tenant,
-            'form' => $form,
+            'tenantForm' => $tenantForm->createView(),
         ]);
     }
 
@@ -54,10 +66,15 @@ class TenantController extends AbstractController
     #[Route('/{id}/edit', name: 'edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, Tenant $tenant, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(TenantType::class, $tenant);
-        $form->handleRequest($request);
+        $tenantForm = $this->createForm(TenantType::class, $tenant);
+        $tenantForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($tenantForm->isSubmitted() && $tenantForm->isValid()) {
+
+            foreach ($tenant->getGuarantors() as $guarantor) {
+                $guarantor->setTenant($tenant); // Associer chaque garant au locataire
+                $entityManager->persist($guarantor); // Persister chaque garant
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('tenant_index', [], Response::HTTP_SEE_OTHER);
@@ -65,7 +82,7 @@ class TenantController extends AbstractController
 
         return $this->render('tenant/edit.html.twig', [
             'tenant' => $tenant,
-            'form' => $form,
+            'tenantForm' => $tenantForm ->createView(),
         ]);
     }
 

@@ -118,25 +118,22 @@ class TenantType extends AbstractType
                 'attr' => ['class' => 'form-check-input'],
                 'label_attr'=> ['class'=> 'form-label me-3'],
             ])
-            ->add('tenants', EntityType::class, [
-                'class' => Rental::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+            // ->add('tenants', EntityType::class, [
+            //     'class' => Rental::class,
+            //     'choice_label' => 'id',
+            //     'multiple' => true,
+            // ])
+            ->add('identityDocument', IdentityDocumentType::class, [
+                'label' => false,
+                'required' => false,
             ])
-            ->add('identityDocument', EntityType::class, [
-                'class' => IdentityDocument::class,
-                'choice_label' => 'id',
-            ])
-            ->add('personDetail', EntityType::class, [
-                'class' => PersonDetail::class,
-                'choice_label' => 'id',
+            ->add('personDetail', PersonDetailType::class, [
+                'label' => false,
+                'required' => false,
             ])
             ->add('guarantors', CollectionType::class, [
                 'entry_type' => GuarantorType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'by_reference' => false,
-                'allow_delete' => true,
+                'label' => false,
             ]);
         ;
     }
