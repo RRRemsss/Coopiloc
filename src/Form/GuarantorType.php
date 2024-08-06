@@ -84,7 +84,6 @@ class GuarantorType extends AbstractType
                     'Particulier' => 'particulier',
                     'Société/Autre' => 'company',
                 ],
-                // 'data' => 'particulier', //default value
                 'expanded' => true,
                 'multiple' => false,
                 'required' => true,

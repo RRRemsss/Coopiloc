@@ -1,51 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tenant index{% endblock %}
+{% block title %}{{ parent() }} | Mes locataires{% endblock %}
 
 {% block body %}
-    <h1>Tenant index</h1>
+   <div class="container">
+        <div class="row">
+            <div class="text-start mt-5">
+                <h1 class="text-center mb-5 fw-bold">Mes locataires</h1>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Locataire</th>
+                    <th>Date de naissance</th>
+                    <th>Nationalité</th>
+                    <th>Profession</th>
+                    <th>Revenus mensuels</th>
+                    <th>Garant</th>
+                    <th>Commentaire</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tenant in tenants %}
+                <tr>
+                    <th scope="row">{{ tenant.civility }} {{ tenant.personDetail.firstname }} {{ tenant.personDetail.lastname }}</th>
+                    <td>{{ tenant.dateOfBirth ? tenant.dateOfBirth|date('d-m-Y')}}</td>
+                    <td>{{ tenant.nationality }}</td>
+                    <td>{{ tenant.profession }}</td>
+                    <td>{{ tenant.monthlyIncome }}</td>
+                    <td>{{ tenant.hasGuarantor ? 'Oui' : 'Non' }}</td>
+                    <td>{{ tenant.privateComment }}</td>
+                    <td>
+                        <a href="{{ path('tenant_show', {'id': tenant.id}) }}">show</a>
+                        <a href="{{ path('tenant_edit', {'id': tenant.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="11">Aucun locataire trouvé.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Color</th>
-                <th>Civility</th>
-                <th>DateOfBirth</th>
-                <th>PlaceOfBirth</th>
-                <th>Nationality</th>
-                <th>Profession</th>
-                <th>MonthlyIncome</th>
-                <th>HasGuarantor</th>
-                <th>PrivateComment</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tenant in tenants %}
-            <tr>
-                <td>{{ tenant.id }}</td>
-                <td>{{ tenant.color }}</td>
-                <td>{{ tenant.civility }}</td>
-                <td>{{ tenant.dateOfBirth ? tenant.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tenant.placeOfBirth }}</td>
-                <td>{{ tenant.nationality }}</td>
-                <td>{{ tenant.profession }}</td>
-                <td>{{ tenant.monthlyIncome }}</td>
-                <td>{{ tenant.hasGuarantor ? 'Yes' : 'No' }}</td>
-                <td>{{ tenant.privateComment }}</td>
-                <td>
-                    <a href="{{ path('tenant_show', {'id': tenant.id}) }}">show</a>
-                    <a href="{{ path('tenant_edit', {'id': tenant.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('tenant_new') }}">Create new</a>
+    <a href="{{ path('tenant_new') }}">Créer un nouveau locataire</a>
 {% endblock %}
