@@ -27,10 +27,10 @@ class Address
     #[ORM\Column(length: 5, nullable: true)]
     private ?string $floor = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(length: 80, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 10, nullable: true)]
     private ?string $postCode = null;
 
     #[ORM\Column(length: 255, nullable: true)]

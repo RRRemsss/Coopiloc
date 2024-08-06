@@ -82,8 +82,9 @@ class GuarantorType extends AbstractType
             ->add('guarantorType', ChoiceType::class, [
                 'choices' => [
                     'Particulier' => 'particulier',
-                    'Société/Autre' => 'société/autre',
+                    'Société/Autre' => 'company',
                 ],
+                // 'data' => 'particulier', //default value
                 'expanded' => true,
                 'multiple' => false,
                 'required' => true,

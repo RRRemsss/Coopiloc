@@ -273,8 +273,8 @@ main {
     box-shadow: none; /* Desactivate box-shadow of Bootstrap */
 }
 
-/* .hidden-focusable {
+.hidden-focusable {
     visibility: hidden;
     position: absolute;
-} */
+}
 
