@@ -1,11 +1,145 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Rental{% endblock %}
+{% block title %}{{ parent() }} | Nouvelle location{% endblock %}
 
 {% block body %}
-    <h1>Create new Rental</h1>
+    <div class="container">
+        <div class="row">
+            <div class="text-start mt-5">
+                <h1 class="text-center mb-5 fw-bold">Nouvelle location</h1>
+            </div>
+        </div>
+        <ul class="nav nav-underline mb-5" id="form-tabs">
+            <li class="nav-item">
+                <a class="nav-link active text-muted" aria-current="page" href="#form-general-information">Informations générales</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted" href="#form-additional-information">Quittances</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted" href="#form-financial-information">Assurance</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted" href="#contracts-diagnostics">Documents</a>
+            </li>
+        </ul>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                {{ form_start(rentalForm) }}
+                <div class="form-section">
+                    <div class="row">
+                        <!-- First column -->
+                        <div class="col-md-6">
+                            <!-- Section 1 -->
+                            <div class="section-form form-general-information-section mb-3 pb-0 pt-3 px-3">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                         {{ form_row(rentalForm.property) }}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        {{ form_row(rentalForm.color) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Section 2 -->
+                            <div class="section-form form-general-information-section mb-3 pb-0 pt-3 px-3">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                         {{ form_row(rentalForm.tenants) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="{{ path('tenant_new') }}" class="btn btn-success mt-0">Créer un locataire</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Section 3 -->
+                            <div class="section-form form-general-information-section mb-3 p-3">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        {{ form_row(rentalForm.leaseType) }}
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        {{ form_row(rentalForm.purposeUse) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                    <label for="{{ rentalForm.startDate.vars.id }}" class="me-6">{{ rentalForm.startDate.vars.label }}</label>
+                                    {{ form_widget(rentalForm.startDate) }}
+                                </div>
+                                <div class="row mt-3 d-flex justify-content-end">
+                                    <div class="col-md-6 mb-3">
+                                        {{ form_row(rentalForm.duration) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-between align-items-center">
+                                    <label for="{{ rentalForm.endDate.vars.id }}" class="me-6">{{ rentalForm.endDate.vars.label }}</label>
+                                    {{ form_widget(rentalForm.endDate) }}
+                                </div>
+                            </div>
+                            <!-- Section 4 -->
+                            <div class="section-form form-general-information-section mb-3 p-3">
+                                <div class="row">
+                                    <div class="col-md-4 mb-0">
+                                        {{ form_row(rentalForm.paymentPeriod) }}
+                                    </div>
+                                    <div class="col-md-4 mb-0">
+                                        {{ form_row(rentalForm.paymentMethod) }}
+                                    </div>
+                                    <div class="col-md-4 mb-0">
+                                        {{ form_row(rentalForm.paymentDate) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Section 5 -->
+                            <div class="section-form form-general-information-section mb-3 p-3">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        {{ form_row(rentalForm.netRent) }}
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        {{ form_row(rentalForm.charge) }}
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        {{ form_row(rentalForm.grossRent) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(rentalForm.deposit) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(rentalForm.housingAssistance) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- First column -->
+                        <div class="col-md-6">
+                            <div class="section-form form-general-information-section mb-3 p-3">
+                                {{ form_row(rentalForm.privateComment) }}
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- End form -->
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <div class="d-inline-block">
+                            <button type="submit" class="btn btn-success">Enregistrer</button>
+                        </div>
+                        <div class="d-inline-block">
+                            <a href="{{ path('main_home') }}" class="btn btn-cancel mt-0">Annuler</a>
+                        </div>
+                    </div>
+                </div>
+                {{ form_end(rentalForm) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-    {{ include('rental/_form.html.twig') }}
-
-    <a href="{{ path('app_rental_index') }}">back to list</a>
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/rentCalculation.js') }}"></script>
+    <script src="{{ asset('assets/js/durationRent.js') }}"></script>
 {% endblock %}

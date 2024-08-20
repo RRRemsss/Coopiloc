@@ -295,3 +295,8 @@
         </div>
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/guarantor.js') }}"></script>
+{% endblock %}

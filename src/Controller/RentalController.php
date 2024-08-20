@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\PersonDetail;
 use App\Entity\Property;
 use App\Entity\Rental;
+use App\Entity\Tenant;
 use App\Form\RentalType;
 use App\Repository\RentalRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,22 +29,26 @@ class RentalController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $rental = new Rental();
-        $userProperties=$entityManager->getRepository(Property::class)->findBy(['user' => $this->getUser()]);
-
-        $rentalForm = $this->createForm(RentalType::class, $rental);
+        $userProperties = $entityManager->getRepository(Property::class)->findBy(['user' => $this->getUser()]);
+    
+        $tenantChoices = $entityManager->getRepository(Tenant::class)->findAll();
+        $rentalForm = $this->createForm(RentalType::class, $rental, [
+            'tenant_choices' => $tenantChoices,
+        ]);
+        
         $rentalForm->handleRequest($request);
-
+    
         if ($rentalForm->isSubmitted() && $rentalForm->isValid()) {
             $entityManager->persist($rental);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('rental_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('rental/new.html.twig', [
             'rental' => $rental,
             'userProperties' => $userProperties,
-            'rentalForm' => $rentalForm->createView()
+            'rentalForm' => $rentalForm->createView(),
         ]);
     }
 
@@ -66,7 +72,7 @@ class RentalController extends AbstractController
             return $this->redirectToRoute('rental_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        $this->addFlash('success', 'Le loyer a été supprimé avec succès.');
+        $this->addFlash('success', 'La location a été supprimée avec succès.');
 
         return $this->render('rental/edit.html.twig', [
             'rental' => $rental,
@@ -81,7 +87,7 @@ class RentalController extends AbstractController
             $entityManager->remove($rental);
             $entityManager->flush();
         }
-        $this->addFlash('success', 'Le loyer a été supprimé avec succès.');
+        $this->addFlash('success', 'La location a été supprimée avec succès.');
 
         return $this->redirectToRoute('rental_index', [], Response::HTTP_SEE_OTHER);
     }

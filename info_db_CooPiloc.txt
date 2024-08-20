@@ -10,7 +10,7 @@
                 thousandths, updateImage, equipment, comment, privateComment, fk_propertyId)
 - Tax (id, taxSystem, taxNumber, taxName, taxAmount, propertyTax, fk_propertyId)
 - LandRegistry (id, sheet, parcel, category, rentalValue, fk_propertyId)
-- Rental (id, startDate, endDate, rentalType, grossRent, charge, netRent, deposit, lease, reference, purposeUse, duration, 
+- Rental (id, color, startDate, endDate, rentalType, grossRent, charge, netRent, deposit, lease, reference, purposeUse, duration, 
                 paymentPeriod, paymentMethod, paymentDay, privateComment, fk_propertyId)
 - RentalDocument (id, receiptDate (date de quittancement), noticeRentDueDate (date avis échéance), uploadRentalDocumentPath, fk_rentalId)
 - tenant (id, color, civility, dateOfBirth, placeOfBirth, nationality, profession, monthlyIncome, privateComment, hasGuarantor, fk_personDetailId)

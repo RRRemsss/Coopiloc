@@ -15,17 +15,6 @@ class PropertyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $colors = [
-            'Rouge' => '#FF0000',
-            'Vert foncé' => '#226D68',
-            'Vert clair' => '#2CCED2',
-            'Bleu' => '#5784BA',
-            'Orange' => '#F27438',
-            'Violet' => '#C49FFF',
-            'Rose' => '#DB6A8F',
-            'Jaune' => '#FFEB69'
-        ];
-
         $builder
             ->add('type', ChoiceType::class, [
                 'choices' => [
@@ -49,22 +38,26 @@ class PropertyType extends AbstractType
             ])
             ->add('color', ChoiceType::class, [
                 'label' => false,
-                'choices' => array_merge(['' => ''], $colors),
-                'choice_label' => function ($choice, $key, $value) use ($colors) {
-                    if ($choice === '') {
-                        return 'Choix couleur';  // Placeholder text
-                    }
-                    return $key;
+                'choices' => [
+                    '' => '',
+                    'Rouge' => '#FF0000',
+                    'Vert foncé' => '#226D68',
+                    'Vert clair' => '#2CCED2',
+                    'Bleu' => '#5784BA',
+                    'Orange' => '#F27438',
+                    'Violet' => '#C49FFF',
+                    'Rose' => '#DB6A8F',
+                    'Jaune' => '#FFEB69',
+                ],
+                'choice_label' => function ($choice, $key, $value) {
+                    return $choice === '' ? 'Choix couleur' : $key;
                 },
-                'required' => false,
                 'choice_attr' => function ($choice, $key, $value) {
-                    if ($choice === '') {
-                        return [];
-                    }
-                    return ['style' => sprintf('background-color: %s;', $value)];
+                    return $choice === '' ? [] : ['style' => sprintf('background-color: %s;', $value)];
                 },
                 'placeholder' => 'Couleur',
                 'attr' => ['class' => 'form-select form-control-color mb-3'],
+                'required' => false,
             ])
             ->add('acquisitionDate', DateType::class, [
                 'label' => 'Date d\'acquisition du bien :',

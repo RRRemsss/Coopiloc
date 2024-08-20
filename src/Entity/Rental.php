@@ -37,14 +37,17 @@ class Rental
     #[ORM\Column]
     private ?float $netRent = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $housingAssistance = null;
+
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $reference = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $purposeUse = null;
 
-    #[ORM\Column]
-    private ?int $duration = null;
+    #[ORM\Column(nullable: true)]
+    private ?string $duration = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $paymentPeriod = null;
@@ -73,6 +76,9 @@ class Rental
     #[ORM\ManyToMany(targetEntity: Tenant::class, mappedBy: 'tenants')]
     private Collection $tenants;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $color = null;
+
     public function __construct()
     {
         $this->rentalDocuments = new ArrayCollection();
@@ -82,6 +88,18 @@ class Rental
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): static
+    {
+        $this->color = $color;
+
+        return $this;
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -108,12 +126,12 @@ class Rental
         return $this;
     }
 
-    public function getRentalType(): ?string
+    public function getLeaseType(): ?string
     {
         return $this->leaseType;
     }
 
-    public function setRentalType(string $leaseType): static
+    public function setLeaseType(string $leaseType): static
     {
         $this->leaseType = $leaseType;
 
@@ -168,6 +186,18 @@ class Rental
         return $this;
     }
 
+    public function getHousingAssistance(): ?float
+    {
+        return $this->housingAssistance;
+    }
+
+    public function setHousingAssistance(?float $housingAssistance): static
+    {
+        $this->housingAssistance = $housingAssistance;
+
+        return $this;
+    }
+
     public function getReference(): ?string
     {
         return $this->reference;
@@ -192,12 +222,12 @@ class Rental
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): static
+    public function setDuration(string $duration): static
     {
         $this->duration = $duration;
 
@@ -306,7 +336,7 @@ class Rental
     {
         if (!$this->tenants->contains($tenant)) {
             $this->tenants->add($tenant);
-            $tenant->addTenant($this);
+            $tenant->addRental($this);
         }
 
         return $this;
@@ -315,9 +345,10 @@ class Rental
     public function removeTenant(Tenant $tenant): static
     {
         if ($this->tenants->removeElement($tenant)) {
-            $tenant->removeTenant($this);
+            $tenant->removeRental($this);
         }
 
         return $this;
     }
+
 }

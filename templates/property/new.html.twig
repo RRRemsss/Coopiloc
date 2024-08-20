@@ -204,25 +204,26 @@
                         </div>
                         <!-- Second column -->
                         <div class="col-md-6">
-                                <div class="section-form form-financial-information-section3 mb-3 p-3">
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(tax.taxNumber) }}
-                                    </div>
-                                    <div class="col-md-12 mt-3">
-                                        {{ form_row(tax.siret) }}
-                                    </div>
-                                    <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
-                                        <label for="{{ tax.dateActivityStart.vars.id }}" class="me-6">{{ tax.dateActivityStart.vars.label }}</label>
-                                        {{ form_widget(tax.dateActivityStart) }}
-                                    </div>
+                            <div class="section-form form-financial-information-section3 mb-3 p-3">
+                                <div class="col-md-12 mt-3">
+                                    {{ form_row(tax.taxNumber) }}
                                 </div>
-                                <div class="section-form form-financial-information-section4 mb-3 p-3">
-                                    {{ form_row(tax.comment) }}
+                                <div class="col-md-12 mt-3">
+                                    {{ form_row(tax.siret) }}
                                 </div>
-                            {% endfor %}
+                                <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
+                                    <label for="{{ tax.dateActivityStart.vars.id }}" class="me-6">{{ tax.dateActivityStart.vars.label }}</label>
+                                    {{ form_widget(tax.dateActivityStart) }}
+                                </div>
+                            </div>
+                            <div class="section-form form-financial-information-section4 mb-3 p-3">
+                                {{ form_row(tax.comment) }}
+                            </div>
+                        {% endfor %}
                         </div>
                     </div>
                 </div>
+                <!-- End form -->
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
                         <div class="d-inline-block">
