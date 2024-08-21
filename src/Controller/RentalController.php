@@ -8,6 +8,7 @@ use App\Entity\Rental;
 use App\Entity\Tenant;
 use App\Form\RentalType;
 use App\Repository\RentalRepository;
+use App\Repository\TenantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,22 +27,30 @@ class RentalController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TenantRepository $tenantRepository): Response
     {
         $rental = new Rental();
         $userProperties = $entityManager->getRepository(Property::class)->findBy(['user' => $this->getUser()]);
-    
-        $tenantChoices = $entityManager->getRepository(Tenant::class)->findAll();
+
+        // Utiliser le repository pour récupérer les locataires non associés à une location
+        $tenantChoices = $tenantRepository->findTenantsWithoutRental();
         $rentalForm = $this->createForm(RentalType::class, $rental, [
             'tenant_choices' => $tenantChoices,
         ]);
-        
+
         $rentalForm->handleRequest($request);
-    
+
         if ($rentalForm->isSubmitted() && $rentalForm->isValid()) {
+            // Associate tenants to rental
+            $tenants = $rentalForm->get('tenants')->getData();
+            foreach ($tenants as $tenant) {
+                $tenant->setRental($rental);
+                $entityManager->persist($tenant);
+            }
+
             $entityManager->persist($rental);
             $entityManager->flush();
-    
+            
             return $this->redirectToRoute('rental_index', [], Response::HTTP_SEE_OTHER);
         }
     

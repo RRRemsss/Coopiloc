@@ -45,20 +45,12 @@ class RentalType extends AbstractType
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Début du bail : ',
-                'required' => true,
-                'html5' => true,
-                'required' => false,
-                'attr' => ['class' => 'form-control w-50 startDate',                        
-                ],
+                'attr' => ['class' => 'form-control w-50 startDate'],
             ])
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Fin de bail :',
-                'required' => true,
-                'html5' => true,
-                'required' => false,
-                'attr' => ['class' => 'form-control w-50 endDate',
-                ],
+                'attr' => ['class' => 'form-control w-50 endDate'],
             ])
             ->add('leaseType', ChoiceType::class, [
                 'choices' => [
@@ -199,23 +191,25 @@ class RentalType extends AbstractType
             ])
             ->add('tenants', EntityType::class, [
                 'class' => Tenant::class,
-                'choice_label' => 'fullName', // Utilisez la méthode getFullName()
+                'choices' => $options['tenant_choices'],
+                'choice_label' => 'fullName',
                 'multiple' => true,
                 'expanded' => false,
                 'label' => false,
                 'placeholder' => 'Choisir locataire',
-                'attr' => ['class' => 'form-select',
-                           'size' => 3,],
+                'attr' => [
+                    'class' => 'form-select',
+                    'size' => 3,
+                ],
             ])
-            
-        ;
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Rental::class,
-            'tenant_choices' => [],  // Add the tenant choices option
+            'tenant_choices' => [],  // Add the tenant choices option to make dynamic options
         ]);
     }
 }

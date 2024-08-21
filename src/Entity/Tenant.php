@@ -43,13 +43,7 @@ class Tenant
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $privateComment = null;
 
-    /**
-     * @var Collection<int, rental>
-     */
-    #[ORM\ManyToMany(targetEntity: Rental::class, inversedBy: 'tenants')]
-    private Collection $rentals;
-
-    /**
+       /**
      * @var Collection<int, guarantor>
      */
     #[ORM\OneToMany(targetEntity: Guarantor::class, mappedBy: 'tenant')]
@@ -61,9 +55,11 @@ class Tenant
     #[ORM\OneToOne(inversedBy: 'tenant', cascade: ['persist', 'remove'])]
     private ?PersonDetail $personDetail = null;
 
+    #[ORM\ManyToOne(inversedBy: 'tenants')]
+    private ?Rental $rental = null;
+
     public function __construct()
     {
-        $this->rentals = new ArrayCollection();
         $this->guarantors = new ArrayCollection();
     }
 
@@ -181,33 +177,6 @@ class Tenant
     }
 
     /**
-     * @return Collection<int, rental>
-     */
-    public function getRentals(): Collection
-    {
-        return $this->rentals;
-    }
-
-    public function addRental(Rental $rental): self
-    {
-        if (!$this->rentals->contains($rental)) {
-            $this->rentals[] = $rental;
-            $rental->addTenant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRental(Rental $rental): self
-    {
-        if ($this->rentals->removeElement($rental)) {
-            $rental->removeTenant($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, guarantor>
      */
     public function getGuarantors(): Collection
@@ -267,5 +236,17 @@ class Tenant
             return $this->personDetail->getFirstname() . ' ' . $this->personDetail->getLastname();
         }
         return 'Unknown'; // Valeur par défaut si les détails de la personne sont absents
+    }
+
+    public function getRental(): ?Rental
+    {
+        return $this->rental;
+    }
+
+    public function setRental(?Rental $rental): static
+    {
+        $this->rental = $rental;
+
+        return $this;
     }
 }

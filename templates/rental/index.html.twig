@@ -31,6 +31,7 @@
                     <td>
                         <a href="{{ path('rental_show', {'id': rental.id}) }}">show</a>
                         <a href="{{ path('rental_edit', {'id': rental.id}) }}">edit</a>
+                        <a href="{{ path('rental_delete', {'id': rental.id}) }}">delete</a>
                     </td>
                 </tr>
             {% else %}

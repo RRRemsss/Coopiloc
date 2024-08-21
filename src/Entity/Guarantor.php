@@ -17,7 +17,7 @@ class Guarantor
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $color = null;
 
-    #[ORM\Column(length: 25)]
+    #[ORM\Column(length: 25, nullable: true)]
     private ?string $guarantorType = null;
 
     #[ORM\Column(length: 25, nullable: true)]

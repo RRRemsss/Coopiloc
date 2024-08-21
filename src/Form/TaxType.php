@@ -59,7 +59,7 @@ class TaxType extends AbstractType
             ->add('dateActivityStart', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de début d\'activité :',
-                'required' => true,
+                'required' => false,
                 'attr' => ['class' => 'form-control w-50'],
             ])
             ->add('propertyTax', NumberType::class, [

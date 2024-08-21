@@ -16,6 +16,19 @@ class TenantRepository extends ServiceEntityRepository
         parent::__construct($registry, Tenant::class);
     }
 
+    /**
+     * Récupérer les locataires non associés à une location
+     *
+     * @return Tenant[]
+     */
+    public function findTenantsWithoutRental(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.rental IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Tenant[] Returns an array of Tenant objects
     //     */

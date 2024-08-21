@@ -23,6 +23,7 @@ class GuarantorType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'placeholder' => false,
+                'required' => false,
                 'choices' => [
                     'Mr' => 'Mr',
                     'Mme' => 'Mme',
@@ -53,7 +54,7 @@ class GuarantorType extends AbstractType
                         'Italien/ne' => 'Italien/ne',
                     ],
                     'multiple' => false,
-                    'required' => true,
+                    'required' => false,
                     'label' => false,
                     'placeholder' => 'Nationalité',
                     'attr' => ['class' => 'form-select form-select-ms mb-3'],
@@ -86,7 +87,7 @@ class GuarantorType extends AbstractType
                 ],
                 'expanded' => true,
                 'multiple' => false,
-                'required' => true,
+                'required' => false,
                 'label' => 'Type de garant :',
                 'placeholder' => false,
                 'attr' => [

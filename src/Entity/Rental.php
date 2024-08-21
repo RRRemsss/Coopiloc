@@ -70,14 +70,15 @@ class Rental
     #[ORM\OneToMany(targetEntity: RentalDocument::class, mappedBy: 'rental')]
     private Collection $rentalDocuments;
 
-    /**
-     * @var Collection<int, Tenant>
-     */
-    #[ORM\ManyToMany(targetEntity: Tenant::class, mappedBy: 'tenants')]
-    private Collection $tenants;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $color = null;
+
+    /**
+     * @var Collection<int, Tenant>
+     */
+    #[ORM\OneToMany(targetEntity: Tenant::class, mappedBy: 'rental')]
+    private Collection $tenants;
 
     public function __construct()
     {
@@ -336,7 +337,7 @@ class Rental
     {
         if (!$this->tenants->contains($tenant)) {
             $this->tenants->add($tenant);
-            $tenant->addRental($this);
+            $tenant->setRental($this);
         }
 
         return $this;
@@ -345,7 +346,10 @@ class Rental
     public function removeTenant(Tenant $tenant): static
     {
         if ($this->tenants->removeElement($tenant)) {
-            $tenant->removeRental($this);
+            // set the owning side to null (unless already changed)
+            if ($tenant->getRental() === $this) {
+                $tenant->setRental(null);
+            }
         }
 
         return $this;
