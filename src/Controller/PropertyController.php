@@ -4,14 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Description;
 use App\Entity\Property;
+use App\Entity\PropertyDocument;
+use App\Entity\PropertyImage;
 use App\Entity\Tax;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/property', name: 'property_')]
 class PropertyController extends AbstractController
@@ -25,40 +29,81 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $property = new Property();
+
         // Creating new Description and Tax objects
         $description = new Description();
         $tax = new Tax();
-
-        // Adding the Description and Tax to the Property
         $property->addDescription($description);
         $property->addTax($tax);
 
-        // Persist the Property entity before creating the form
-        $entityManager->persist($property);
-
+        // Creating the form
         $propertyForm = $this->createForm(PropertyType::class, $property);
         $propertyForm->handleRequest($request);
 
         if ($propertyForm->isSubmitted() && $propertyForm->isValid()) {
-            // $tenant = $propertyForm->get('leaseParty')->getData();
 
+            // Gestion des fichiers d'images
+            $imageFiles = $propertyForm->get('propertyImages')->getData();
+            foreach ($imageFiles as $imageFile) {
+                if ($imageFile) {
+                    $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+
+                    try {
+                        $imageFile->move(
+                            $this->getParameter('property_images_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        $this->addFlash('error', 'Erreur lors de l\'upload du fichier : ' . $e->getMessage());
+                        return $this->redirectToRoute('property_new');
+                    }
+
+                    // Créer et persister l'entité PropertyImage
+                    $propertyImage = new PropertyImage();
+                    $propertyImage->setFilePathPropertyImage($newFilename);
+                    $propertyImage->setProperty($property); // Lier à l'entité Property
+                    $entityManager->persist($propertyImage);
+                }
+            }
+
+            // Gestion des fichiers de documents
+            $documentFiles = $propertyForm->get('propertyDocuments')->getData();
+            foreach ($documentFiles as $documentFile) {
+                if ($documentFile) {
+                    $originalFilename = pathinfo($documentFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $documentFile->guessExtension();
+
+                    try {
+                        $documentFile->move(
+                            $this->getParameter('property_documents_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        $this->addFlash('error', 'Erreur lors de l\'upload du document : ' . $e->getMessage());
+                        return $this->redirectToRoute('property_new');
+                    }
+
+                    // Créer et persister l'entité PropertyDocument
+                    $propertyDocument = new PropertyDocument();
+                    $propertyDocument->setFilePathPropertyDocument($newFilename);
+                    $propertyDocument->setProperty($property); // Lier à l'entité Property
+                    $entityManager->persist($propertyDocument);
+                }
+            }
+
+            // Persister la propriété avec toutes les entités liées
+            $entityManager->persist($property);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre bien immobilier vient d\'être ajouté');
 
-            // Obtenez l'ID de la propriété nouvellement créée
-            $propertyId = $property->getId();
-            return $this->redirectToRoute('property_index', ['id' => $propertyId]);
+            $this->addFlash('success', 'Votre bien immobilier a été ajouté avec succès');
 
-            // if ($entityManager->getRepository(LeaseParty::class)->isTenantOccupied($tenant)) {
-            //     // The tenant belongs to a place, show error message
-            //     $this->addFlash('error', 'Le/la partie sélectionné est déjà occupé dans un autre bien.');
-            // } else {
-            //     // The tenant doesn't belong to a place, submit form
-               
-            // }
+            return $this->redirectToRoute('property_index');
         }
 
         return $this->render('property/new.html.twig', [

@@ -24,7 +24,7 @@ class PropertyDocument
     private ?string $documentType = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $uploadPropertyDocumentPath = null;
+    private ?string $filePathPropertyDocument = null;
 
     #[ORM\ManyToOne(inversedBy: 'propertyDocuments')]
     private ?Property $property = null;
@@ -70,14 +70,14 @@ class PropertyDocument
         return $this;
     }
 
-    public function getuploadPropertyDocumentPath(): ?string
+    public function getfilePathPropertyDocument(): ?string
     {
-        return $this->uploadPropertyDocumentPath;
+        return $this->filePathPropertyDocument;
     }
 
-    public function setuploadPropertyDocumentPath(?string $uploadPropertyDocumentPath): static
+    public function setfilePathPropertyDocument(?string $filePathPropertyDocument): static
     {
-        $this->uploadPropertyDocumentPath = $uploadPropertyDocumentPath;
+        $this->filePathPropertyDocument = $filePathPropertyDocument;
 
         return $this;
     }

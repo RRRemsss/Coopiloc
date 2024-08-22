@@ -4,8 +4,8 @@
 - personDetail (id, lastname, firstname, phoneNumber, mail)
 - Address (id, name, streetName, building, floor, city, postCode, region, country)
 - Property (id, type, namePlace, color, acquisitionDate, acquisitionPrice, acquisitionFee, agencyFee, propertyValue, fk_addressId)
-- PropertyDocument (id, created_at, updated_at, documentType, uploadPropertyDocumentPath, fk_propertyId)
-- PropertyImage (id, created_at, updated_at, image, isMain, fk_propertyId)
+- PropertyDocument (id, created_at, updated_at, documentType, filePathPropertyDocument, fk_propertyId)
+- PropertyImage (id, created_at, updated_at, filePathPropertyImage, isMain, fk_propertyId)
 - Description (id, area, numberOfRooms, numberOfBedrooms, numberOfbathrooms, constructionDate, propertyType, legalRegime, furnished, parking, dependency, cellarType, buildingLot, 
                 thousandths, updateImage, equipment, comment, privateComment, fk_propertyId)
 - Tax (id, taxSystem, taxNumber, taxName, taxAmount, propertyTax, fk_propertyId)

@@ -33,7 +33,7 @@ class TaxType extends AbstractType
                     'Autres' => 'Autres',
                 ],
                 'multiple' => false,
-                'required' => true,
+                'required' => false,
                 'label' => false,
                 'placeholder' => 'Régime fiscal',
                 'attr' => ['class' => 'form-select form-select-ms mb-3'],

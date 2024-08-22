@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="section-form form-general-information-section3 mb-3 p-3">
+                            <div class="section-form form-general-information-section mb-3 p-3">
                             {% for description in propertyForm.descriptions %}
                                 <div class="row">
                                     <div class="col-md-6">
@@ -109,17 +109,17 @@
                         </div>
                         <!-- Second column -->
                         <div class="col-md-6">
-                            <div class="section-form form-general-information-section4 mb-3 p-3">
+                            <div class="section-form form-general-information-section mb-3 p-3">
                                 {{ form_row(description.comment) }}
                             </div>
-                            <div class="section-form form-general-information-section5 mb-3 p-3">
+                            <div class="section-form form-general-information-section mb-3 p-3">
                                 {{ form_row(description.privateComment) }}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="form-additional-information" class="form-section d-none">
-                    <div class="section-form form-additional-information-section1 mb-3 pb-1 pt-3 px-3">
+                    <div class="section-form form-additional-information-section mb-3 pb-1 pt-3 px-3">
                         <div class="row">
                             <div class="col-md-6">
                                 {{ form_row(description.propertyType) }}
@@ -129,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="section-form form-additional-information-section2 mb-3 p-3">
+                    <div class="section-form form-additional-information-section mb-3 p-3">
                         <p>Désignation des parties et équipements</p>
                         <div class="row custom-checkbox-grid">
                         {% for child in description.equipment %}
@@ -142,7 +142,7 @@
                         {% endfor %}
                         </div>
                     </div>
-                    <div class="section-form form-additional-information-section3 mb-3 p-3">
+                    <div class="section-form form-additional-information-section mb-3 p-3">
                         <div class="row">
                             <div class="col-md-2">
                                 {{ form_row(description.buildingLot) }}
@@ -167,7 +167,7 @@
                     <div class="row">
                         <!-- First column -->
                         <div class="col-md-6">
-                            <div class="section-form form-financial-information-section1 mb-3 p-3">
+                            <div class="section-form form-financial-information-section mb-3 p-3">
                                 <div class="row">
                                      <div class="col-md-12 d-flex justify-content-between align-items-center">
                                         <label for="{{ propertyForm.acquisitionDate.vars.id }}" class="me-6">{{ propertyForm.acquisitionDate.vars.label }}</label>
@@ -188,7 +188,7 @@
                                 </div>
                             </div>
                             {% for tax in propertyForm.taxes %}
-                            <div class="section-form form-financial-information-section2 mb-3 p-3">
+                            <div class="section-form form-financial-information-section mb-3 p-3">
                                 <div class="row">
                                     <div class="col-md-12 mt-0">
                                         {{ form_row(tax.taxSystem) }}
@@ -204,7 +204,7 @@
                         </div>
                         <!-- Second column -->
                         <div class="col-md-6">
-                            <div class="section-form form-financial-information-section3 mb-3 p-3">
+                            <div class="section-form form-financial-information-section mb-3 p-3">
                                 <div class="col-md-12 mt-3">
                                     {{ form_row(tax.taxNumber) }}
                                 </div>
@@ -216,13 +216,37 @@
                                     {{ form_widget(tax.dateActivityStart) }}
                                 </div>
                             </div>
-                            <div class="section-form form-financial-information-section4 mb-3 p-3">
+                            <div class="section-form form-financial-information-section mb-3 p-3">
                                 {{ form_row(tax.comment) }}
                             </div>
                         {% endfor %}
                         </div>
                     </div>
                 </div>
+                {# <div id="contracts-diagnostics" class="form-section d-none">
+                    <div class="section-contracts-diagnostics mb-3 pb-1 pt-3 px-3">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p>Documents</p>
+                                <!-- Widget pour le champ d'upload avec des attributs personnalisés -->
+                                {{ form_widget(propertyForm.propertyDocuments) }}
+                                {{ form_errors(propertyForm.propertyDocuments) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="photos" class="form-section d-none">
+                    <div class="section-photos mb-3 pb-1 pt-3 px-3">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p>Photos</p>
+                                <!-- Widget pour le champ d'upload avec des attributs personnalisés -->
+                                {{ form_widget(propertyForm.propertyImages) }}
+                                {{ form_errors(propertyForm.propertyImages) }}
+                            </div>
+                        </div>
+                    </div>
+                </div> #}
                 <!-- End form -->
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
@@ -239,3 +263,8 @@
         </div>
     </div>
 {% endblock %}
+
+{# {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/dropZone.js') }}"></script>
+{% endblock %} #}

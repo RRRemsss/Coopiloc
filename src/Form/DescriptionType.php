@@ -23,7 +23,7 @@ class DescriptionType extends AbstractType
         $builder
             ->add('area', NumberType::class, [
                 'label' => false,
-                'required' => true,
+                'required' => false,
                 'attr' => ['placeholder' => 'Surface',
                             'class' => 'form-control'],
             ])
