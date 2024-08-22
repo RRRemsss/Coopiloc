@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class PropertyType extends AbstractType
 {
@@ -104,7 +106,51 @@ class PropertyType extends AbstractType
             ->add('taxes', CollectionType::class, [
                 'entry_type' => TaxType::class,
                 'label' => false,
-            ]);
+            ])        
+            // ->add('propertyImages', DropzoneType::class, [
+            //     'label' => 'Photos',
+            //     'multiple' => true,
+            //     'mapped' => false,
+            //     'required' => false,
+            //     'attr' => [
+            //         'accept' => 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            //         'class' => 'form-select file-input-documents',
+            //     ],
+            //     'constraints' => [
+            //         new File([
+            //             'maxSize' => '5M',
+            //             'mimeTypes' => [
+            //                 'application/pdf',
+            //                 'application/msword',
+            //                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            //             ],
+            //             'mimeTypesMessage' => 'Veuillez uploader un document valide (PDF, DOC, DOCX)',
+            //         ])
+            //     ]
+            // ])
+            // ->add('propertyDocuments', DropzoneType::class, [
+            //     'label' => 'Documents',
+            //     'multiple' => true,
+            //     'mapped' => false,
+            //     'required' => false,
+            //     'attr' => [
+            //         'accept' => 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            //         'class' => 'form-select file-input-documents',
+            //     ],
+            //     'constraints' => [
+            //         new File([
+            //             'maxSize' => '5M',
+            //             'mimeTypes' => [
+            //                 'application/pdf',
+            //                 'application/msword',
+            //                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            //             ],
+            //             'mimeTypesMessage' => 'Veuillez uploader un document valide (PDF, DOC, DOCX)',
+            //         ])
+            //     ]
+            // ])
+        ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

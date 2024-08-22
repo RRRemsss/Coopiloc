@@ -20,7 +20,7 @@ class PropertyImageType extends AbstractType
             ->add('updatedAt', null, [
                 'widget' => 'single_text',
             ])
-            ->add('image')
+            ->add('filePathPropertyImages')
             ->add('isMain')
             ->add('property', EntityType::class, [
                 'class' => Property::class,

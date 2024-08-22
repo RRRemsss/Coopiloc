@@ -21,7 +21,7 @@ class PropertyDocumentType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('documentType')
-            ->add('uploadPropertyDocumentPath')
+            ->add('filePathPropertyDocument')
             ->add('property', EntityType::class, [
                 'class' => Property::class,
                 'choice_label' => 'id',
