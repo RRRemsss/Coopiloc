@@ -139,7 +139,7 @@ name : String
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>4986</x><y>432</y><w>90</w><h>126</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>4986</x><y>432</y><w>81</w><h>126</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
 Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>4365</x><y>855</y><w>612</w><h>99</h></coordinates><panel_attributes>lt=-
@@ -294,7 +294,7 @@ propertyId : Integer</panel_attributes><additional_attributes></additional_attri
 id : Integer
 created_at : DateTime
 updated_at : DateTime
-image: string
+filePathPropertyImage: string
 isMain : boolean
 --
 propertyId : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>567</x><y>945</y><w>216</w><h>198</h></coordinates><panel_attributes>tenant
@@ -351,7 +351,7 @@ name : String
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1395</x><y>180</y><w>90</w><h>126</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1395</x><y>180</y><w>81</w><h>126</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
 Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>774</x><y>603</y><w>612</w><h>99</h></coordinates><panel_attributes>lt=-

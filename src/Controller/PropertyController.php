@@ -12,6 +12,7 @@ use App\Repository\PropertyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -44,60 +45,83 @@ class PropertyController extends AbstractController
         $propertyForm->handleRequest($request);
 
         if ($propertyForm->isSubmitted() && $propertyForm->isValid()) {
+            $images = $propertyForm->get('propertyImages')->getData();
+            $documents = $propertyForm->get('propertyDocuments')->getData();
 
-            // // Gestion des fichiers d'images
-            // $imageFiles = $propertyForm->get('propertyImages')->getData();
-            // foreach ($imageFiles as $imageFile) {
-            //     if ($imageFile) {
-            //         $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-            //         $safeFilename = $slugger->slug($originalFilename);
-            //         $newFilename = $safeFilename . '-' . uniqid() . '.' . $imageFile->guessExtension();
+            // Handle images to upload
+            if ($images) {
+                foreach ($images as $image) {
+                    if ($image instanceof UploadedFile) {
 
-            //         try {
-            //             $imageFile->move(
-            //                 $this->getParameter('property_images_directory'),
-            //                 $newFilename
-            //             );
-            //         } catch (FileException $e) {
-            //             $this->addFlash('error', 'Erreur lors de l\'upload du fichier : ' . $e->getMessage());
-            //             return $this->redirectToRoute('property_new');
-            //         }
+                        // Validating manually uploaded
+                        $mimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                        if (!in_array($image->getMimeType(), $mimeTypes)) {
+                            $this->addFlash('error', 'Type de fichier d\'image non valide.');
+                            return $this->redirectToRoute('property_new');
+                        }
+                        if ($image->getSize() > 5 * 1024 * 1024) { // 5MB
+                            $this->addFlash('error', 'L\'image est trop volumineuse.');
+                            return $this->redirectToRoute('property_new');
+                        }
 
-            //         // Créer et persister l'entité PropertyImage
-            //         $propertyImage = new PropertyImage();
-            //         $propertyImage->setFilePathPropertyImage($newFilename);
-            //         $propertyImage->setProperty($property); // Lier à l'entité Property
-            //         $entityManager->persist($propertyImage);
-            //     }
-            // }
+                        $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                        $newFilename = $slugger->slug($originalFilename).'-'.uniqid().'.'.$image->guessExtension();
+                        try {
+                            $image->move(
+                                $this->getParameter('images_directory'),
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            $this->addFlash('error', 'Erreur lors de l\'upload de l\'image : ' . $e->getMessage());
+                            return $this->redirectToRoute('property_new');
+                        }
+                        
+                        $propertyImage = new PropertyImage();
+                        $propertyImage->setFilePathPropertyImage($newFilename);
+                        $property->addPropertyImage($propertyImage);
+                        $propertyImage->setCreatedAt(new \DateTime());
+                        $propertyImage->setUpdatedAt(new \DateTime());
+                    }
+                }
+            }
 
-            // // Gestion des fichiers de documents
-            // $documentFiles = $propertyForm->get('propertyDocuments')->getData();
-            // foreach ($documentFiles as $documentFile) {
-            //     if ($documentFile) {
-            //         $originalFilename = pathinfo($documentFile->getClientOriginalName(), PATHINFO_FILENAME);
-            //         $safeFilename = $slugger->slug($originalFilename);
-            //         $newFilename = $safeFilename . '-' . uniqid() . '.' . $documentFile->guessExtension();
+            // Handle documents to upload
+            if ($documents) {
+                foreach ($documents as $document) {
+                    if ($document instanceof UploadedFile) {
 
-            //         try {
-            //             $documentFile->move(
-            //                 $this->getParameter('property_documents_directory'),
-            //                 $newFilename
-            //             );
-            //         } catch (FileException $e) {
-            //             $this->addFlash('error', 'Erreur lors de l\'upload du document : ' . $e->getMessage());
-            //             return $this->redirectToRoute('property_new');
-            //         }
+                        // Validating manually uploaded
+                        $mimeTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                        if (!in_array($document->getMimeType(), $mimeTypes)) {
+                            $this->addFlash('error', 'Type de fichier de document non valide.');
+                            return $this->redirectToRoute('property_new');
+                        }
+                        if ($document->getSize() > 10 * 1024 * 1024) { // 10MB
+                            $this->addFlash('error', 'Le document est trop volumineux.');
+                            return $this->redirectToRoute('property_new');
+                        }
 
-            //         // Créer et persister l'entité PropertyDocument
-            //         $propertyDocument = new PropertyDocument();
-            //         $propertyDocument->setFilePathPropertyDocument($newFilename);
-            //         $propertyDocument->setProperty($property); // Lier à l'entité Property
-            //         $entityManager->persist($propertyDocument);
-            //     }
-            // }
+                        $originalFilename = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
+                        $newFilename = $slugger->slug($originalFilename).'-'.uniqid().'.'.$document->guessExtension();
+                        try {
+                            $document->move(
+                                $this->getParameter('documents_directory'),
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            $this->addFlash('error', 'Erreur lors de l\'upload du document : ' . $e->getMessage());
+                            return $this->redirectToRoute('property_new');
+                        }
 
-            // Persister la propriété avec toutes les entités liées
+                        $propertyDocument = new PropertyDocument();
+                        $propertyDocument->setfilePathPropertyDocument($newFilename); 
+                        $property->addPropertyDocument($propertyDocument);
+                        $propertyDocument->setCreatedAt(new \DateTime());
+                        $propertyDocument->setUpdatedAt(new \DateTime());
+                    }
+                }
+            }
+          
             $entityManager->persist($property);
             $entityManager->flush();
 

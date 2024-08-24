@@ -7,11 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class PropertyType extends AbstractType
 {
@@ -107,49 +106,26 @@ class PropertyType extends AbstractType
                 'entry_type' => TaxType::class,
                 'label' => false,
             ])        
-            // ->add('propertyImages', DropzoneType::class, [
-            //     'label' => 'Photos',
-            //     'multiple' => true,
-            //     'mapped' => false,
-            //     'required' => false,
-            //     'attr' => [
-            //         'accept' => 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            //         'class' => 'form-select file-input-documents',
-            //     ],
-            //     'constraints' => [
-            //         new File([
-            //             'maxSize' => '5M',
-            //             'mimeTypes' => [
-            //                 'application/pdf',
-            //                 'application/msword',
-            //                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            //             ],
-            //             'mimeTypesMessage' => 'Veuillez uploader un document valide (PDF, DOC, DOCX)',
-            //         ])
-            //     ]
-            // ])
-            // ->add('propertyDocuments', DropzoneType::class, [
-            //     'label' => 'Documents',
-            //     'multiple' => true,
-            //     'mapped' => false,
-            //     'required' => false,
-            //     'attr' => [
-            //         'accept' => 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            //         'class' => 'form-select file-input-documents',
-            //     ],
-            //     'constraints' => [
-            //         new File([
-            //             'maxSize' => '5M',
-            //             'mimeTypes' => [
-            //                 'application/pdf',
-            //                 'application/msword',
-            //                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            //             ],
-            //             'mimeTypesMessage' => 'Veuillez uploader un document valide (PDF, DOC, DOCX)',
-            //         ])
-            //     ]
-            // ])
+            ->add('propertyImages', FileType::class, [
+                'label' => 'Images',
+                'multiple' => true, // Permet de télécharger plusieurs fichiers
+                'required' => false, // Le champ n'est pas obligatoire
+                'mapped' => false,
+                'attr' => [
+                    'accept' => 'image/jpeg,image/png,image/gif',
+                ],
+            ])
+            ->add('propertyDocuments', FileType::class, [
+                'label' => 'Documents',
+                'multiple' => true, // Permet de télécharger plusieurs fichiers
+                'required' => false, // Le champ n'est pas obligatoire
+                'mapped' => false,
+                'attr' => [
+                    'accept' => 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                ],
+            ])
         ;
+        
 
     }
 

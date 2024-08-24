@@ -2,10 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Property;
 use App\Entity\PropertyDocument;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,18 +14,21 @@ class PropertyDocumentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
+            ->add('documentType', ChoiceType::class, [
+                'label' => false,
+                'required' => false,
+                'placeholder' => 'Type de document',
+                'attr' => ['class' => 'form-select form-select-ms mb-3'],
             ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('documentType')
-            ->add('filePathPropertyDocument')
-            ->add('property', EntityType::class, [
-                'class' => Property::class,
-                'choice_label' => 'id',
-            ])
+            ->add('filePathPropertyDocument', FileType::class, [
+                'label' => 'Insérer un document',
+                'required' => false,
+                'attr' => [
+                    'accept' => 'image/jpeg,image/png,image/gif',
+                    'class'=> 'form-control-file',
+                ],
+            ]);
+            
         ;
     }
 

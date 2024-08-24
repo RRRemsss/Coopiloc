@@ -20,7 +20,7 @@ class PropertyDocument
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $documentType = null;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -27,8 +27,17 @@ My solution is to create tables Guarantor and Tenant separately although they ha
         tenantRental created by ManyToMany relation between Tenant and Rental.
         userRoles created by ManyToMany relation between User and Role.
 
+- Upload doucments/Images : constraints have to be managed in the service of the controller and not in the form. Indeed 'File' constraints expect string values but are receiving empty arrays instead. This happens because in the form, 
+if you set up validation constraints on FileType fields that allow multiple files to be uploaded (using multiple => true). When you configure a FileType field in Symfony with the multiple option set to true, Symfony expects an array 
+of uploaded files (or an empty array if no files were uploaded). The File constraint, on the other hand, is typically meant to validate a single file (i.e., a single string representing the file's path or name).
+So, when Symfony tries to validate the file uploads, it encounters a mismatch: it expects a single file, but it gets an array instead, which leads to the error "This value should be of type string."
 
+How to Fix It
+To fix this issue, you should:
+1) Remove the File constraint from the form field definition if you are allowing multiple file uploads. Instead, apply the constraints manually in your controller after the form is submitted.
+2) Validate each file individually in the controller after you’ve retrieved the array of uploaded files. This approach allows you to check each file's properties (like type and size) and handle any validation errors more flexibly.
 
+This way, you avoid the type mismatch and can provide more appropriate validation for each file in the upload process.
 
 
 
