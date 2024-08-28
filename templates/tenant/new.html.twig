@@ -278,6 +278,29 @@
                         </div>
                         {% endfor %}
                     </div>
+                </div>
+                <div id="form-document-leaseParty" class="form-section d-none">
+                    <div class="section-document-leaseParty mb-3 pb-1 pt-3 px-3 text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="upload-zone p-4 mb-2">
+                                    <p class="mb-2 p"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Télécharger des documents</p>
+                                    <div class="upload-container">
+                                        {# {{ form_widget(tenantForm.identityDocument, { 'attr': {'onchange': 'displayFileName(this)'} }) }}
+                                        {{ form_errors(tenantForm.identityDocument) }} #}
+
+                                        <div id="selected-files-documents" class="mt-2">
+                                            <span class="file-name"></span>
+                                            <span class="remove-file d-none" onclick="removeFile('{{ tenantForm.identityDocument.vars.id }}', 'selected-files-documents')">
+                                                &times;
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted">Formats acceptés : PDF, DOC, DOCX</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>          
                 <!-- End form -->
                 <div class="row justify-content-center">

@@ -4,19 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Description;
 use App\Entity\Property;
-use App\Entity\PropertyDocument;
-use App\Entity\PropertyImage;
 use App\Entity\Tax;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
+use App\Service\UploadFilesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/property', name: 'property_')]
 class PropertyController extends AbstractController
@@ -30,7 +27,7 @@ class PropertyController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UploadFilesService $uploadFilesService): Response
     {
         $property = new Property();
 
@@ -52,35 +49,13 @@ class PropertyController extends AbstractController
             if ($images) {
                 foreach ($images as $image) {
                     if ($image instanceof UploadedFile) {
-
-                        // Validating manually uploaded
-                        $mimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
-                        if (!in_array($image->getMimeType(), $mimeTypes)) {
-                            $this->addFlash('error', 'Type de fichier d\'image non valide.');
-                            return $this->redirectToRoute('property_new');
-                        }
-                        if ($image->getSize() > 5 * 1024 * 1024) { // 5MB
-                            $this->addFlash('error', 'L\'image est trop volumineuse.');
-                            return $this->redirectToRoute('property_new');
-                        }
-
-                        $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                        $newFilename = $slugger->slug($originalFilename).'-'.uniqid().'.'.$image->guessExtension();
                         try {
-                            $image->move(
-                                $this->getParameter('images_directory'),
-                                $newFilename
-                            );
-                        } catch (FileException $e) {
-                            $this->addFlash('error', 'Erreur lors de l\'upload de l\'image : ' . $e->getMessage());
+                            $propertyImage = $uploadFilesService->uploadImageProperty($image);
+                            $property->addPropertyImage($propertyImage);
+                        } catch (\Exception $e) {
+                            $this->addFlash('error', $e->getMessage());
                             return $this->redirectToRoute('property_new');
                         }
-                        
-                        $propertyImage = new PropertyImage();
-                        $propertyImage->setFilePathPropertyImage($newFilename);
-                        $property->addPropertyImage($propertyImage);
-                        $propertyImage->setCreatedAt(new \DateTime());
-                        $propertyImage->setUpdatedAt(new \DateTime());
                     }
                 }
             }
@@ -89,39 +64,17 @@ class PropertyController extends AbstractController
             if ($documents) {
                 foreach ($documents as $document) {
                     if ($document instanceof UploadedFile) {
-
-                        // Validating manually uploaded
-                        $mimeTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                        if (!in_array($document->getMimeType(), $mimeTypes)) {
-                            $this->addFlash('error', 'Type de fichier de document non valide.');
-                            return $this->redirectToRoute('property_new');
-                        }
-                        if ($document->getSize() > 10 * 1024 * 1024) { // 10MB
-                            $this->addFlash('error', 'Le document est trop volumineux.');
-                            return $this->redirectToRoute('property_new');
-                        }
-
-                        $originalFilename = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
-                        $newFilename = $slugger->slug($originalFilename).'-'.uniqid().'.'.$document->guessExtension();
                         try {
-                            $document->move(
-                                $this->getParameter('documents_directory'),
-                                $newFilename
-                            );
-                        } catch (FileException $e) {
-                            $this->addFlash('error', 'Erreur lors de l\'upload du document : ' . $e->getMessage());
+                            $propertyDocument = $uploadFilesService->uploadDocumentProperty($document);
+                            $property->addPropertyDocument($propertyDocument);
+                        } catch (\Exception $e) {
+                            $this->addFlash('error', $e->getMessage());
                             return $this->redirectToRoute('property_new');
                         }
-
-                        $propertyDocument = new PropertyDocument();
-                        $propertyDocument->setfilePathPropertyDocument($newFilename); 
-                        $property->addPropertyDocument($propertyDocument);
-                        $propertyDocument->setCreatedAt(new \DateTime());
-                        $propertyDocument->setUpdatedAt(new \DateTime());
                     }
                 }
             }
-          
+
             $entityManager->persist($property);
             $entityManager->flush();
 

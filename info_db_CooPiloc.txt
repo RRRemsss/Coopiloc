@@ -15,7 +15,7 @@
 - RentalDocument (id, receiptDate (date de quittancement), noticeRentDueDate (date avis échéance), uploadRentalDocumentPath, fk_rentalId)
 - tenant (id, color, civility, dateOfBirth, placeOfBirth, nationality, profession, monthlyIncome, privateComment, hasGuarantor, fk_personDetailId)
 - guarantor (id, color, guarantorType, civility, dateOfBirth, placeOfBirth, profession, monthlyIncome, privateComment, guarantorCompanyName, fk_addressId, fk_personDetailId, fk_tenantId)
-- IdentityDocument (id, created_at, updated_at, identityDocumentType, identityNumber, identityDocumentExpiration, uploadIdentityPath)
+- IdentityDocument (id, created_at, updated_at, identityDocumentType, identityNumber, identityDocumentExpiration, filePathDocumentIdentity)
 
 ***********************************************************************************************Explications***************************************************************************************************************
 - inheritage personDetail with guarantor, tenant and user.
@@ -38,6 +38,32 @@ To fix this issue, you should:
 2) Validate each file individually in the controller after you’ve retrieved the array of uploaded files. This approach allows you to check each file's properties (like type and size) and handle any validation errors more flexibly.
 
 This way, you avoid the type mismatch and can provide more appropriate validation for each file in the upload process.
+
+***********************************************************************************************Services*******************************************************************************************************************
+
+How to make a service :
+
+1) Create a class into src (which is called Service here)
+2) Into Service, create all the services needed (exemple here UploadFilesService)
+3) Modify service.yaml : Add parameters and join an external service with App\Service\UploadFilesService (App\classNameIntoSrc\serviceName)
+parameters:
+    images_directory_property: '%kernel.project_dir%/public/uploads/propertyImages'
+    documents_directory_property: '%kernel.project_dir%/public/uploads/propertyDocuments'
+
+services:
+    App\Service\UploadFilesService:
+        arguments:
+            $imagesDirectoryProperty: '%images_directory_property%'
+            $documentsDirectoryProperty: '%documents_directory_property%'
+
+4) From your controller, call the service into your paramater 
+(exemple :  public function new(Request $request, EntityManagerInterface $entityManager, UploadFilesService $uploadFilesService): Response))
+
+
+
+
+
+
 
 
 

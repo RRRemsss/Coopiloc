@@ -24,7 +24,7 @@ class IdentityDocument
     private ?\DateTimeInterface $expirationDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $uploadIdentityPath = null;
+    private ?string $filePathDocumentIdentity = null;
 
     #[ORM\OneToOne(mappedBy: 'identityDocument', cascade: ['persist', 'remove'])]
     private ?Tenant $tenant = null;
@@ -73,14 +73,14 @@ class IdentityDocument
         return $this;
     }
 
-    public function getuploadIdentityPath(): ?string
+    public function getfilePathDocumentIdentity(): ?string
     {
-        return $this->uploadIdentityPath;
+        return $this->filePathDocumentIdentity;
     }
 
-    public function setuploadIdentityPath(?string $uploadIdentityPath): static
+    public function setfilePathDocumentIdentity(?string $filePathDocumentIdentity): static
     {
-        $this->uploadIdentityPath = $uploadIdentityPath;
+        $this->filePathDocumentIdentity = $filePathDocumentIdentity;
 
         return $this;
     }

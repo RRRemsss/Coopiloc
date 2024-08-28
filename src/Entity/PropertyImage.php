@@ -21,7 +21,7 @@ class PropertyImage
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $FilePathPropertyImage = null;
+    private ?string $filePathPropertyImage = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $isMain = null;
@@ -60,12 +60,12 @@ class PropertyImage
 
     public function getFilePathPropertyImage(): ?string
     {
-        return $this->FilePathPropertyImage;
+        return $this->filePathPropertyImage;
     }
 
-    public function setFilePathPropertyImage(?string $FilePathPropertyImage): static
+    public function setFilePathPropertyImage(?string $filePathPropertyImage): static
     {
-        $this->FilePathPropertyImage = $FilePathPropertyImage;
+        $this->filePathPropertyImage = $filePathPropertyImage;
 
         return $this;
     }
