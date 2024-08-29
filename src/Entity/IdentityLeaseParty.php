@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IdentityDocumentRepository::class)]
-class IdentityDocument
+class IdentityLeaseParty
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
