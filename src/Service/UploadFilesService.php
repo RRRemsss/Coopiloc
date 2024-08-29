@@ -38,7 +38,7 @@ class UploadFilesService
         try {
             $image->move($this->imagesDirectoryProperty, $newFilename);
         } catch (FileException $e) {
-            throw new \Exception('Erreur lors de l\'upload de l\'image : ' . $e->getMessage());
+            throw new \Exception('Erreur lors de l\'upload de l\'image : ' . $e->getMessage()); 
         }
 
         $propertyImage = new PropertyImage();

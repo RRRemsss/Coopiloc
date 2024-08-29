@@ -228,16 +228,13 @@
                         <div class="row justify-content-center">
                             <div class="col-md-6">
                                 <div class="upload-zone p-4 mb-2">
-                                    <p class="mb-2 p"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Télécharger des documents</p>
+                                    <p class="mb-2"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Insérez vos documents</p>
                                     <div class="upload-container">
-                                        {{ form_widget(propertyForm.propertyDocuments, { 'attr': {'onchange': 'displayFileName(this)'} }) }}
+                                        {{ form_widget(propertyForm.propertyDocuments, { 'attr': {'multiple': 'multiple'} }) }}
                                         {{ form_errors(propertyForm.propertyDocuments) }}
 
                                         <div id="selected-files-documents" class="mt-2">
-                                            <span class="file-name"></span>
-                                            <span class="remove-file d-none" onclick="removeFile('{{ propertyForm.propertyDocuments.vars.id }}', 'selected-files-documents')">
-                                                &times;
-                                            </span>
+                                            <!-- List of selected documents -->
                                         </div>
                                     </div>
                                     <small class="text-muted">Formats acceptés : PDF, DOC, DOCX</small>
@@ -251,16 +248,13 @@
                         <div class="row justify-content-center">
                             <div class="col-md-6">
                                 <div class="upload-zone p-4 mb-2">
-                                    <p class="mb-2"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Télécharger des photos</p>
+                                    <p class="mb-2"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Insérez vos photos</p>
                                     <div class="upload-container">
-                                        {{ form_widget(propertyForm.propertyImages, { 'attr': {'onchange': 'displayFileName(this)'} }) }}
+                                         {{ form_widget(propertyForm.propertyImages, { 'attr': {'multiple': 'multiple'} }) }}
                                         {{ form_errors(propertyForm.propertyImages) }}
 
                                         <div id="selected-files-images" class="mt-2">
-                                            <span class="file-name"></span>
-                                            <span class="remove-file d-none" onclick="removeFile('{{ propertyForm.propertyImages.vars.id }}', 'selected-files-images')">
-                                                &times;
-                                            </span>
+                                            <!-- List of selected images -->
                                         </div>
                                     </div>
                                     <small class="text-muted">Formats acceptés : JPEG, PNG</small>
@@ -269,7 +263,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- End form -->
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
@@ -289,5 +282,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('assets/js/uploadFileDelete.js') }}"></script>
+    {# <script src="{{ asset('assets/js/uploadFiles.js') }}"></script> #}
 {% endblock %}

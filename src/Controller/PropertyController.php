@@ -45,6 +45,8 @@ class PropertyController extends AbstractController
             $images = $propertyForm->get('propertyImages')->getData();
             $documents = $propertyForm->get('propertyDocuments')->getData();
 
+            // dd($images, $documents);
+
             // Handle images to upload
             if ($images) {
                 foreach ($images as $image) {

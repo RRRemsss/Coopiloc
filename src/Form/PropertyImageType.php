@@ -14,10 +14,12 @@ class PropertyImageType extends AbstractType
     {
         $builder
             ->add('filePathPropertyImage', FileType::class, [
-                'label' => 'Télécharger une image',
+                'label' => 'Insérez vos photos',
                 'required' => false,
+                'multiple' => true, 
+                'mapped' => false, 
                 'attr' => [
-                    'accept' => 'image/jpeg,image/png,image/gif',
+                    'accept' => 'image/*',
                     'class'=> 'form-control-file',
                 ],
             ])

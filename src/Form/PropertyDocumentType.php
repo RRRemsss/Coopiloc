@@ -21,10 +21,12 @@ class PropertyDocumentType extends AbstractType
                 'attr' => ['class' => 'form-select form-select-ms mb-3'],
             ])
             ->add('filePathPropertyDocument', FileType::class, [
-                'label' => 'Insérer un document',
+                'label' => 'Insérez vos documents',
                 'required' => false,
+                'multiple' => true, 
+                'mapped' => false, 
                 'attr' => [
-                    'accept' => 'image/jpeg,image/png,image/gif',
+                    'accept' => 'application/*',
                     'class'=> 'form-control-file',
                 ],
             ]);

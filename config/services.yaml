@@ -29,6 +29,3 @@ services:
         arguments:
             $imagesDirectoryProperty: '%images_directory_property%'
             $documentsDirectoryProperty: '%documents_directory_property%'
-
-
-
