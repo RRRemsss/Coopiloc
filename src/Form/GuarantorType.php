@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Guarantor;
-use App\Entity\Tenant;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -112,10 +110,11 @@ class GuarantorType extends AbstractType
                 'label' => false,
                 'required' => false,
             ])
-            ->add('identityDocument', IdentityDocumentType::class, [
+            ->add('identityLeaseParty', IdentityLeasePartyType::class, [
                 'label' => false,
                 'required' => false,
             ])
+            
         ;
     }
 

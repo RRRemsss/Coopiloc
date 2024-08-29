@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\IdentityLeaseParty;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -43,13 +42,17 @@ class IdentityLeasePartyType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'form-control w-50'],
             ])
+            ->add('identityDocuments', IdentityDocumentType::class, [
+                'label' => false,
+                'required' => false,
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => IdentityDocument::class,
+            'data_class' => IdentityLeaseParty::class,
         ]);
     }
 }

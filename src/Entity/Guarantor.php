@@ -54,7 +54,7 @@ class Guarantor
     private ?PersonDetail $personDetail = null;
 
     #[ORM\OneToOne(inversedBy: 'guarantor', cascade: ['persist', 'remove'])]
-    private ?IdentityDocument $identityDocument = null;
+    private ?IdentityLeaseParty $identityLeaseParty = null;
 
     public function getId(): ?int
     {
@@ -217,14 +217,14 @@ class Guarantor
         return $this;
     }
 
-    public function getIdentityDocument(): ?IdentityDocument
+    public function getIdentityLeaseParty(): ?IdentityLeaseParty
     {
-        return $this->identityDocument;
+        return $this->identityLeaseParty;
     }
 
-    public function setIdentityDocument(?IdentityDocument $identityDocument): static
+    public function setIdentityLeaseParty(?IdentityLeaseParty $identityLeaseParty): static
     {
-        $this->identityDocument = $identityDocument;
+        $this->identityLeaseParty = $identityLeaseParty;
 
         return $this;
     }

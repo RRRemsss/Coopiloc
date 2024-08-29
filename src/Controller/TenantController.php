@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Guarantor;
 use App\Entity\IdentityDocument;
+use App\Entity\IdentityLeaseParty;
 use App\Entity\Tenant;
 use App\Form\TenantType;
 use App\Repository\TenantRepository;
@@ -77,8 +78,9 @@ class TenantController extends AbstractController
                         }
 
                         $identityDocument = new IdentityDocument();
-                        $identityDocument->setfilePathDocumentIdentity($newFilename); 
-                        $tenant->setIdentityDocument($identityDocument);
+                        $identityDocument->setFilePathIdentityDocument($newFilename); 
+                        //TODO
+                        // $tenant->setIdentityLeaseParty($identityLeaseParty);
 
                         $entityManager->persist($identityDocument);
                     }

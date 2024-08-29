@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\IdentityDocumentRepository;
+use App\Repository\IdentityLeasePartyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IdentityDocumentRepository::class)]
+#[ORM\Entity(repositoryClass: IdentityLeasePartyRepository::class)]
 class IdentityLeaseParty
 {
     #[ORM\Id]
@@ -23,14 +25,22 @@ class IdentityLeaseParty
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $expirationDate = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $filePathDocumentIdentity = null;
-
-    #[ORM\OneToOne(mappedBy: 'identityDocument', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'identityLeaseParty', cascade: ['persist', 'remove'])]
     private ?Tenant $tenant = null;
 
-    #[ORM\OneToOne(mappedBy: 'identityDocument', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'identityLeaseParty', cascade: ['persist', 'remove'])]
     private ?Guarantor $guarantor = null;
+
+    /**
+     * @var Collection<int, IdentityDocument>
+     */
+    #[ORM\OneToMany(targetEntity: IdentityDocument::class, mappedBy: 'identityLeaseParty')]
+    private Collection $identityDocuments;
+
+    public function __construct()
+    {
+        $this->identityDocuments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -73,17 +83,6 @@ class IdentityLeaseParty
         return $this;
     }
 
-    public function getfilePathDocumentIdentity(): ?string
-    {
-        return $this->filePathDocumentIdentity;
-    }
-
-    public function setfilePathDocumentIdentity(?string $filePathDocumentIdentity): static
-    {
-        $this->filePathDocumentIdentity = $filePathDocumentIdentity;
-
-        return $this;
-    }
 
     public function getTenant(): ?Tenant
     {
@@ -94,12 +93,12 @@ class IdentityLeaseParty
     {
         // unset the owning side of the relation if necessary
         if ($tenant === null && $this->tenant !== null) {
-            $this->tenant->setIdentityDocument(null);
+            $this->tenant->setIdentityLeaseParty(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($tenant !== null && $tenant->getIdentityDocument() !== $this) {
-            $tenant->setIdentityDocument($this);
+        if ($tenant !== null && $tenant->getIdentityLeaseParty() !== $this) {
+            $tenant->setIdentityLeaseParty($this);
         }
 
         $this->tenant = $tenant;
@@ -116,15 +115,45 @@ class IdentityLeaseParty
     {
         // unset the owning side of the relation if necessary
         if ($guarantor === null && $this->guarantor !== null) {
-            $this->guarantor->setIdentityDocument(null);
+            $this->guarantor->setIdentityLeaseParty(null);
         }
 
         // set the owning side of the relation if necessary
-        if ($guarantor !== null && $guarantor->getIdentityDocument() !== $this) {
-            $guarantor->setIdentityDocument($this);
+        if ($guarantor !== null && $guarantor->getIdentityLeaseParty() !== $this) {
+            $guarantor->setIdentityLeaseParty($this);
         }
 
         $this->guarantor = $guarantor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IdentityDocument>
+     */
+    public function getIdentityDocuments(): Collection
+    {
+        return $this->identityDocuments;
+    }
+
+    public function addIdentityDocument(IdentityDocument $identityDocument): static
+    {
+        if (!$this->identityDocuments->contains($identityDocument)) {
+            $this->identityDocuments->add($identityDocument);
+            $identityDocument->setIdentityLeaseParty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdentityDocument(IdentityDocument $identityDocument): static
+    {
+        if ($this->identityDocuments->removeElement($identityDocument)) {
+            // set the owning side to null (unless already changed)
+            if ($identityDocument->getIdentityLeaseParty() === $this) {
+                $identityDocument->setIdentityLeaseParty(null);
+            }
+        }
 
         return $this;
     }

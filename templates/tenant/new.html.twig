@@ -83,15 +83,15 @@
                             <div class="section-form form-general-information-section mb-3 p-3">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        {{ form_row(tenantForm.identityDocument.identityDocumentType) }}
+                                        {{ form_row(tenantForm.identityLeaseParty.identityDocumentType) }}
                                     </div>
                                     <div class="col-md-6">
-                                        {{ form_row(tenantForm.identityDocument.identityNumber) }}
+                                        {{ form_row(tenantForm.identityLeaseParty.identityNumber) }}
                                     </div>
                                     <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
-                                        <label for="{{ tenantForm.identityDocument.expirationDate.vars.id }}" class="form-label me-2">{{ tenantForm.identityDocument.expirationDate.vars.label }}</label>
-                                        {{ form_widget(tenantForm.identityDocument.expirationDate, { 'attr': { 'class': 'form-control w-50' } }) }}
-                                        {{ form_errors(tenantForm.identityDocument.expirationDate) }}
+                                        <label for="{{ tenantForm.identityLeaseParty.expirationDate.vars.id }}" class="form-label me-2">{{ tenantForm.identityLeaseParty.expirationDate.vars.label }}</label>
+                                        {{ form_widget(tenantForm.identityLeaseParty.expirationDate, { 'attr': { 'class': 'form-control w-50' } }) }}
+                                        {{ form_errors(tenantForm.identityLeaseParty.expirationDate) }}
                                     </div>
                                 </div>
                             </div>
@@ -210,18 +210,18 @@
                                 </div>
                             </div>
                             <!-- Section 6 -->
-                            <div id="guarantorIdentityDocumentSection" class="section-form form-guarantor-information-section mb-3 p-3 hidden-focusable">
+                            <div id="guarantorIdentityLeasePartySection" class="section-form form-guarantor-information-section mb-3 p-3 hidden-focusable">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        {{ form_row(guarantor.identityDocument.identityDocumentType) }}
+                                        {{ form_row(guarantor.identityLeaseParty.identityDocumentType) }}
                                     </div>
                                     <div class="col-md-6">
-                                        {{ form_row(guarantor.identityDocument.identityNumber) }}
+                                        {{ form_row(guarantor.identityLeaseParty.identityNumber) }}
                                     </div>
                                     <div class="col-md-12 mt-3 d-flex justify-content-between align-items-center">
-                                        <label for="{{ guarantor.identityDocument.expirationDate.vars.id }}" class="form-label me-2">{{ guarantor.identityDocument.expirationDate.vars.label }}</label>
-                                        {{ form_widget(guarantor.identityDocument.expirationDate, { 'attr': { 'class': 'form-control w-50' } }) }}
-                                        {{ form_errors(guarantor.identityDocument.expirationDate) }}
+                                        <label for="{{ guarantor.identityLeaseParty.expirationDate.vars.id }}" class="form-label me-2">{{ guarantor.identityLeaseParty.expirationDate.vars.label }}</label>
+                                        {{ form_widget(guarantor.identityLeaseParty.expirationDate, { 'attr': { 'class': 'form-control w-50' } }) }}
+                                        {{ form_errors(guarantor.identityLeaseParty.expirationDate) }}
                                     </div>
                                 </div>
                             </div>
@@ -286,14 +286,13 @@
                                 <div class="upload-zone p-4 mb-2">
                                     <p class="mb-2 p"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Télécharger des documents</p>
                                     <div class="upload-container">
-                                        {# {{ form_widget(tenantForm.identityDocument, { 'attr': {'onchange': 'displayFileName(this)'} }) }}
-                                        {{ form_errors(tenantForm.identityDocument) }} #}
+                                        {{ form_widget(tenantForm.identityLeaseParty.identityDocuments, { 'attr': {'multiple': 'multiple'} }) }}
+                                        {{ form_errors(tenantForm.identityLeaseParty.identityDocuments) }}
 
                                         <div id="selected-files-documents" class="mt-2">
-                                            <span class="file-name"></span>
-                                            <span class="remove-file d-none" onclick="removeFile('{{ tenantForm.identityDocument.vars.id }}', 'selected-files-documents')">
-                                                &times;
-                                            </span>
+                                            <div id="selected-files-documents" class="mt-2">
+                                            <!-- List of selected documents -->
+                                            </div>
                                         </div>
                                     </div>
                                     <small class="text-muted">Formats acceptés : PDF, DOC, DOCX</small>

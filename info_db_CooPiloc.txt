@@ -15,7 +15,8 @@
 - RentalDocument (id, receiptDate (date de quittancement), noticeRentDueDate (date avis échéance), uploadRentalDocumentPath, fk_rentalId)
 - tenant (id, color, civility, dateOfBirth, placeOfBirth, nationality, profession, monthlyIncome, privateComment, hasGuarantor, fk_personDetailId)
 - guarantor (id, color, guarantorType, civility, dateOfBirth, placeOfBirth, profession, monthlyIncome, privateComment, guarantorCompanyName, fk_addressId, fk_personDetailId, fk_tenantId)
-- IdentityDocument (id, created_at, updated_at, identityDocumentType, identityNumber, identityDocumentExpiration, filePathDocumentIdentity)
+- identityLeaseParty (id, identityDocumentType, identityNumber, identityDocumentExpiration)
+- identityDocument (id, filePathDocumentIdentity )
 
 ***********************************************************************************************Explications***************************************************************************************************************
 - inheritage personDetail with guarantor, tenant and user.

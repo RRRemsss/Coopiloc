@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\IdentityLeaseParty;
+use App\Entity\IdentityDocument;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<IdentityLeaseParty>
+ * @extends ServiceEntityRepository<IdentityDocument>
  */
-class IdentityLeasePartyRepository extends ServiceEntityRepository
+class IdentityDocumentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, IdentityLeaseParty::class);
+        parent::__construct($registry, IdentityDocument::class);
     }
 
     //    /**
-    //     * @return identityLeaseParty[] Returns an array of identityLeaseParty objects
+    //     * @return IdentityDocument[] Returns an array of IdentityDocument objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class IdentityLeasePartyRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?IdentityLeaseParty
+    //    public function findOneBySomeField($value): ?IdentityDocument
     //    {
     //        return $this->createQueryBuilder('i')
     //            ->andWhere('i.exampleField = :val')

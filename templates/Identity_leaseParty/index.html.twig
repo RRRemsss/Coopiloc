@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}IdentityDocument index{% endblock %}
+{% block title %}IdentityLeaseParty index{% endblock %}
 
 {% block body %}
-    <h1>IdentityDocument index</h1>
+    <h1>IdentityLeaseParty index</h1>
 
     <table class="table">
         <thead>
@@ -21,16 +21,16 @@
         <tbody>
         {% for identity_document in identity_documents %}
             <tr>
-                <td>{{ identity_document.id }}</td>
-                <td>{{ identity_document.createdAt ? identity_document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ identity_document.updatedAt ? identity_document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ identity_document.identityDocumentType }}</td>
-                <td>{{ identity_document.identityNumber }}</td>
-                <td>{{ identity_document.expirationDate ? identity_document.expirationDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ identity_document.uploadIdentityPath }}</td>
+                <td>{{ identityLeaseParty.id }}</td>
+                <td>{{ identityLeaseParty.createdAt ? identity_document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ identityLeaseParty.updatedAt ? identity_document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ identityLeaseParty.identityDocumentType }}</td>
+                <td>{{ identityLeaseParty.identityNumber }}</td>
+                <td>{{ identityLeaseParty.expirationDate ? identityLeaseParty.expirationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ identityLeaseParty.uploadIdentityPath }}</td>
                 <td>
-                    <a href="{{ path('app_identity_document_show', {'id': identity_document.id}) }}">show</a>
-                    <a href="{{ path('app_identity_document_edit', {'id': identity_document.id}) }}">edit</a>
+                    <a href="{{ path('app_identity_leaseParty_show', {'id': identityLeaseParty.id}) }}">show</a>
+                    <a href="{{ path('app_identity_leaseParty_edit', {'id': identityLeaseParty.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -41,5 +41,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_identity_document_new') }}">Create new</a>
+    <a href="{{ path('app_identity_leaseParty_new') }}">Create new</a>
 {% endblock %}

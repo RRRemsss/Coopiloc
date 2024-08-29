@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New IdentityDocument{% endblock %}
+{% block title %}New IdentityLeaseParty{% endblock %}
 
 {% block body %}
-    <h1>Create new IdentityDocument</h1>
+    <h1>Create new IdentityLeaseParty</h1>
 
-    {{ include('identity_document/_form.html.twig') }}
+    {{ include('Identity_leaseParty/_form.html.twig') }}
 
-    <a href="{{ path('app_identity_document_index') }}">back to list</a>
+    <a href="{{ path('app_Identity_leaseParty_index') }}">back to list</a>
 {% endblock %}

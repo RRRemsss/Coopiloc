@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const guarantorIdentitySection = document.getElementById('guarantorIdentitySection');
     const guarantorDetailsSection = document.getElementById('guarantorDetailSection');
-    const guarantorIdentityDocumentsSection = document.getElementById('guarantorIdentityDocumentSection');
+    const guarantorIdentityLeasePartysSection = document.getElementById('guarantorIdentityLeasePartySection');
     const guarantorContactSection = document.getElementById('guarantorContactSection');
     const guarantorAddressSection = document.getElementById('guarantorAddressSection');
     const guarantorCompanyNameSection = document.getElementById('guarantorCompanyNameSection');
@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to toggle visibility of sections based on guarantor type
     function toggleGuarantorSections() {
         if (guarantorTypeParticulier && guarantorTypeParticulier.checked) {
-            showSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityDocumentSection', 'guarantorContactSection', 'guarantorAddressSection']);
+            showSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityLeasePartySection', 'guarantorContactSection', 'guarantorAddressSection']);
             hideSections(['guarantorCompanyNameSection']);
         } else if (guarantorTypeSociete && guarantorTypeSociete.checked) {
             showSections(['guarantorCompanyNameSection', 'guarantorContactSection', 'guarantorAddressSection']);
-            hideSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityDocumentSection']);
+            hideSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityLeasePartySection']);
         }
     }
 
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function hideAllGuarantorSections() {
-        hideSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityDocumentSection', 'guarantorCompanyNameSection', 'guarantorContactSection', 'guarantorAddressSection']);
+        hideSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityLeasePartySection', 'guarantorCompanyNameSection', 'guarantorContactSection', 'guarantorAddressSection']);
     }
 
     // Add event listeners to radio buttons

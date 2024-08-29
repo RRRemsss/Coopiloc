@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit IdentityDocument{% endblock %}
+{% block title %}Edit identityLeaseParty{% endblock %}
 
 {% block body %}
-    <h1>Edit IdentityDocument</h1>
+    <h1>Edit identityLeaseParty</h1>
 
-    {{ include('identity_document/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('Identity_leaseParty/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_identity_document_index') }}">back to list</a>
+    <a href="{{ path('app_identity_leaseParty_index') }}">back to list</a>
 
-    {{ include('identity_document/_delete_form.html.twig') }}
+    {{ include('Identity_leaseParty/_delete_form.html.twig') }}
 {% endblock %}

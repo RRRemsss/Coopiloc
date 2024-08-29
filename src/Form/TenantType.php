@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\IdentityDocument;
+use App\Entity\IdentityLeaseParty;
 use App\Entity\PersonDetail;
 use App\Entity\Rental;
 use App\Entity\Tenant;
@@ -123,7 +123,7 @@ class TenantType extends AbstractType
             //     'choice_label' => 'id',
             //     'multiple' => true,
             // ])
-            ->add('identityDocument', IdentityDocumentType::class, [
+            ->add('identityLeaseParty', IdentityLeasePartyType::class, [
                 'label' => false,
                 'required' => false,
             ])
