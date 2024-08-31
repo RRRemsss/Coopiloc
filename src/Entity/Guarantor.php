@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GuarantorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -55,6 +57,17 @@ class Guarantor
 
     #[ORM\OneToOne(inversedBy: 'guarantor', cascade: ['persist', 'remove'])]
     private ?IdentityLeaseParty $identityLeaseParty = null;
+
+    /**
+     * @var Collection<int, guarantorDocument>
+     */
+    #[ORM\OneToMany(targetEntity: GuarantorDocument::class, mappedBy: 'guarantor', cascade: ['persist'])]
+    private Collection $guarantorDocuments;
+
+    public function __construct()
+    {
+        $this->guarantorDocuments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -225,6 +238,36 @@ class Guarantor
     public function setIdentityLeaseParty(?IdentityLeaseParty $identityLeaseParty): static
     {
         $this->identityLeaseParty = $identityLeaseParty;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, guarantorDocument>
+     */
+    public function getGuarantorDocuments(): Collection
+    {
+        return $this->guarantorDocuments;
+    }
+
+    public function addGuarantorDocument(GuarantorDocument $guarantorDocument): static
+    {
+        if (!$this->guarantorDocuments->contains($guarantorDocument)) {
+            $this->guarantorDocuments->add($guarantorDocument);
+            $guarantorDocument->setGuarantor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuarantorDocument(GuarantorDocument $guarantorDocument): static
+    {
+        if ($this->guarantorDocuments->removeElement($guarantorDocument)) {
+            // set the owning side to null (unless already changed)
+            if ($guarantorDocument->getGuarantor() === $this) {
+                $guarantorDocument->setGuarantor(null);
+            }
+        }
 
         return $this;
     }

@@ -58,9 +58,16 @@ class Tenant
     #[ORM\ManyToOne(inversedBy: 'tenants')]
     private ?Rental $rental = null;
 
+    /**
+     * @var Collection<int, tenantDocument>
+     */
+    #[ORM\OneToMany(targetEntity: TenantDocument::class, mappedBy: 'tenant', cascade: ['persist'])]
+    private Collection $tenantDocuments;
+
     public function __construct()
     {
         $this->guarantors = new ArrayCollection();
+        $this->tenantDocuments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,6 +253,36 @@ class Tenant
     public function setRental(?Rental $rental): static
     {
         $this->rental = $rental;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, tenantDocument>
+     */
+    public function getTenantDocuments(): Collection
+    {
+        return $this->tenantDocuments;
+    }
+
+    public function addTenantDocument(TenantDocument $tenantDocument): static
+    {
+        if (!$this->tenantDocuments->contains($tenantDocument)) {
+            $this->tenantDocuments->add($tenantDocument);
+            $tenantDocument->setTenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTenantDocument(TenantDocument $tenantDocument): static
+    {
+        if ($this->tenantDocuments->removeElement($tenantDocument)) {
+            // set the owning side to null (unless already changed)
+            if ($tenantDocument->getTenant() === $this) {
+                $tenantDocument->setTenant(null);
+            }
+        }
 
         return $this;
     }

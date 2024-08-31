@@ -6,6 +6,8 @@
 parameters:
     images_directory_property: '%kernel.project_dir%/public/uploads/propertyImages'
     documents_directory_property: '%kernel.project_dir%/public/uploads/propertyDocuments'
+    documents_directory_tenant: '%kernel.project_dir%/public/uploads/tenantDocuments'
+    documents_directory_guarantor: '%kernel.project_dir%/public/uploads/guarantorDocuments'
 
 services:
     # default configuration for services in *this* file
@@ -29,3 +31,5 @@ services:
         arguments:
             $imagesDirectoryProperty: '%images_directory_property%'
             $documentsDirectoryProperty: '%documents_directory_property%'
+            $documentsDirectoryTenant: '%documents_directory_tenant%'
+            $documentsDirectoryGuarantor: '%documents_directory_guarantor%'

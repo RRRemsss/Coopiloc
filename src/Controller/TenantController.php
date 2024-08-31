@@ -11,12 +11,11 @@ use App\Repository\TenantRepository;
 use App\Service\UploadFilesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 #[Route('/tenant', name: 'tenant_')]
 class TenantController extends AbstractController
@@ -30,11 +29,16 @@ class TenantController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UploadFilesService $uploadFilesService): Response
     {
         $tenant = new Tenant();
+        $tenantIdentityLeaseParty = new IdentityLeaseParty(); // Create a new instance of IdentityLEaseParty for Tenant
+        $tenant->setIdentityLeaseParty($tenantIdentityLeaseParty); // Associate this instance to Tenant
+
         // Creating new Guarantor
         $guarantor = new Guarantor ();
+        $guarantorIdentityLeaseParty = new IdentityLeaseParty(); // Create a new instance of IdentityLEaseParty for Guarantor
+        $guarantor->setIdentityLeaseParty($guarantorIdentityLeaseParty); // Associate this instance to Guarantor
         $tenant -> addGuarantor($guarantor);
                 
         $tenantForm = $this->createForm(TenantType::class, $tenant);
@@ -42,50 +46,43 @@ class TenantController extends AbstractController
 
         if ($tenantForm->isSubmitted() && $tenantForm->isValid()) {
 
-            foreach ($tenant->getGuarantors() as $guarantor) {
-                $guarantor->setTenant($tenant); // Associer chaque garant au locataire
-                $entityManager->persist($guarantor); // Persister chaque garant
-            }
-           
-            $documents = $tenantForm->get('identityDocuments')->getData();
+            foreach ($tenant->getGuarantors() as $index => $guarantor) {
+                $guarantor->setTenant($tenant); // Associat each guarantor to a tenant
+                $entityManager->persist($guarantor); // Persist each guarantor
 
-            // Handle documents to upload
+                // Handle guarantor's documents to upload
+                $guarantorForm = $tenantForm->get('guarantors')->get($index);
+                $documents = $guarantorForm->get('guarantorDocuments')->getData();
+                if ($documents) {
+                    foreach ($documents as $document) {
+                        if ($document instanceof UploadedFile) {
+                            try {
+                                $guarantorDocument = $uploadFilesService->uploadGuarantorDocument($document);
+                                $guarantor->addGuarantorDocument($guarantorDocument);
+                            } catch (\Exception $e) {
+                                $this->addFlash('error', $e->getMessage());
+                                return $this->redirectToRoute('tenant_new');
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Handle tenant's documents to upload
+            $documents = $tenantForm->get('tenantDocuments')->getData();
             if ($documents) {
                 foreach ($documents as $document) {
                     if ($document instanceof UploadedFile) {
-
-                        // Validating manually uploaded
-                        $mimeTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                        if (!in_array($document->getMimeType(), $mimeTypes)) {
-                            $this->addFlash('error', 'Type de fichier de document non valide.');
-                            return $this->redirectToRoute('tenant_new');
-                        }
-                        if ($document->getSize() > 10 * 1024 * 1024) { // 10MB
-                            $this->addFlash('error', 'Le document est trop volumineux.');
-                            return $this->redirectToRoute('tenant_new');
-                        }
-
-                        $originalFilename = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
-                        $newFilename = $slugger->slug($originalFilename).'-'.uniqid().'.'.$document->guessExtension();
                         try {
-                            $document->move(
-                                $this->getParameter('documentsProperty_directory'),
-                                $newFilename
-                            );
-                        } catch (FileException $e) {
-                            $this->addFlash('error', 'Erreur lors de l\'upload du document : ' . $e->getMessage());
+                            $tenantDocument = $uploadFilesService->uploadTenantDocument($document);
+                            $tenant->addTenantDocument($tenantDocument);
+                        } catch (\Exception $e) {
+                            $this->addFlash('error', $e->getMessage());
                             return $this->redirectToRoute('tenant_new');
                         }
-
-                        $identityDocument = new IdentityDocument();
-                        $identityDocument->setFilePathIdentityDocument($newFilename); 
-                        //TODO
-                        // $tenant->setIdentityLeaseParty($identityLeaseParty);
-
-                        $entityManager->persist($identityDocument);
                     }
                 }
-        }
+            }
 
             $entityManager->persist($tenant);
             $entityManager->flush();

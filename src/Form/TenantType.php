@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -118,11 +119,6 @@ class TenantType extends AbstractType
                 'attr' => ['class' => 'form-check-input'],
                 'label_attr'=> ['class'=> 'form-label me-3'],
             ])
-            // ->add('tenants', EntityType::class, [
-            //     'class' => Rental::class,
-            //     'choice_label' => 'id',
-            //     'multiple' => true,
-            // ])
             ->add('identityLeaseParty', IdentityLeasePartyType::class, [
                 'label' => false,
                 'required' => false,
@@ -134,7 +130,16 @@ class TenantType extends AbstractType
             ->add('guarantors', CollectionType::class, [
                 'entry_type' => GuarantorType::class,
                 'label' => false,
-            ]);
+            ])
+            ->add('tenantDocuments', FileType::class, [
+                'label' => 'Veuillez insérer le justificatif',
+                'multiple' => true, 
+                'required' => false,
+                'mapped' => false,
+                'attr' => [
+                    'accept' => 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                ],
+            ])
         ;
     }
 

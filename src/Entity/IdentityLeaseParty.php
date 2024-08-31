@@ -31,17 +31,6 @@ class IdentityLeaseParty
     #[ORM\OneToOne(mappedBy: 'identityLeaseParty', cascade: ['persist', 'remove'])]
     private ?Guarantor $guarantor = null;
 
-    /**
-     * @var Collection<int, IdentityDocument>
-     */
-    #[ORM\OneToMany(targetEntity: IdentityDocument::class, mappedBy: 'identityLeaseParty')]
-    private Collection $identityDocuments;
-
-    public function __construct()
-    {
-        $this->identityDocuments = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -124,36 +113,6 @@ class IdentityLeaseParty
         }
 
         $this->guarantor = $guarantor;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, IdentityDocument>
-     */
-    public function getIdentityDocuments(): Collection
-    {
-        return $this->identityDocuments;
-    }
-
-    public function addIdentityDocument(IdentityDocument $identityDocument): static
-    {
-        if (!$this->identityDocuments->contains($identityDocument)) {
-            $this->identityDocuments->add($identityDocument);
-            $identityDocument->setIdentityLeaseParty($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdentityDocument(IdentityDocument $identityDocument): static
-    {
-        if ($this->identityDocuments->removeElement($identityDocument)) {
-            // set the owning side to null (unless already changed)
-            if ($identityDocument->getIdentityLeaseParty() === $this) {
-                $identityDocument->setIdentityLeaseParty(null);
-            }
-        }
 
         return $this;
     }

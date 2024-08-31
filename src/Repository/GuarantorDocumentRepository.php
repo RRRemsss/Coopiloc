@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\IdentityDocument;
+use App\Entity\GuarantorDocument;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<IdentityDocument>
+ * @extends ServiceEntityRepository<GuarantorDocument>
  */
-class IdentityDocumentRepository extends ServiceEntityRepository
+class GuarantorDocumentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, IdentityDocument::class);
+        parent::__construct($registry, GuarantorDocument::class);
     }
 
     //    /**
-    //     * @return IdentityDocument[] Returns an array of IdentityDocument objects
+    //     * @return GuarantorDocument[] Returns an array of GuarantorDocument objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
+    //        return $this->createQueryBuilder('g')
+    //            ->andWhere('g.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('i.id', 'ASC')
+    //            ->orderBy('g.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?IdentityDocument
+    //    public function findOneBySomeField($value): ?GuarantorDocument
     //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
+    //        return $this->createQueryBuilder('g')
+    //            ->andWhere('g.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()

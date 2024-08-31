@@ -112,6 +112,18 @@
                             <div class="section-form form-general-information-section5 mb-3 p-3">
                                 {{ form_row(tenantForm.privateComment) }}
                             </div>
+                            <div class="upload-zone p-4 mb-2">
+                                <p class="mb-2"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Insérez les documents liés à votre locataire</p>
+                                <div class="upload-container">
+                                    {{ form_widget(tenantForm.tenantDocuments, { 'attr': {'multiple': 'multiple'} }) }}
+                                    {{ form_errors(tenantForm.tenantDocuments) }}
+
+                                    <div id="selected-files-documents" class="mt-2">
+                                        <!-- List of selected documents -->
+                                    </div>
+                                </div>
+                                <small class="text-muted">Formats acceptés : PDF, DOC, DOCX</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -275,32 +287,23 @@
                             <div id="guarantorPrivateCommentSection" class="section-form form-general-information-section mb-3 p-3">
                                 {{ form_row(guarantor.privateComment) }}
                             </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div id="form-document-leaseParty" class="form-section d-none">
-                    <div class="section-document-leaseParty mb-3 pb-1 pt-3 px-3 text-center">
-                        <div class="row justify-content-center">
-                            <div class="col-md-6">
-                                <div class="upload-zone p-4 mb-2">
-                                    <p class="mb-2 p"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Télécharger des documents</p>
-                                    <div class="upload-container">
-                                        {{ form_widget(tenantForm.identityLeaseParty.identityDocuments, { 'attr': {'multiple': 'multiple'} }) }}
-                                        {{ form_errors(tenantForm.identityLeaseParty.identityDocuments) }}
+                            <!-- Section 10 -->
+                            <div id="guarantorUploadZoneSection" class="upload-zone p-4 mb-2 hidden-focusable">
+                                <p class="mb-2"><i class="fa-solid fa-cloud-arrow-up fa-lg"></i> Insérez les documents liés aux garants</p>
+                                <div class="upload-container">
+                                    {{ form_widget(guarantor.guarantorDocuments, { 'attr': {'multiple': 'multiple'} }) }}
+                                    {{ form_errors(guarantor.guarantorDocuments) }}
 
-                                        <div id="selected-files-documents" class="mt-2">
-                                            <div id="selected-files-documents" class="mt-2">
-                                            <!-- List of selected documents -->
-                                            </div>
-                                        </div>
+                                    <div id="selected-files-documents" class="mt-2">
+                                        <!-- TODO: create List of selected documents -->
                                     </div>
-                                    <small class="text-muted">Formats acceptés : PDF, DOC, DOCX</small>
                                 </div>
+                                <small class="text-muted">Formats acceptés : PDF, DOC, DOCX</small>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
-                </div>          
+                </div>
                 <!-- End form -->
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">

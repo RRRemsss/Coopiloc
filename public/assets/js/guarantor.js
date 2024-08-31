@@ -11,17 +11,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const guarantorContactSection = document.getElementById('guarantorContactSection');
     const guarantorAddressSection = document.getElementById('guarantorAddressSection');
     const guarantorCompanyNameSection = document.getElementById('guarantorCompanyNameSection');
+    const guarantorUploadZoneSection = document.getElementById('guarantorUploadZoneSection');
 
     // Function to toggle visibility of guarantorTypeSection and corresponding sections
     function toggleGuarantorTypeSection() {
         if (hasGuarantorYes.checked) {
             guarantorTypeSection.classList.remove('hidden-focusable');
+            guarantorUploadZoneSection.classList.remove('hidden-focusable');
             // Ensure no type is pre-checked
             guarantorTypeParticulier.checked = false;
             guarantorTypeSociete.checked = false;
             hideAllGuarantorSections();
         } else {
             guarantorTypeSection.classList.add('hidden-focusable');
+            guarantorUploadZoneSection.classList.add('hidden-focusable');
             hideAllGuarantorSections();
         }
     }
@@ -29,10 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to toggle visibility of sections based on guarantor type
     function toggleGuarantorSections() {
         if (guarantorTypeParticulier && guarantorTypeParticulier.checked) {
-            showSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityLeasePartySection', 'guarantorContactSection', 'guarantorAddressSection']);
+            showSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityLeasePartySection', 'guarantorContactSection', 'guarantorAddressSection', 'guarantorUploadZoneSection']);
             hideSections(['guarantorCompanyNameSection']);
         } else if (guarantorTypeSociete && guarantorTypeSociete.checked) {
-            showSections(['guarantorCompanyNameSection', 'guarantorContactSection', 'guarantorAddressSection']);
+            showSections(['guarantorCompanyNameSection', 'guarantorContactSection', 'guarantorAddressSection', 'guarantorUploadZoneSection']);
             hideSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityLeasePartySection']);
         }
     }
@@ -57,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function hideAllGuarantorSections() {
-        hideSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityLeasePartySection', 'guarantorCompanyNameSection', 'guarantorContactSection', 'guarantorAddressSection']);
+        hideSections(['guarantorIdentitySection', 'guarantorDetailSection', 'guarantorIdentityLeasePartySection', 'guarantorCompanyNameSection', 'guarantorContactSection', 'guarantorAddressSection', 'guarantorUploadZoneSection']);
     }
 
     // Add event listeners to radio buttons

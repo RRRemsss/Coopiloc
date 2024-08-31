@@ -6,6 +6,7 @@ use App\Entity\Guarantor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -97,11 +98,6 @@ class GuarantorType extends AbstractType
                 'required' => false,
                 'attr' => ['placeholder' => 'Nom de la société garante', 'class' => 'form-control'],
             ])
-            // ->add('tenant', EntityType::class, [
-            //     'class' => Tenant::class,
-            //     'label' => false,
-            //     'required' => false,
-            // ])
             ->add('address', AddressType::class, [
                 'label' => false,
                 'required' => false,
@@ -113,6 +109,15 @@ class GuarantorType extends AbstractType
             ->add('identityLeaseParty', IdentityLeasePartyType::class, [
                 'label' => false,
                 'required' => false,
+            ])
+            ->add('guarantorDocuments', FileType::class, [
+                'label' => 'Veuillez insérer le justificatif',
+                'multiple' => true, 
+                'required' => false,
+                'mapped' => false,
+                'attr' => [
+                    'accept' => 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                ],
             ])
             
         ;
