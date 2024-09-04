@@ -23,6 +23,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => false,
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'Pseudo'
                 ],
@@ -43,14 +44,14 @@ class RegistrationFormType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
                 'required' => true,
-                'label'=> 'Vous êtes '
+                'label'=> 'Vous êtes* '
             ])
             ->add('plainPassword', RepeatedType::class, [
               'type' => PasswordType::class,
                 'first_options' => [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Mot de passe',
+                        'placeholder' => 'Mot de passe*',
                         'autocomplete' => 'new-password',
                     ],
                     'constraints' => [
@@ -67,7 +68,7 @@ class RegistrationFormType extends AbstractType
                 'second_options' => [
                     'label' => false,
                     'attr' => [
-                        'placeholder' => 'Confirmer le mot de passe',
+                        'placeholder' => 'Confirmer le mot de passe*',
                         'autocomplete' => 'new-password',
                     ],
                 ],
@@ -75,8 +76,34 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
             ])
             ->add('personDetail', PersonDetailType::class, [
-                'include_phone' => false, // disable phone field
-            ]);
+            ])
+            ->add('userStreetName', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Numéro et nom de la rue*',
+                            'class' => 'form-control'],
+            ])
+            ->add('userCity', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Ville*',
+                            'class' => 'form-control'],
+            ])
+            ->add('userPostCode', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Code postal*',
+                            'class' => 'form-control'],
+            ])
+            ->add('userCountryAddress', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Pays',
+                            'class' => 'form-control'],
+            ])
+            
+            ;
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -16,13 +16,13 @@ class PersonDetailType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => false,
                 'required' => true,
-                'attr' => ['placeholder' => 'Prénom',
+                'attr' => ['placeholder' => 'Prénom*',
                             'class' => 'form-control'],
             ])
             ->add('lastname', TextType::class, [
                 'label' => false,
                 'required' => true,
-                'attr' => ['placeholder' => 'Nom',
+                'attr' => ['placeholder' => 'Nom*',
                             'class' => 'form-control'],
             ])
             ->add('email', TextType::class, [

@@ -13,55 +13,85 @@ class RentalDocument
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $receiptDate = null;
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $documentType = null;
 
     #[ORM\Column(nullable: true)]
-    private ?int $noticeRentDueDate = null;
+    private ?int $issueDate = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $dueDate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $uploadRentalDocumentPath = null;
+    private ?string $filePathRentalDocument = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $otherAddress = null;
 
     #[ORM\ManyToOne(inversedBy: 'rentalDocuments')]
     private ?Rental $rental = null;
-
+  
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getReceiptDate(): ?int
+    public function getDocumentType(): ?string
     {
-        return $this->receiptDate;
+        return $this->documentType;
     }
 
-    public function setReceiptDate(?int $receiptDate): static
+    public function setDocumentType(?string $documentType): static
     {
-        $this->receiptDate = $receiptDate;
+        $this->documentType = $documentType;
 
         return $this;
     }
 
-    public function getNoticeRentDueDate(): ?int
+    public function getIssueDate(): ?int
     {
-        return $this->noticeRentDueDate;
+        return $this->issueDate;
     }
 
-    public function setNoticeRentDueDate(?int $noticeRentDueDate): static
+    public function setiIsueDate(?int $issueDate): static
     {
-        $this->noticeRentDueDate = $noticeRentDueDate;
+        $this->issueDate = $issueDate;
 
         return $this;
     }
 
-    public function getuploadRentalDocumentPath (): ?string
+    public function getDueDate(): ?int
     {
-        return $this->uploadRentalDocumentPath ;
+        return $this->dueDate;
     }
 
-    public function setuploadRentalDocumentPath (?string $uploadRentalDocumentPath ): static
+    public function setDueDate(?int $dueDate): static
     {
-        $this->uploadRentalDocumentPath  = $uploadRentalDocumentPath ;
+        $this->dueDate = $dueDate;
+
+        return $this;
+    }
+
+    public function getFilePathRentalDocument (): ?string
+    {
+        return $this->filePathRentalDocument ;
+    }
+
+    public function setFilePathRentalDocument (?string $filePathRentalDocument ): static
+    {
+        $this->filePathRentalDocument  = $filePathRentalDocument ;
+
+        return $this;
+    }
+
+    public function getOtherAddress(): ?string
+    {
+        return $this->otherAddress;
+    }
+
+    public function setOtherAddress(?string $otherAddress): static
+    {
+        $this->otherAddress = $otherAddress;
 
         return $this;
     }

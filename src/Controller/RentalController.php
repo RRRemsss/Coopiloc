@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\PersonDetail;
 use App\Entity\Property;
 use App\Entity\Rental;
-use App\Entity\Tenant;
 use App\Form\RentalType;
 use App\Repository\RentalRepository;
 use App\Repository\TenantRepository;
+use App\Service\PdfGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +17,39 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/rental', name: 'rental_')]
 class RentalController extends AbstractController
 {
+    #[Route('/rental-document/{id}', name: 'rental_document')]
+    public function generateRentalDocument(int $id, EntityManagerInterface $entityManager, PdfGeneratorService $pdfGeneratorService): Response
+    {
+        // Récupérer la location (rental) par son ID
+        $rental = $entityManager->getRepository(Rental::class)->find($id);
+
+        if (!$rental) {
+            throw $this->createNotFoundException('Rental not found.');
+        }
+
+        // Récupérer le ou les tenants associés à cette location
+        $tenants = $rental->getTenants();
+
+        // Récupérer la propriété associée
+        $property = $rental->getProperty();
+
+        // Récupérer le propriétaire associé à la propriété (User)
+        $user = $property->getUser();
+
+        // Générer le PDF
+        $pdfContent = $pdfGeneratorService->generatePdf('pdf/receipt.html.twig', [
+            'user' => $user,
+            'tenants' => $tenants,
+            'property' => $property,
+            'rental' => $rental,
+        ]);
+
+        return new Response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="rental_document.pdf"',
+        ]);
+    }
+
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(RentalRepository $rentalRepository): Response
     {

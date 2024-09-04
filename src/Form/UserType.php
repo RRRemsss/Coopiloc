@@ -18,20 +18,44 @@ class UserType extends AbstractType
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
                 'attr' => [
-                    'placeholder' => 'Pseudo'
+                    'placeholder' => 'Pseudo*'
                 ],
             ])
             ->add('password', TextType::class, [
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Mot de passe'
+                    'placeholder' => 'Mot de passe*'
                 ],
             ])
             ->add('type')
             ->add('personDetail', EntityType::class, [
                 'class' => PersonDetail::class,
-                'choice_label' => 'id',
             ])
+            ->add('userStreetName', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Numéro et nom de la rue*',
+                            'class' => 'form-control'],
+            ])
+            ->add('userCity', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Ville*',
+                            'class' => 'form-control'],
+            ])
+            ->add('UserPostCode', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Code postal*',
+                            'class' => 'form-control'],
+            ])
+            ->add('userCountryAddress', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => ['placeholder' => 'Pays',
+                            'class' => 'form-control'],
+            ])
+            ;
         ;
     }
 

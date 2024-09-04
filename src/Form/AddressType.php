@@ -54,7 +54,7 @@ class AddressType extends AbstractType
             'required' => false,
             'attr' => ['placeholder' => 'Pays',
                         'class' => 'form-control'],
-        ]);
+        ])
         ;
     }
 

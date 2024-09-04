@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #000;
+    box-sizing: border-box;
+}
+
+.header, .section, .content, .footer {
+    margin-bottom: 20px;
+}
+
+.header p, .section p {
+    margin: 0;
+}
+
+.date {
+    text-align: right;
+}
+
+h2 {
+    font-size: 16px;
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.rent-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.rent-table th, .rent-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+.rent-table th {
+    background-color: #f2f2f2;
+}
+
+.rent-table td {
+    text-align: right;
+}
+
+.rent-table th:first-child, .rent-table td:first-child {
+    text-align: left;
+}
+
+.footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 30px;
+}

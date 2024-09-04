@@ -31,6 +31,16 @@ class PropertyController extends AbstractController
     {
         $property = new Property();
 
+        // Get user connected
+        $user = $this->getUser();
+        if (!$user) {
+            $this->addFlash('error', 'Vous devez être connecté pour créer une propriété.');
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Assign user to the property
+        $property->setUser($user);
+
         // Creating new Description and Tax objects
         $description = new Description();
         $tax = new Tax();

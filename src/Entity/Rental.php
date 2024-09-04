@@ -80,6 +80,9 @@ class Rental
     #[ORM\OneToMany(targetEntity: Tenant::class, mappedBy: 'rental')]
     private Collection $tenants;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $garageParkingBoxRent = null;
+
     public function __construct()
     {
         $this->rentalDocuments = new ArrayCollection();
@@ -351,6 +354,18 @@ class Rental
                 $tenant->setRental(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGarageParkingBoxRent(): ?float
+    {
+        return $this->garageParkingBoxRent;
+    }
+
+    public function setGarageParkingBoxRent(?float $garageParkingBoxRent): static
+    {
+        $this->garageParkingBoxRent = $garageParkingBoxRent;
 
         return $this;
     }

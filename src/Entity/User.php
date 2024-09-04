@@ -38,6 +38,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 25)]
     private ?string $type = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $userStreetName = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $userPostCode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $userCity = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $userCountryAddress = null;
+
     /**
      * @var Collection<int, Property>
      */
@@ -130,6 +142,62 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUserStreetName(): ?string
+    {
+        return $this->userStreetName;
+    }
+
+    public function setUserStreetName(string $userStreetName): static
+    {
+        $this->userStreetName = $userStreetName;
+
+        return $this;
+    }
+
+    public function getUserPostCode(): ?string
+    {
+        return $this->userPostCode;
+    }
+
+    public function setUserPostCode(string $userPostCode): static
+    {
+        $this->userPostCode = $userPostCode;
+
+        return $this;
+    }
+
+    public function getUserCity(): ?string
+    {
+        return $this->userCity;
+    }
+
+    public function setUserCity(string $userCity): static
+    {
+        $this->userCity = $userCity;
+
+        return $this;
+    }
+
+    public function getUserCountryAddress(): ?string
+    {
+        return $this->userCountryAddress;
+    }
+
+    public function setUserCountryAddress(?string $userCountryAddress): static
+    {
+        $this->userCountryAddress = $userCountryAddress;
+
+        return $this;
+    }
+
+    public function getFullName(): string
+    {
+        if ($this->personDetail) {
+            return $this->personDetail->getFirstname() . ' ' . $this->personDetail->getLastname();
+        }
+        return 'Unknown'; // Default value
+    }
+
     /**
      * @see UserInterface
      */
@@ -190,5 +258,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 }

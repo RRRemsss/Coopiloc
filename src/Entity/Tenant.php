@@ -242,7 +242,7 @@ class Tenant
         if ($this->personDetail) {
             return $this->personDetail->getFirstname() . ' ' . $this->personDetail->getLastname();
         }
-        return 'Unknown'; // Valeur par défaut si les détails de la personne sont absents
+        return 'Unknown'; // Default value
     }
 
     public function getRental(): ?Rental

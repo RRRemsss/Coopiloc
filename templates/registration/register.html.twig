@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <div class="row justify-content-center position-absolute top-50 start-50 translate-middle col-md-10">
+        <div class="register-form row justify-content-center position-absolute top-50 start-50 translate-middle col-md-10">
             <div class="col-md-6 col-lg-4">
                 <div class="text-center">
                     <img src="{{ asset('img/logo/logonoir.png') }}" class="sign-in-logo d-inline-block align-top logo rounded-circle" width="120" height="120" alt="CooPiloc logo">
@@ -27,14 +27,35 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group mb-3">
-                    {{ form_row(registrationForm.personDetail.firstname, {'attr': {'class': 'form-control'}}) }}
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.personDetail.firstname, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.personDetail.lastname, {'attr': {'class': 'form-control'}}) }}
+                    </div>
                 </div>
                 <div class="form-group mb-3">
-                    {{ form_row(registrationForm.personDetail.lastname, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(registrationForm.userStreetName, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.userPostCode, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.userCity, {'attr': {'class': 'form-control'}}) }}
+                    </div>
                 </div>
                 <div class="form-group mb-3">
-                    {{ form_row(registrationForm.personDetail.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(registrationForm.userCountryAddress, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.personDetail.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(registrationForm.personDetail.phoneNumber, {'attr': {'class': 'form-control'}}) }}
+                    </div>
                 </div>
                 <div class="form-group mb-3">
                     {{ form_row(registrationForm.username, {'attr': {'class': 'form-control'}}) }}

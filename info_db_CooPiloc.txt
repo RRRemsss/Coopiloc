@@ -1,5 +1,5 @@
 *****************************************************************************************************Entity***************************************************************************************************************
-- User (id, username, password, color)
+- User (id, username, password, userStreetName, userPostCode, userCity, userCountryAddress)
 - Role (id, isActive, name)
 - personDetail (id, lastname, firstname, phoneNumber, mail)
 - Address (id, name, streetName, building, floor, city, postCode, region, country)
@@ -10,9 +10,9 @@
                 thousandths, updateImage, equipment, comment, privateComment, fk_propertyId)
 - Tax (id, taxSystem, taxNumber, taxName, taxAmount, propertyTax, fk_propertyId)
 - LandRegistry (id, sheet, parcel, category, rentalValue, fk_propertyId)
-- Rental (id, color, startDate, endDate, rentalType, grossRent, charge, netRent, deposit, lease, reference, purposeUse, duration, 
+- Rental (id, color, startDate, endDate, rentalType, grossRent, charge, netRent, deposit, garageParkingBoxRent, lease, reference, purposeUse, duration, 
                 paymentPeriod, paymentMethod, paymentDay, privateComment, fk_propertyId)
-- RentalDocument (id, receiptDate (date de quittancement), noticeRentDueDate (date avis échéance), uploadRentalDocumentPath, fk_rentalId)
+- RentalDocument (id, documentType, issueDate (date de quittancement), dueDate (date avis échéance), filePathRentalDocument, otherAddress, fk_rentalId)
 - tenant (id, color, civility, dateOfBirth, placeOfBirth, nationality, profession, monthlyIncome, privateComment, hasGuarantor, fk_personDetailId)
 - guarantor (id, color, guarantorType, civility, dateOfBirth, placeOfBirth, profession, monthlyIncome, privateComment, guarantorCompanyName, fk_addressId, fk_personDetailId, fk_tenantId)
 - identityLeaseParty (id, identityDocumentType, identityNumber, identityDocumentExpiration)
