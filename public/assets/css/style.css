@@ -18,6 +18,10 @@ footer {
     color: #ffffff; 
 }
 
+.delete{
+    color: #E4E5F1;
+}
+
 .btn-success:hover {
     background-color: #E9C46A;
     border-color: #E9C46A;
@@ -75,7 +79,7 @@ p {
 
 .signup:hover {
     text-decoration: none;
-    color: #E9C46A;;
+    color: #E9C46A;
     font-weight: bold;
 }
 

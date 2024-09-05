@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 100%;
+            padding: 20px;
+        }
+        .sender, .tenant, .receiver {
+            margin-bottom: 20px;
+        }
+        .tenant, .receiver {
+            display: inline-block;
+            vertical-align: bottom;
+            margin-right: 18%; 
+        }
+        .tenant, .receiver {
+            width: 30%;
+        }
+        h2 {
+            font-size: 25px;
+            background-color: #E4E5F1;
+            margin-bottom:0px
+        }
+        h3 {
+            font-size: 20px;
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #D6EFD8;
+            text-align: center;
+        }
+        td {
+            background-color: #ffffff;
+        }
+        .amount {
+            text-align: right;
+        }
+        .description {
+            background-color: #E4E5F1;
+        }
+        .title-description {
+            font-weight: bold;
+        }
+        .title-total {
+            text-align: right;
+            font-weight: bold;
+        }
+        .amount-total {
+            text-align: right;
+            font-weight: bold;
+        }
+        .datetime-document{
+            margin-left: 49%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sender">
+            <h3>Bailleur :</h3>
+            <div class="fullname">{{ user.fullName }}</div>
+            <div>{{ user.userStreetName }}</div>
+            <div>{{ user.userPostCode }} {{ user.userCity }}</div>
+        </div>
+        <h2>Avis d'échéance</h2>
+        <div class="tenant">
+            <h3>Locataires :</h3>
+            {% for tenant in rental.tenants %}
+                <div>{{ tenant.fullName }}</div>
+            {% endfor %}
+            <div>{{ property.address.streetName }}</div>
+            <div>{{ property.address.postcode }} {{ property.address.city }}</div>
+        </div>
+
+        <div class="receiver">
+            {% for tenant in rental.tenants %}
+                <div>{{ tenant.civility }} {{ tenant.fullName }}</div>
+            {% endfor %}
+            <div>{{ property.address.streetName }}</div>
+            <div>{{ property.address.postcode }} {{ property.address.city }}</div>
+            <div>{{ property.address.country }}</div>
+        </div>
+
+        <div class="datetime-document"> {{ user.userCity }}, Le {{ firstWorkingDayNextMonth|format_date(locale='fr', pattern='dd MMMM Y') }}</div>
+
+        {% for tenant in tenants %}
+            {% set civility = tenant.civility == 'Mr' ? 'Monsieur' : (tenant.civility == 'Mme' ? 'Madame' : tenant.civility) %}
+            <p>{{ civility }}, </p>
+        {% endfor %}
+        <p class="description"> <span class="title-description">Quittance de loyer | </span>  Cette quittance est délivrée sous réserve du paiement des sommes qui resteraient dues de toutes procédures judiciaires en cours</p>
+
+        <table class="table-receipt">
+            <thead>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if rental.netRent is not empty %}
+                <tr>
+                    <td class="title">Loyer {{ currentDate|format_datetime(pattern='MMMM Y') }}</td>
+                    <td class="amount">{{ rental.netRent }} €</td>
+                </tr>
+                {% endif %}
+                {% if rental.garageParkingBoxRent is not empty %}
+                <tr>
+                    <td class="title">Garage-Parking-Box {{ currentDate|format_datetime(pattern='MMMM Y') }}</td>
+                    <td class="amount">{{ rental.garageParkingBoxRent }} €</td>
+                </tr>
+                {% endif %}
+                {% if rental.charge is not empty %}
+                <tr>
+                    <td class="title">Provisions pour charges {{ currentDate|format_datetime(pattern='MMMM Y') }}</td>
+                    <td class="amount">{{ rental.charge }} €</td>
+                </tr>
+                {% endif %}
+                {% if rental.housingAssistance is not empty %}
+                <tr>
+                    <td class="title">Aide au logement (CAF) {{ currentDate|format_datetime(pattern='MMMM Y') }}</td>
+                    <td class="amount">{{ rental.housingAssistance }} €</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td class="title-total">TOTAL</td>
+                    <td class="amount-total">{{ rental.grossRent }} €</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="description"> <span class="title-description">Avis d’échéance | </span> Cet avis est une demande de paiement et ne peut en aucun cas avoir valeur de quittance.</p>
+
+        <table class="table-notice">
+            <thead>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+             <tbody>
+                {% if rental.netRent is not empty %}
+                <tr>
+                    <td class="title">Loyer {{ currentDate|date_modify('+1 month')|format_date(locale='fr', pattern='MMMM Y') }}</td>
+                    <td class="amount">{{ rental.netRent }} €</td>
+                </tr>
+                {% endif %}
+                {% if rental.garageParkingBoxRent is not empty %}
+                <tr>
+                    <td class="title">Garage-Parking-Box {{ currentDate|date_modify('+1 month')|format_date(locale='fr', pattern='MMMM Y') }}</td>
+                    <td class="amount">{{ rental.garageParkingBoxRent }} €</td>
+                </tr>
+                {% endif %}
+                {% if rental.charge is not empty %}
+                <tr>
+                    <td class="title">Provisions pour charges {{ currentDate|date_modify('+1 month')|format_date(locale='fr', pattern='MMMM Y') }}</td>
+                    <td class="amount">{{ rental.charge }} €</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td class="title-total">SOLDE A PAYER</td>
+                    <td class="amount-total">{{ rental.grossRent }} €</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>Modalité de règlement : {{ rental.paymentMethod }}</p>
+    </div>
+</body>
+</html>

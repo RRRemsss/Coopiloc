@@ -139,7 +139,7 @@ name : String
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>4536</x><y>368</y><w>80</w><h>112</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>4536</x><y>368</y><w>72</w><h>112</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
 Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>3984</x><y>744</y><w>544</w><h>88</h></coordinates><panel_attributes>lt=-
@@ -356,7 +356,7 @@ name : String
 
 
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1344</x><y>144</y><w>80</w><h>112</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1344</x><y>144</y><w>72</w><h>112</h></coordinates><panel_attributes>lt=-
 m1= 1..n
 m2= 1..n
 Linked to &gt;</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>792</x><y>496</y><w>544</w><h>112</h></coordinates><panel_attributes>lt=-

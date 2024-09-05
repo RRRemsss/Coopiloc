@@ -63,11 +63,23 @@ services:
 
 
 
+***********************************************************************************************Composer*******************************************************************************************************************
+DateTime : to put the localTime in France
 
+Install :
+composer require twig/intl-extra
+composer require twig/extra-bundle
 
+Modify packages/translation.yaml :
 
+    default_locale: fr
 
+Then in the controller use the service DateTime and in the Twig {{ |format_datetime(pattern='MMMM Y') }} or other exemple {{ |date_modify('+1 month')|format_date(locale='fr', pattern='MMMM Y') }}
 
+-----------------------------------------------------------
+
+Generate a pdf with :
+composer require dompdf/dompdf
 
 ////////////////////////////////////////////////////////////////////////////////////////////First Try failed//////////////////////////////////////////////////////////////////////////////////////////
 

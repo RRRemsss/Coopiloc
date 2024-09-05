@@ -8,6 +8,7 @@ use App\Entity\RentalDocument;
 use App\Entity\Tenant;
 use App\Form\RentalDocumentType;
 use App\Repository\RentalDocumentRepository;
+use App\Service\DateService;
 use App\Service\PdfGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,42 +27,46 @@ class RentalDocumentController extends AbstractController
         ]);
     }
 
-    // #[Route('/{tenantId}/{propertyId}', name: 'generate', methods: ['GET', 'POST'])]
-    // public function generateReceipt(int $tenantId,
-    //                                 int $propertyId,
-                                    
-    //                                 EntityManagerInterface $entityManager,
-    //                                 PdfGeneratorService $pdfGeneratorService): Response
-    // {
-    //     //Get entities Tenant, Property and User
-    //     $tenant = $entityManager->getRepository(Tenant::class)->find($tenantId);
-    //     $property = $entityManager->getRepository(Property::class)->find($propertyId);
-        
+    #[Route('/{id}', name: 'rental_document')]
+    public function generateRentalDocument(int $id, EntityManagerInterface $entityManager, PdfGeneratorService $pdfGeneratorService, DateService $dateService): Response
+    {       
+        // Récupérer la location (rental) par son ID
+        $rental = $entityManager->getRepository(Rental::class)->find($id);
 
+        if (!$rental) {
+            throw $this->createNotFoundException('Rental not found.');
+        }
 
-    //     $user = $this->getUser(); // User = owner (TODO: make User = Tenant)
+        // Récupérer le ou les tenants associés à cette location
+        $tenants = $rental->getTenants();
 
-    //      // Assurez-vous que les entités existent
-    //      if (!$tenant || !$property || !$user) {
-    //         throw $this->createNotFoundException('Les informations demandées n\'existent pas ou il en manque. 
-    //         Veuillez rensiegner les informations de la propriété, du/des locataires et de la location');
-    //     }
+        // Récupérer la propriété associée
+        $property = $rental->getProperty();
 
-    //     // Prepare datas for template Twig
-    //     $data = [
-    //         'tenant' => $tenant,
-    //         'property' => $property,
-    //         'user' => $user,
-    //     ];
+        // Récupérer le propriétaire associé à la propriété (User)
+        $user = $property->getUser();
 
-    //     // Generate PDF
-    //     $pdf = $pdfGeneratorService->generatePdf('rental_document/rental_document_template.html.twig', $data);
+        // Obtenir la date actuelle
+        $currentDate = new \DateTime();
 
-    //         return new Response($pdf, 200, [
-    //         'Content-Type' => 'application/pdf',
-    //         'Content-Disposition' => 'inline; filename="quittance-de-loyer.pdf"',
-    //     ]);
-    // }
+        // Appeler le service pour obtenir le premier jour ouvré du mois suivant
+        $firstWorkingDayNextMonth = $dateService->getFirstWorkingDayOfNextMonth($currentDate);
+
+        // Générer le PDF
+        $pdfContent = $pdfGeneratorService->generatePdf('rental_document/receipt.html.twig', [
+            'user' => $user,
+            'tenants' => $tenants,
+            'property' => $property,
+            'rental' => $rental,
+            'currentDate' => $currentDate,
+            'firstWorkingDayNextMonth' => $firstWorkingDayNextMonth,
+        ]);
+
+        return new Response($pdfContent, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="rental_document.pdf"',
+        ]);
+    }
 
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(RentalDocument $rentalDocument): Response
