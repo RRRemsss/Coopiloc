@@ -16,7 +16,7 @@ class IdentityLeaseParty
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $identityDocumentType = null;
 
     #[ORM\Column(length: 50, nullable: true)]

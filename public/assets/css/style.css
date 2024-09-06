@@ -332,3 +332,22 @@ main {
     display: none;
 }
 
+/*==========================================================RECEIPT=====================================================*/
+.form-check-receiptAddress {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 0.5rem; 
+}
+
+.form-check-input-receiptAddress {
+    margin-right: 0.25rem; 
+}
+
+.form-check-label-receiptAddress {
+    margin-bottom: 0; 
+}
+
+.info-icon {
+    cursor: pointer;
+    margin-left: 20px;
+}

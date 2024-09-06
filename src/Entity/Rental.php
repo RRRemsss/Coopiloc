@@ -67,7 +67,7 @@ class Rental
     /**
      * @var Collection<int, RentalDocument>
      */
-    #[ORM\OneToMany(targetEntity: RentalDocument::class, mappedBy: 'rental')]
+    #[ORM\OneToMany(mappedBy: 'rental', targetEntity: RentalDocument::class, cascade: ['persist'])]
     private Collection $rentalDocuments;
 
 

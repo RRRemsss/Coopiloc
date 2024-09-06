@@ -28,9 +28,15 @@ class RentalDocument
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $otherAddress = null;
 
+    #[ORM\Column(length: 25, nullable: true)] //TODO Delete nullable when set
+    private ?string $status = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $hasOtherAddress = null;
+
     #[ORM\ManyToOne(inversedBy: 'rentalDocuments')]
     private ?Rental $rental = null;
-  
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,7 +59,7 @@ class RentalDocument
         return $this->issueDate;
     }
 
-    public function setiIsueDate(?int $issueDate): static
+    public function setIssueDate(?int $issueDate): static
     {
         $this->issueDate = $issueDate;
 
@@ -107,4 +113,29 @@ class RentalDocument
 
         return $this;
     }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function hasOtherAddress(): ?bool
+    {
+        return $this->hasOtherAddress;
+    }
+
+    public function setHasOtherAddress(?bool $hasOtherAddress): static
+    {
+        $this->hasOtherAddress = $hasOtherAddress;
+
+        return $this;
+    }
+    
 }

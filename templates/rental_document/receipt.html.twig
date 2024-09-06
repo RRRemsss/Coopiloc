@@ -91,10 +91,23 @@
         <div class="receiver">
             {% for tenant in rental.tenants %}
                 <div>{{ tenant.civility }} {{ tenant.fullName }}</div>
+                {% set useOtherAddress = false %}
+                {% set otherAddress = null %}
+                {% for rentalDocument in rental.rentalDocuments %}
+                    {% if rentalDocument.hasOtherAddress and rentalDocument.otherAddress is not empty %}
+                        {% set useOtherAddress = true %}
+                        {% set otherAddress = rentalDocument.otherAddress %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if useOtherAddress %}
+                    <div>{{ otherAddress }}</div>
+                {% else %}
+                    <div>{{ property.address.streetName }}</div>
+                    <div>{{ property.address.postcode }} {{ property.address.city }}</div>
+                    <div>{{ property.address.country }}</div>
+                {% endif %}
             {% endfor %}
-            <div>{{ property.address.streetName }}</div>
-            <div>{{ property.address.postcode }} {{ property.address.city }}</div>
-            <div>{{ property.address.country }}</div>
         </div>
 
         <div class="datetime-document"> {{ user.userCity }}, Le {{ firstWorkingDayNextMonth|format_date(locale='fr', pattern='dd MMMM Y') }}</div>

@@ -8,20 +8,37 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>ReceiptDate</th>
-                <th>NoticeRentDueDate</th>
-                <th>UploadRentalDocumentPath</th>
+                <th>Date</th>
+                <th>Logement</th>
+                <th>Locataires</th>
+                <th>Status</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for rental_document in rental_documents %}
             <tr>
-                <td>{{ rental_document.id }}</td>
-                <td>{{ rental_document.receiptDate }}</td>
-                <td>{{ rental_document.noticeRentDueDate }}</td>
-                <td>{{ rental_document.uploadRentalDocumentPath }}</td>
+                <td></td>
+                <td>{{ rental.property.namePlace }}</td>
+                <td>
+                {% for tenant in rental.tenants %}
+                    {{ tenant.fullName }}
+                {% endfor %}
+                </td>
+                <td>
+                    {% for rentalDocument in rental_documents %}
+                        <h3>Location pour le bien : {{ rentalDocument.rental.property.name }}</h3>
+                        <ul>
+                            {% for month in rentalDocument.months %}
+                                <li>
+                                    <a href="{{ path('rental_document', {'id': rentalDocument.rental.id, 'month': month|date('Y-m')}) }}">
+                                        Quittance pour {{ month|date('F Y') }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('app_rental_document_show', {'id': rental_document.id}) }}">show</a>
                     <a href="{{ path('app_rental_document_edit', {'id': rental_document.id}) }}">edit</a>
@@ -34,6 +51,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_rental_document_new') }}">Create new</a>
 {% endblock %}

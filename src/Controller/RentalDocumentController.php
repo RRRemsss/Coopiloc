@@ -30,29 +30,29 @@ class RentalDocumentController extends AbstractController
     #[Route('/{id}', name: 'rental_document')]
     public function generateRentalDocument(int $id, EntityManagerInterface $entityManager, PdfGeneratorService $pdfGeneratorService, DateService $dateService): Response
     {       
-        // Récupérer la location (rental) par son ID
+        // Get rental form its ID
         $rental = $entityManager->getRepository(Rental::class)->find($id);
 
         if (!$rental) {
             throw $this->createNotFoundException('Rental not found.');
         }
 
-        // Récupérer le ou les tenants associés à cette location
+        // Get tenants linked to this rental
         $tenants = $rental->getTenants();
 
-        // Récupérer la propriété associée
+        // Get the property linked
         $property = $rental->getProperty();
 
-        // Récupérer le propriétaire associé à la propriété (User)
+        // Get the owner (from user) of the property
         $user = $property->getUser();
 
-        // Obtenir la date actuelle
+        // Get the currentDate to put date on documents
         $currentDate = new \DateTime();
 
-        // Appeler le service pour obtenir le premier jour ouvré du mois suivant
+        // Call the service to get the first working day of next month in the document
         $firstWorkingDayNextMonth = $dateService->getFirstWorkingDayOfNextMonth($currentDate);
 
-        // Générer le PDF
+        // To generate a pdf
         $pdfContent = $pdfGeneratorService->generatePdf('rental_document/receipt.html.twig', [
             'user' => $user,
             'tenants' => $tenants,

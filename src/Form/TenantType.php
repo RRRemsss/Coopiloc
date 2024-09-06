@@ -93,7 +93,8 @@ class TenantType extends AbstractType
             ->add('monthlyIncome', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Revenus mensuels', 'class' => 'form-control'],
+                'attr' => ['placeholder' => 'Revenus mensuels', 
+                            'class' => 'form-control'],
             ])
             ->add('privateComment', TextareaType::class, [
                 'label' => 'Note privée',

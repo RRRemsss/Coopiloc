@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- First column -->
+                        <!-- second column -->
                         <div class="col-md-6">
                             <div class="section-form form-general-information-section mb-3 p-3">
                                 {{ form_row(rentalForm.privateComment) }}
@@ -119,11 +119,40 @@
                     </div>
                 </div> 
                 <div id="receipts" class="form-section d-none">
-                    <div class="section-contracts-diagnostics mb-3 pb-1 pt-3 px-3 text-center">
+                    <div class="section-receipt receipt-information-section mb-3 pb-1 pt-3 px-3 text-center">
                         <div class="row justify-content-center">
-                            <div class="col-md-6">
-                                
+                            {% for receiptForm in rentalForm.rentalDocuments %}
+                            <div class="col-md-12"> 
+                                <!-- Section 1 -->
+                                <div class="section-form form-general-information-section mb-3 p-3">
+                                    <div class="form-check-receiptAddress">
+                                        {{ form_widget(receiptForm.hasOtherAddress) }}
+                                        {{ form_label(receiptForm.hasOtherAddress) }}
+                                    </div>
+                                    {{ form_row(receiptForm.otherAddress) }}
+                                </div>
+                                <!-- Section 2 -->
+                                <div class="section-form form-general-information-section mb-3 pb-1 pt-3 px-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            {{ form_row(receiptForm.issueDate) }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                {{ form_label(receiptForm.dueDate) }}
+                                                <div class="input-group">
+                                                    {{ form_widget(receiptForm.dueDate) }}
+                                                    <span class="info-icon" style="cursor: pointer; margin-left: 10px;" 
+                                                    title="Si vous choisissez le -5 (jour), le loyer et l'avis d'échéance sera généré 5 jours avant la date de quittancement. Ex. Le loyer du 1 au 30 Avril sera généré le 26 Mars.">
+                                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                </div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Property;
 use App\Entity\Rental;
+use App\Entity\RentalDocument;
 use App\Form\RentalType;
 use App\Repository\RentalRepository;
 use App\Repository\TenantRepository;
@@ -30,6 +31,10 @@ class RentalController extends AbstractController
     {
         $rental = new Rental();
         $userProperties = $entityManager->getRepository(Property::class)->findBy(['user' => $this->getUser()]);
+
+        // Add a document associate to rental
+        $rentalDocument = new RentalDocument();
+        $rental->addRentalDocument($rentalDocument);
 
         // Utiliser le repository pour récupérer les locataires non associés à une location
         $tenantChoices = $tenantRepository->findTenantsWithoutRental();
