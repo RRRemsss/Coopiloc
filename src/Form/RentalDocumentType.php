@@ -48,6 +48,24 @@ class RentalDocumentType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'form-control form-select'],
             ])
+            ->add('status', ChoiceType::class, [
+                'label' => false,
+                'expanded' => true,
+                'multiple' => false,
+                'placeholder' => false,
+                'required' => false,
+                'data' => 'not yet paid', //default value
+                'choices' => [
+                    'En retard' => 'late',
+                    'Payé' => 'paid',
+                    'Payé partiellement' => 'Partially paid',
+                    'Perdu' => 'lost',
+                    'Non payé'=> 'Not yet paid'
+                ],
+                'attr' => [
+                    'class' => 'form-select'
+                ],
+            ])
         ;
 
     }

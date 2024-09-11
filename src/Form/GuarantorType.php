@@ -61,7 +61,8 @@ class GuarantorType extends AbstractType
             ->add('profession', TextType::class, [
                 'label' => false,
                 'required' => false,
-                'attr' => ['placeholder' => 'Profession', 'class' => 'form-control'],
+                'attr' => ['placeholder' => 'Profession', 
+                            'class' => 'form-control'],
             ])
             ->add('monthlyIncome', TextType::class, [
                 'label' => false,

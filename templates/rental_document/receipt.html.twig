@@ -73,14 +73,14 @@
 <body>
     <div class="container">
         <div class="sender">
-            <h3>Bailleur :</h3>
+            <h3>Bailleur</h3>
             <div class="fullname">{{ user.fullName }}</div>
             <div>{{ user.userStreetName }}</div>
             <div>{{ user.userPostCode }} {{ user.userCity }}</div>
         </div>
         <h2>Avis d'échéance</h2>
         <div class="tenant">
-            <h3>Locataires :</h3>
+            <h3>Locataire(s)</h3>
             {% for tenant in rental.tenants %}
                 <div>{{ tenant.fullName }}</div>
             {% endfor %}
@@ -89,33 +89,35 @@
         </div>
 
         <div class="receiver">
-            {% for tenant in rental.tenants %}
-                <div>{{ tenant.civility }} {{ tenant.fullName }}</div>
-                {% set useOtherAddress = false %}
-                {% set otherAddress = null %}
-                {% for rentalDocument in rental.rentalDocuments %}
-                    {% if rentalDocument.hasOtherAddress and rentalDocument.otherAddress is not empty %}
-                        {% set useOtherAddress = true %}
-                        {% set otherAddress = rentalDocument.otherAddress %}
-                    {% endif %}
+            {# Get tenant fullname #}
+            <div>
+                {% set tenantNames = [] %}
+                {% for tenant in rental.tenants %}
+                    {% set tenantNames = tenantNames|merge([tenant.civility ~ ' ' ~ tenant.fullName]) %}
                 {% endfor %}
 
-                {% if useOtherAddress %}
-                    <div>{{ otherAddress }}</div>
-                {% else %}
-                    <div>{{ property.address.streetName }}</div>
-                    <div>{{ property.address.postcode }} {{ property.address.city }}</div>
-                    <div>{{ property.address.country }}</div>
+                {# Check if there is a fullname #}
+                {% if tenantNames|length > 0 %}
+                    {{ tenantNames|join(' et ') }}
                 {% endif %}
-            {% endfor %}
+            </div>
+            {# Get the commun address #}
+            <div>{{ property.address.streetName }}</div>
+            <div>{{ property.address.postcode }} {{ property.address.city }}</div>
         </div>
 
         <div class="datetime-document"> {{ user.userCity }}, Le {{ firstWorkingDayNextMonth|format_date(locale='fr', pattern='dd MMMM Y') }}</div>
 
-        {% for tenant in tenants %}
-            {% set civility = tenant.civility == 'Mr' ? 'Monsieur' : (tenant.civility == 'Mme' ? 'Madame' : tenant.civility) %}
-            <p>{{ civility }}, </p>
-        {% endfor %}
+        {# Greenting civility #}
+        {% if greeting %}
+            <p>{{ greeting }},</p>
+        {% else %}
+            {# Show civilities individually if necessary #}
+            {% for tenant in tenants %}
+                {% set civility = tenant.civility == 'Mr' ? 'Monsieur' : (tenant.civility == 'Mme' ? 'Madame' : tenant.civility) %}
+                <p>{{ civility }},</p>
+            {% endfor %}
+        {% endif %}
         <p class="description"> <span class="title-description">Quittance de loyer | </span>  Cette quittance est délivrée sous réserve du paiement des sommes qui resteraient dues de toutes procédures judiciaires en cours</p>
 
         <table class="table-receipt">

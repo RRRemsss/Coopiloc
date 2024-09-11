@@ -7,15 +7,15 @@ class DateService
 {
     public function getFirstWorkingDayOfNextMonth(DateTime $date): DateTime
     {
-        // Créer une copie de l'objet DateTime pour éviter de modifier l'original
+        // Create a copy of the object DateTime to avoid overwriting the original
         $newDate = clone $date;
 
-        // Se déplacer au premier jour du mois prochain
+        // Go to the fisrt of the following month
         $newDate->modify('first day of next month');
 
-        // Vérifier si le premier jour est un week-end (samedi ou dimanche)
+        // Verify if the fisrt day is a in the weekend (Check if its Saturday or Sunday)
         while (in_array($newDate->format('N'), [6, 7])) {
-            // Si c'est samedi (6) ou dimanche (7), passer au jour suivant
+            // If it's saturday (6) or sunday (7), go to the next day.
             $newDate->modify('+1 day');
         }
 

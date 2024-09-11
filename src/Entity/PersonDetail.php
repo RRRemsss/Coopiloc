@@ -13,10 +13,10 @@ class PersonDetail
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 20, nullable: true)]

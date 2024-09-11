@@ -126,7 +126,7 @@ class RentalDocument
         return $this;
     }
 
-    public function hasOtherAddress(): ?bool
+    public function getHasOtherAddress(): ?bool
     {
         return $this->hasOtherAddress;
     }

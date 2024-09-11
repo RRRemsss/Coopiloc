@@ -16,28 +16,29 @@ class RentalDocumentRepository extends ServiceEntityRepository
         parent::__construct($registry, RentalDocument::class);
     }
 
-    //    /**
-    //     * @return RentalDocument[] Returns an array of RentalDocument objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Get a rental using filters
+     */
+    public function findFilteredRentals($filters)
+    {
+        $qb = $this->createQueryBuilder('d');
 
-    //    public function findOneBySomeField($value): ?RentalDocument
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        // Join the Rental entity to access its properties
+        $qb->leftJoin('d.rental', 'r')
+        ->leftJoin('r.property', 'p');
+
+        // Filter by Property (e.g., using Property ID)
+        if (!empty($filters['property'])) {
+            $qb->andWhere('p.id = :property')  // Use 'p.id' if 'property' is an ID
+            ->setParameter('property', $filters['property']);
+        }
+
+        // Additional filters, e.g., by status
+        if (!empty($filters['status'])) {
+            $qb->andWhere('d.status = :status')
+            ->setParameter('status', $filters['status']);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }
